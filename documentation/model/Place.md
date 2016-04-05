@@ -4,7 +4,20 @@
 
 | Name                        | Type             | Description                                                                 | Default Value                                                            |
 | --------------------------- | ---------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-|                             |                  |                                                                             |                                                                          |
+| INVALID_NAME                | String           | Stores the error message of invalid place name                              | "Hey, nome invalido"                                                     |
+| INVALID_LATITUDE            | String           | Stores the error message of invalid place latitude                          | "Hey, sem a latitude não é possível encontrar o lugar"                   |
+| INVALID_LONGITUDE           | String           | Stores the error message of invalid place longitude                         | "Hey, sem a longitude não é possível encontrar o lugar"                  |
+| INVALID_COMMENT             | String           | Stores the error message of invalid place comment                           | "Hey, o comentario não pode ser vazio"                                   |
+| id                          | int              | Stores the place identifier                                                 |                                                                          |
+| name                        | String           | Stores the place name                                                       |                                                                          |
+| comment                     | ArrayList<String>| Stores the comments given to the place by the users                         |                                                                          |
+| evaluate                    | Float            | Stores the average of place evaluations given by users                      |                                                                          |
+| longitude                   | Double           | Stores the place longitude                                                  |                                                                          |
+| latitude                    | Double           | Stores the place latitude                                                   |                                                                          |
+| phone                       | String           | Stores the place phone                                                      |                                                                          |
+| operation                   | String           | Stores the place operating hours                                            |                                                                          |
+| description                 | String           | Stores the place description                                                |                                                                          |
+| address                     | String           | Stores the place address                                                    |                                                                          |
 
 ## Methods
 
