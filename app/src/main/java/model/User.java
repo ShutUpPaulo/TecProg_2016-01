@@ -14,7 +14,7 @@ import exception.UserException;
 
 public class User {
 
-    public static final String ID_IS_INVALID = "Id inválido";
+    private static final String ID_IS_INVALID = "Id inválido";
     public static final String NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está esquecendo de nos dizer seu nome.";
     public static final String NAME_CANT_BE_HIGHER_THAN_50 = "Hey, acho que você ultrapassou o número de caracteres permitido para o nome, tente novamente.";
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";

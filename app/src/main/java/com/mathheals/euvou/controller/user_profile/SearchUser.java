@@ -49,7 +49,6 @@ public class SearchUser extends ActionBarActivity implements View.OnClickListene
             case R.id.btnSearch:fragmentTransaction.replace(R.id.content_frame, new ShowUser());
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-                return;
         }
     }
 }

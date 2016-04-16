@@ -15,7 +15,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 /**
  * Created by marlonmendes on 20/11/15.
  */
-public class TestUtility {
+class TestUtility {
 
     public static void makeUserLogIn() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());

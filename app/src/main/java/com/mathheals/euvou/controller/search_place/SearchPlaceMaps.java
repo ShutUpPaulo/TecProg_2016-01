@@ -26,18 +26,18 @@ import model.Place;
 
 public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMarkerClickListener{
 
-    protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ArrayList<Place> places;
     private String filter;
     private Place clickedPlace;
     private int selectedPlaceId;
     private JSONObject foundPlaces;
 
-    public String getFilter() {
+    private String getFilter() {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    private void setFilter(String filter) {
         this.filter = filter;
     }
 

@@ -15,7 +15,7 @@ public class PlaceDAO extends DAO {
         super(currentActivity);
     }
 
-    public PlaceDAO(){};
+    public PlaceDAO(){}
 
     public JSONObject searchPlaceByPartName(String name)
     {

@@ -74,7 +74,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
         return showUserView;
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
@@ -87,7 +87,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
         ratingMessage.setText(message);
     }
 
-    public void setShowUserView(View showUserView) {
+    private void setShowUserView(View showUserView) {
         this.showUserView = showUserView;
     }
 
@@ -96,7 +96,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
             setRatingBar();
     }
 
-    public void setCurrentUserId(int currentUserId) {
+    private void setCurrentUserId(int currentUserId) {
         this.currentUserId = currentUserId;
     }
 
@@ -132,11 +132,11 @@ public class ShowUser extends android.support.v4.app.Fragment {
         setRatingBarStyle();
     }
 
-    public UserEvaluation getUserEvaluation() {
+    private UserEvaluation getUserEvaluation() {
         return userEvaluation;
     }
 
-    public void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId) {
+    private void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId) {
         try {
             this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
             String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";

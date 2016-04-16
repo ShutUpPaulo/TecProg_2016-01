@@ -92,7 +92,7 @@ public class EventRecomendationTest  extends ActivityInstrumentationTestCase2<Ho
         assertTrue(result);
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 }

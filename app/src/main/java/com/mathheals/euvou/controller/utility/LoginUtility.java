@@ -26,8 +26,8 @@ public class LoginUtility {
     private static final String COLUMN_USER_BIRTHDATE = "birthDate";
     private static final String COLUMN_USER_STATE = "isActivity";
     private Activity activity;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public LoginUtility(Activity activity) {
         this.activity = activity;
@@ -100,7 +100,7 @@ public class LoginUtility {
         return false;
     }
 
-    public String formatDateToBr(String birthDate){
+    private String formatDateToBr(String birthDate){
         String[] birthDateSplit = birthDate.split("-");
         return birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
     }

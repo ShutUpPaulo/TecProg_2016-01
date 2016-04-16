@@ -33,7 +33,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Evento cadastrado com sucesso :)";
     private String latitude;
     private String longitude;
-    Vector<String> categories= new Vector<>();
+    private Vector<String> categories= new Vector<>();
 
     public RegisterEventFragment(){
     }
@@ -61,7 +61,7 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         return view;
     }
 
-    public void addEventCategories(View v){
+    private void addEventCategories(View v){
         if(v.getId() == R.id.optionCinema){
             CheckBox cinemaCheckBox = (CheckBox) v;
 

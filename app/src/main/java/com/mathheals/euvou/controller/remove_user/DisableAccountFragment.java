@@ -59,7 +59,6 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
                 fragmentTransaction.add(R.id.content_frame, new DisableAccountLoginConfirmation());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                return;
         }
     }
 }

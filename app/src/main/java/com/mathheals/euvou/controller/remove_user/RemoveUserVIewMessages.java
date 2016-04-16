@@ -7,8 +7,8 @@ import android.widget.Toast;
  * Created by marlonmendes on 25/09/15.
  */
 public class RemoveUserVIewMessages {
-    public static final String BYE_BYE_MESSAGE = "Conta desativada :(";
-    public static final String WELCOME_BACK_MESSAGE = "Seja bem vindo novamente!";
+    private static final String BYE_BYE_MESSAGE = "Conta desativada :(";
+    private static final String WELCOME_BACK_MESSAGE = "Seja bem vindo novamente!";
 
 
     public static void showWelcomeBackMessage(Context context) {

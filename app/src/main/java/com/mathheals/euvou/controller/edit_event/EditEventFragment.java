@@ -2,7 +2,6 @@ package com.mathheals.euvou.controller.edit_event;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
 import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +38,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private EditText nameField, dateField, hourField, descriptionField, addressField, priceDecimalField, priceRealField;
     private CheckBox showCheckBox, expositionCheckBox, cinemaCheckBox, museumCheckBox, theaterCheckBox, educationCheckBox,
                      othersCheckBox,sportsCheckBox, partyCheckBox;
-    Vector<String> categories= new Vector<>();
+    private final Vector<String> CATEGORIES = new Vector<>();
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
 
@@ -48,7 +46,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
-    public void formatDate(JSONObject jsonEvent) throws JSONException {
+    private void formatDate(JSONObject jsonEvent) throws JSONException {
 
         String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
         String[] dateHourEventSplit = dateHourEvent.split(" ");
@@ -64,7 +62,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void formatPrice(JSONObject jsonEvent) throws JSONException {
+    private void formatPrice(JSONObject jsonEvent) throws JSONException {
         Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
         this.priceRealField.setText(Integer.toString(priceEvent/100));
         this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
@@ -120,35 +118,35 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                 switch (nameCategory){
                     case "Show":
                         showCheckBox.setChecked(true);
-                        categories.add("Show");
+                        CATEGORIES.add("Show");
                         break;
                     case "Teatro":
                         theaterCheckBox.setChecked(true);
-                        categories.add("Teatro");
+                        CATEGORIES.add("Teatro");
                         break;
                     case "Cinema":
                         cinemaCheckBox.setChecked(true);
-                        categories.add("Cinema");
+                        CATEGORIES.add("Cinema");
                         break;
                     case "Balada":
                         partyCheckBox.setChecked(true);
-                        categories.add("Balada");
+                        CATEGORIES.add("Balada");
                         break;
                     case "Museu":
                         museumCheckBox.setChecked(true);
-                        categories.add("Museu");
+                        CATEGORIES.add("Museu");
                         break;
                     case "Educacao":
                         educationCheckBox.setChecked(true);
-                        categories.add("Educacao");
+                        CATEGORIES.add("Educacao");
                         break;
                     case "Exposicao":
                         expositionCheckBox.setChecked(true);
-                        categories.add("Exposicao");
+                        CATEGORIES.add("Exposicao");
                         break;
                     case "Esporte":
                         sportsCheckBox.setChecked(true);
-                        categories.add("Esporte");
+                        CATEGORIES.add("Esporte");
                         break;
                     case "Outros":
                         othersCheckBox.setChecked(true);
@@ -203,7 +201,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         eventDAO.updateEvent(event);
     }
 
-    public void updateEvent(){
+    private void updateEvent(){
 
         String nameEvent = nameField.getText().toString();
         String dateEvent = dateField.getText().toString();
@@ -225,7 +223,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         try {
             Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateHourEvent, descriptionEvent,
-                    latitude, longitude, categories);
+                    latitude, longitude, CATEGORIES);
 
             updateEventOnDataBase(event);
 
@@ -266,73 +264,73 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             CheckBox cinemaCheckBox = (CheckBox) v;
 
             if(cinemaCheckBox.isChecked()) {
-                categories.add(cinemaCheckBox.getText().toString());
+                CATEGORIES.add(cinemaCheckBox.getText().toString());
             }else{
-                categories.remove(cinemaCheckBox.getText().toString());
+                CATEGORIES.remove(cinemaCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionEducation) {
             CheckBox educationCheckBox = (CheckBox) v;
 
             if(educationCheckBox.isChecked()) {
-                categories.add("Educacao");
+                CATEGORIES.add("Educacao");
             }else{
-                categories.remove("Educacao");
+                CATEGORIES.remove("Educacao");
             }
         }else if(v.getId() == R.id.optionExposition){
             CheckBox expositionCheckBox = (CheckBox) v;
 
             if(expositionCheckBox.isChecked()) {
-                categories.add("Exposicao");
+                CATEGORIES.add("Exposicao");
             }else{
-                categories.remove("Exposicao");
+                CATEGORIES.remove("Exposicao");
             }
         }else if(v.getId() == R.id.optionMuseum){
             CheckBox museumCheckBox = (CheckBox) v;
 
             if(museumCheckBox.isChecked()) {
-                categories.add(museumCheckBox.getText().toString());
+                CATEGORIES.add(museumCheckBox.getText().toString());
             }else{
-                categories.remove(museumCheckBox.getText().toString());
+                CATEGORIES.remove(museumCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionOthers){
             CheckBox othersCheckBox = (CheckBox) v;
 
             if(othersCheckBox.isChecked()) {
-                categories.add(othersCheckBox.getText().toString());
+                CATEGORIES.add(othersCheckBox.getText().toString());
             }else{
-                categories.remove(othersCheckBox.getText().toString());
+                CATEGORIES.remove(othersCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionParty){
             CheckBox partyCheckBox = (CheckBox) v;
 
             if(partyCheckBox.isChecked()) {
-                categories.add(partyCheckBox.getText().toString());
+                CATEGORIES.add(partyCheckBox.getText().toString());
             }else{
-                categories.remove(partyCheckBox.getText().toString());
+                CATEGORIES.remove(partyCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionShow){
             CheckBox showCheckBox = (CheckBox) v;
 
             if(showCheckBox.isChecked()) {
-                categories.add(showCheckBox.getText().toString());
+                CATEGORIES.add(showCheckBox.getText().toString());
             }else{
-                categories.remove(showCheckBox.getText().toString());
+                CATEGORIES.remove(showCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionSports){
             CheckBox sportsCheckBox = (CheckBox) v;
 
             if(sportsCheckBox.isChecked()) {
-                categories.add(sportsCheckBox.getText().toString());
+                CATEGORIES.add(sportsCheckBox.getText().toString());
             }else{
-                categories.remove(sportsCheckBox.getText().toString());
+                CATEGORIES.remove(sportsCheckBox.getText().toString());
             }
         }else if(v.getId() == R.id.optionTheater){
             CheckBox theaterCheckBox = (CheckBox) v;
 
             if(theaterCheckBox.isChecked()) {
-                categories.add(theaterCheckBox.getText().toString());
+                CATEGORIES.add(theaterCheckBox.getText().toString());
             }else{
-                categories.remove(theaterCheckBox.getText().toString());
+                CATEGORIES.remove(theaterCheckBox.getText().toString());
             }
         }
     }

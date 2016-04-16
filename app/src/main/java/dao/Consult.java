@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -15,7 +14,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,15 +22,15 @@ import java.util.List;
  */
 public class Consult {
 
-    private  String url;
+    private final String URL;
     private String result;
     private boolean isDoing;
-    private String query;
+    private final String query;
 
-    public Consult(String query, String url)
+    public Consult(String query, String URL)
     {
         this.query= query;
-        this.url = url;
+        this.URL = URL;
         setIsDoing(false);
     }
 
@@ -41,7 +39,7 @@ public class Consult {
         return isDoing;
     }
 
-    public void setIsDoing(boolean value)
+    private void setIsDoing(boolean value)
     {
         isDoing = value;
     }
@@ -75,7 +73,7 @@ public class Consult {
             try {
                 HttpResponse response;
                 HttpClient client = new DefaultHttpClient();
-                HttpPost post = new HttpPost(url);
+                HttpPost post = new HttpPost(URL);
 
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>();
                 String PARAM = "query";

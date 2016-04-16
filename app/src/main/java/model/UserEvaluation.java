@@ -24,7 +24,7 @@ public class UserEvaluation {
         return rating;
     }
 
-    public void setRating(Float rating) throws UserEvaluationException {
+    private void setRating(Float rating) throws UserEvaluationException {
         if(rating>=0f && rating<=5f) {
             this.rating = rating;
         }
@@ -37,7 +37,7 @@ public class UserEvaluation {
         return userId;
     }
 
-    public void setUserId(Integer userId) throws UserEvaluationException {
+    private void setUserId(Integer userId) throws UserEvaluationException {
         if(userId <= Integer.MAX_VALUE && userId >= 1) {
             this.userId = userId;
         }
@@ -50,7 +50,7 @@ public class UserEvaluation {
         return userEvaluatedId;
     }
 
-    public void setUserEvaluatedId(Integer userEvaluatedId) throws UserEvaluationException {
+    private void setUserEvaluatedId(Integer userEvaluatedId) throws UserEvaluationException {
         if(userEvaluatedId <= Integer.MAX_VALUE && userEvaluatedId >= 1) {
             this.userEvaluatedId = userEvaluatedId;
         }

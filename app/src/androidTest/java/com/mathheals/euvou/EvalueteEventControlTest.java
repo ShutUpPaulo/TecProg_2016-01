@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.hasToString;
  */
 public class EvalueteEventControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
-    LoginUtility isLoged;
+    private LoginUtility isLoged;
 
     public EvalueteEventControlTest() {
             super(HomePage.class);

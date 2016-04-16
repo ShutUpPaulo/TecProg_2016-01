@@ -35,8 +35,8 @@ import static org.hamcrest.Matchers.hasToString;
  * Created by julliana on 11/11/15.
  */
 public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomePage> {
-    LoginUtility isLoged;
-    EventDAO eventDAO = new EventDAO();
+    private LoginUtility isLoged;
+    private final EventDAO EVENT_DAO = new EventDAO();
 
     public EditEventControlTest() {
         super(HomePage.class);
@@ -83,7 +83,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
         category.add("Show");
         Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
 
-        eventDAO.updateEvent(event);
+        EVENT_DAO.updateEvent(event);
     }
 
      public void testSelectCheckBoxCategories() throws ParseException, EventException {
@@ -126,7 +126,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
          Vector<String> category = new Vector<String>();
          category.add("Show");
          Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
-         eventDAO.updateEvent(event);
+         EVENT_DAO.updateEvent(event);
      }
 
      public void testNotSelectCheckBoxCategories() throws ParseException, EventException {
@@ -150,7 +150,7 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
          category.add("Show");
          Event event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
 
-         eventDAO.updateEvent(event);
+         EVENT_DAO.updateEvent(event);
 
          openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
          onView(withText("Meus Eventos")).perform(click());
@@ -183,6 +183,6 @@ public class EditEventControlTest extends ActivityInstrumentationTestCase2<HomeP
          category.clear();
          category.add("Show");
          event = new Event(1,"Teste",10010, "oi","30/11/2015","xablau","0","0",category);
-         eventDAO.updateEvent(event);
+         EVENT_DAO.updateEvent(event);
      }
  }

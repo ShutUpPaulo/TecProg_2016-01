@@ -9,13 +9,15 @@ import java.util.Calendar;
 
 public abstract class DAO {
 
-    protected Activity currentActivity;
+    private Activity currentActivity;
 
     public DAO(Activity currentActivity){
         this.currentActivity = currentActivity;
     }
 
-    public DAO(){}
+    public DAO(){
+
+    }
 
     private String query(String query,String urlQuery)
     {
@@ -37,12 +39,19 @@ public abstract class DAO {
 
         return consult.getResult();
     }
-    public static boolean limitExceded(long timeLimit, long currentTime)
-    {
-        return (currentTime >= timeLimit);
+    public static boolean limitExceded(long timeLimit, long currentTime){
+
+        boolean isLimitExceded = false;
+
+        if(currentTime >= timeLimit) {
+            isLimitExceded = true;
+        }
+
+        return isLimitExceded;
     }
+
     protected String executeQuery(String query){
-        String URLQUERY = "http://euvoutimedoamor.webcindario.com/query.php";
+        String URLQUERY = "http://euvou.esy.es/query.php";
         return query(query, URLQUERY);
     }
 
@@ -51,7 +60,7 @@ public abstract class DAO {
         String json;
         JSONObject jObject = null;
         try {
-            String URLCONSULT = "http://euvoutimedoamor.webcindario.com/consult.php";
+            String URLCONSULT = "http://euvou.esy.es/consult.php";
             json = query(query, URLCONSULT);
             jObject  = new JSONObject(json);
         } catch (Exception e) {

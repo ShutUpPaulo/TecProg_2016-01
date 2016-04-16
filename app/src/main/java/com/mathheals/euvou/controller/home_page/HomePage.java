@@ -186,7 +186,7 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     }
 
 
-    public boolean userLoggedInOptions(MenuItem item) {
+    private boolean userLoggedInOptions(MenuItem item) {
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch(item.getItemId()) {
             case R.id.edit_register:
@@ -227,7 +227,7 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         }
     }
 
-    public boolean userLoggedOutOptions(MenuItem item) {
+    private boolean userLoggedOutOptions(MenuItem item) {
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()) {
             case R.id.registration:
@@ -250,7 +250,6 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         Toast.makeText(getBaseContext(), SUCESS_EDIT_MESSAGE, Toast.LENGTH_LONG).show();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack();
-        return;
     }
 
     public void searchOnclick(MenuItem item) {

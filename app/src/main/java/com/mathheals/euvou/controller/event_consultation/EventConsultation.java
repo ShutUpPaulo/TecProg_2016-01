@@ -47,7 +47,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private JSONObject peopleDATA;
     private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
 
-    String option;
+    private String option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

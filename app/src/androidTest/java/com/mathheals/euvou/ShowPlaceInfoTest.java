@@ -136,7 +136,7 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
         }
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 }

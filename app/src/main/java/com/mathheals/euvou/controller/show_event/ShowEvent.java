@@ -161,7 +161,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         final String CENTS_PART = CENTS.length() > 1 ? CENTS : "0" + CENTS;
         eventPriceText.setText("R$ " + REAIS_PART + "," + CENTS_PART);
 
-        return;
     }
 
     private void showEventOnMap() {
@@ -189,7 +188,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
             eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
             Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
-        };
+        }
     }
 
     public void onClick(View view) {
@@ -206,11 +205,11 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    public void setUserId(int userId) {
+    private void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
@@ -223,7 +222,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         ratingMessage.setText(message);
     }
 
-    public void setShowEventView(View showEventView) {
+    private void setShowEventView(View showEventView) {
         this.showEventView = showEventView;
     }
 
@@ -265,11 +264,11 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         setRatingBarStyle();
     }
 
-    public EventEvaluation getEventEvaluation() {
+    private EventEvaluation getEventEvaluation() {
         return eventEvaluation;
     }
 
-    public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
+    private void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
         try {
             this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
             String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";

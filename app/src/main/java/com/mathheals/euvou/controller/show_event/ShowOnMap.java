@@ -15,7 +15,7 @@ import com.mathheals.euvou.R;
 
 
 public class ShowOnMap extends FragmentActivity {
-    protected GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Double latitude;
     private Double longitude;
     private String filter;
@@ -24,7 +24,7 @@ public class ShowOnMap extends FragmentActivity {
         return filter;
     }
 
-    public void setFilter(String filter) {
+    private void setFilter(String filter) {
         this.filter = filter;
     }
 

@@ -14,11 +14,11 @@ public class Event {
     public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de caracteres permitido para o nome do evento, tente novamente.";
     public static final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueu de informar a descrição do evento.";
     public static final String DESCRIPTION_CANT_BE_GREATER_THAN = "Hey, o máximo de caractéres para descrever um evento é de 500 caracteres";
-    public static final String LATITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a latitude deve ser maior que -90 e menor que 90!";
-    public static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a longitude deve ser maior que -180 e menor que 180";
-    public static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
-    public static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
-    public static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas de 1 a 5!";
+    private static final String LATITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a latitude deve ser maior que -90 e menor que 90!";
+    private static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido, a longitude deve ser maior que -180 e menor que 180";
+    private static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
+    private static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... preenche ela aí vai!";
+    private static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas de 1 a 5!";
     public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço do evento!";
     public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay attention guy!";
     public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do evento, cuidado!";
@@ -26,7 +26,7 @@ public class Event {
     public static final String PRICE_DECIMAL_IS_EMPTY = "Hey, você esqueceu de informar a parte decimal do preço";
     public static final String INVALID_EVENT_HOUR = "Hey, você informou uma hora inválida";
     public static final String EVENT_HOUR_IS_EMPTY = "Hey, você esqueceu de informar a hora";
-    public static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
+    private static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria do evento, preenche ela aí vai!";
 
 
     private int idEvent;
@@ -102,11 +102,11 @@ public class Event {
         return dateTimeEvent;
     }
 
-    public void setDateTimeEvent(String dateTimeEvent){
+    private void setDateTimeEvent(String dateTimeEvent){
         this.dateTimeEvent=dateTimeEvent;
     }
 
-    public void setDateTimeEvent(String date, String hour) throws ParseException, EventException {
+    private void setDateTimeEvent(String date, String hour) throws ParseException, EventException {
         if(!date.isEmpty() && date!=null && !hour.isEmpty() && hour!=null) {
             try{
                 SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -148,7 +148,7 @@ public class Event {
         return evaluation;
     }
 
-    public void setEvaluation(Integer evaluation) throws  EventException{
+    private void setEvaluation(Integer evaluation) throws  EventException{
         if(evaluation >=1 && evaluation<=5)
         {
             this.evaluation = evaluation;
@@ -160,7 +160,7 @@ public class Event {
 
     }
 
-    public void setPrice(String priceReal, String priceDecimal) throws EventException{
+    private void setPrice(String priceReal, String priceDecimal) throws EventException{
         if(priceReal!=null && priceDecimal!=null && !priceReal.isEmpty() && !priceDecimal.isEmpty()){
             Integer priceEventReal = Integer.parseInt(priceReal);
             Integer priceEventDecimal = Integer.parseInt(priceDecimal);
@@ -179,7 +179,7 @@ public class Event {
         }
     }
 
-    public void setPrice(Integer price){
+    private void setPrice(Integer price){
         this.price=price;
     }
 
@@ -191,7 +191,7 @@ public class Event {
         return adress;
     }
 
-    public void setAddress(String adress) throws EventException{
+    private void setAddress(String adress) throws EventException{
         if(!(adress.isEmpty()) && adress!=null)
         {
             this.adress = adress;
@@ -205,7 +205,7 @@ public class Event {
         return idEvent;
     }
 
-    public void setIdEvent(int idEvent) {
+    private void setIdEvent(int idEvent) {
         this.idEvent = idEvent;
     }
 
@@ -213,7 +213,7 @@ public class Event {
         return longitude;
     }
 
-    public void setLongitude(String longitude) throws EventException{
+    private void setLongitude(String longitude) throws EventException{
         if(!(longitude.toString().isEmpty()) && longitude!=null)
         {
             Double longitudeDouble = Double.parseDouble(longitude);
@@ -235,7 +235,7 @@ public class Event {
         return nameEvent;
     }
 
-    public void setNameEvent(String nameEvent) throws EventException {
+    private void setNameEvent(String nameEvent) throws EventException {
         if(!nameEvent.isEmpty() && nameEvent!= null) {
 
             if(nameEvent.length() <= MAX_LENGTH_NAME)
@@ -254,7 +254,7 @@ public class Event {
         return description;
     }
 
-    public void setDescription(String description) throws EventException{
+    private void setDescription(String description) throws EventException{
         if(!description.isEmpty() && description !=null)
         {
             if(description.length() < MAX_LENGTH_DESCRIPTION)
@@ -276,7 +276,7 @@ public class Event {
         return latitude;
     }
 
-    public void setLatitude(String latitude) throws EventException{
+    private void setLatitude(String latitude) throws EventException{
         if(!(latitude.toString().isEmpty()) && latitude!=null)
         {
             Double latitudeDouble = Double.parseDouble(latitude);
@@ -293,7 +293,7 @@ public class Event {
         }
     }
 
-    public void setCategory(Vector<String> category) throws EventException{
+    private void setCategory(Vector<String> category) throws EventException{
         if(category!=null && !category.isEmpty()){
             this.category = category;
         }else{
@@ -311,7 +311,7 @@ public class Event {
         return idOwner;
     }
 
-    public void setIdOwner(int idOwner) {
+    private void setIdOwner(int idOwner) {
         this.idOwner = idOwner;
     }
 }

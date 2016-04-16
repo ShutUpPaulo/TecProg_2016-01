@@ -154,15 +154,15 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
                 .perform(click());
     }
 
-    public Integer getUserId() {
+    private Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    private void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
     public void testMarkParticipateNotLoged()

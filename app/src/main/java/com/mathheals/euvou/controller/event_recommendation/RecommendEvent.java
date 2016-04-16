@@ -30,7 +30,7 @@ import model.Event;
 public class RecommendEvent extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
 
     private ListView listView;
-    ArrayList<Event> events;
+    private ArrayList<Event> events;
     private JSONObject eventDATA;
     private int idUser;
 

@@ -50,7 +50,6 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.addToBackStack(String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
                 fragmentTransaction.commit();
-                return;
         }
     }
 }

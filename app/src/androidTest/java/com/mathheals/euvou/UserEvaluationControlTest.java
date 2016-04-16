@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.hasToString;
  */
 public class UserEvaluationControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
-    LoginUtility isLoged;
+    private LoginUtility isLoged;
 
     public UserEvaluationControlTest(){
         super(HomePage.class);
@@ -84,7 +84,7 @@ public class UserEvaluationControlTest extends ActivityInstrumentationTestCase2<
 
     }
 
-    public void searchForUserUsedForTest(){
+    private void searchForUserUsedForTest(){
         onView(withId(R.id.search)).perform(click());
         onView(withId(R.id.radio_people)).perform(click());
         onView(withId(R.id.search_src_text)).perform(typeText("t"), pressKey(66));

@@ -58,7 +58,7 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
             listView.setAdapter(placeAdapter);
     }
 
-    public void populateArrayOfPlaces(JSONObject result,ArrayList<Place> places)
+    private void populateArrayOfPlaces(JSONObject result, ArrayList<Place> places)
     {
         try {
             for (int i = 0; i < result.length(); i++) {

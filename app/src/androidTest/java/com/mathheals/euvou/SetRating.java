@@ -35,11 +35,11 @@ public class SetRating implements ViewAction {
         ratingBar.setRating(getRating());
     }
 
-    public Integer getRating() {
+    private Integer getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    private void setRating(Integer rating) {
         this.rating = rating;
     }
 }

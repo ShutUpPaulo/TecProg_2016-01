@@ -29,7 +29,7 @@ import model.Place;
 
 public class ShowPlaceInfo extends FragmentActivity {
 
-    protected GoogleMap mMap;
+    private GoogleMap mMap;
 
     private String name;
     private String phone;
@@ -255,7 +255,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         this.userId = userId;
     }
 
-    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
@@ -263,11 +263,11 @@ public class ShowPlaceInfo extends FragmentActivity {
         return idPlace;
     }
 
-    public void setIdPlace(int idPlace) {
+    private void setIdPlace(int idPlace) {
         this.idPlace = idPlace;
     }
 
-    public void setRatingEvaluation(int idPlace, int idUser, float grade) {
+    private void setRatingEvaluation(int idPlace, int idUser, float grade) {
         this.ratingEvaluation = new Evaluation(idPlace, idUser, grade);
     }
 }

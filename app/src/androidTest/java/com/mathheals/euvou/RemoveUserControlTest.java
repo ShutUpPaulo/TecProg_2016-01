@@ -30,7 +30,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class RemoveUserControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
-    LoginUtility isLoged;
+    private LoginUtility isLoged;
     private TestUtility setLogin;
     private UserDAO userDAO = new UserDAO();
     public RemoveUserControlTest() {

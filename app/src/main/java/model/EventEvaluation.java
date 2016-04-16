@@ -25,7 +25,7 @@ public class EventEvaluation {
         return rating;
     }
 
-    public void setRating(Float rating) throws EventEvaluationException {
+    private void setRating(Float rating) throws EventEvaluationException {
         if(rating>=0f && rating<=5f) {
             this.rating = rating;
         }
@@ -38,7 +38,7 @@ public class EventEvaluation {
         return userId;
     }
 
-    public void setUserId(Integer userId) throws EventEvaluationException {
+    private void setUserId(Integer userId) throws EventEvaluationException {
         if(userId <= Integer.MAX_VALUE && userId >= 1) {
             this.userId = userId;
         }
@@ -51,7 +51,7 @@ public class EventEvaluation {
         return eventId;
     }
 
-    public void setEventId(Integer eventId) throws EventEvaluationException {
+    private void setEventId(Integer eventId) throws EventEvaluationException {
         if(eventId <= Integer.MAX_VALUE && eventId >= 1) {
             this.eventId = eventId;
         }

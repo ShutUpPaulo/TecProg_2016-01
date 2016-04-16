@@ -72,7 +72,6 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                     ActivityUtility.restartActivity(homePage);
                     RemoveUserVIewMessages.showAccountDeactivateMessage(homePage.getBaseContext());
                 }
-                return;
         }
     }
 
@@ -81,7 +80,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         fragmentManager.popBackStack();
     }
 
-    public boolean isLoginConfirmationValid() {
+    private boolean isLoginConfirmationValid() {
         View view = getView();
 
         EditText usernameField = (EditText) view.findViewById(R.id.edit_text_login_id);

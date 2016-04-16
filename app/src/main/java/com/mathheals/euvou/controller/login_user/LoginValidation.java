@@ -13,7 +13,7 @@ import dao.UserDAO;
 public class LoginValidation {
     private final String JSON_FORMAT = "0";
     private static final String COLUMN_USER_STATE = "isActivity";
-    Activity activity;
+    private Activity activity;
 
     public LoginValidation(Activity activity){
         this.activity=activity;
@@ -48,7 +48,7 @@ public class LoginValidation {
         }
     }
 
-    public boolean isUsernameRegistred(String username){
+    private boolean isUsernameRegistred(String username){
         UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(username);
