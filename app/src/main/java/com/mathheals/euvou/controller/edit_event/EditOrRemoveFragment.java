@@ -16,6 +16,7 @@ import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
+import com.mathheals.euvou.controller.utility.Mask;
 
 import model.Event;
 
@@ -54,7 +55,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
         name1Event.setText(eventName);
         description.setText(eventDescription);
-        dateEvent.setText(eventDateTime);
+        dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
         eventAddres.setText(eventAddress);
         showEvent.setPriceText(eventPriceText, eventPrice+"");
         showEvent.setCategoriesText(new Integer(evento.getIdEvent()), eventCategoriesText);

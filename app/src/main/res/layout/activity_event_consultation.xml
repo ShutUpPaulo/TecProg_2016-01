@@ -22,11 +22,6 @@
             android:layout_height="wrap_content"
             android:text="@string/events"/>
 
-        <RadioButton android:id="@+id/radio_places"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/places"/>
-
         <RadioButton android:id="@+id/radio_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

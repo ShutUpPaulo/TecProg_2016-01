@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRanking"
+    android:orientation="vertical"
+    >
+
+    <!-- TODO: Update blank fragment layout --><TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Ranking de lugares"
+    android:id="@+id/labelRankingPlace"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal" />
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:id="@+id/rateEvent"
+        tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRank"
+        android:name="com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRank"
+        tools:layout="@layout/fragment_show_place_rank"
+        android:layout_height="match_parent">
+    </fragment>
+
+</LinearLayout>

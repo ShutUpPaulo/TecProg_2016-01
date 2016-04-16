@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRank">
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewPlacesTotall"
+        android:layout_below="@+id/placeName" />
+
+
+    <TextView
+        android:id="@+id/placeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_alignTop="@+id/placeEvaluation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="10dp" />
+    <TextView
+        android:id="@+id/placeEvaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nota"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
+</RelativeLayout>
+

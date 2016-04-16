@@ -15,15 +15,15 @@ public class Evaluation {
         setGrade(grade);
     }
 
-    public void setGrade(float grade) {
+    private void setGrade(float grade) {
         this.grade = grade;
     }
 
-    public void setIdUser(int idUser) {
+    private  void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
-    public void setIdPlace(int idPlace) {
+    private void setIdPlace(int idPlace) {
         this.idPlace = idPlace;
     }
 

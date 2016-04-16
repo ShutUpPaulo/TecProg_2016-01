@@ -103,25 +103,59 @@
         android:textColor="#000000"
         android:textSize="20dp"/>
 
-    <Button
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/showEventOnMapButton"
-        android:textColor="#FFF"
-        android:text="@string/button_show_map_txt"
-        android:layout_gravity="center_horizontal"
-        android:background="@color/turquesa_app" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/EuVou"
-        android:text="#EuVou"
-        android:layout_below="@+id/eventPlaces"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:background="@color/green"></Button>
-    
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/rate_event_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/grade"
+            android:text="Sua avaliação:"
+            android:layout_marginTop="10dp"
+            />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="0.0"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:visibility="invisible"
+            android:layout_marginBottom="20dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/showEventOnMapButton"
+            android:textColor="#FFF"
+            android:text="@string/button_show_map_txt"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/turquesa_app" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/EuVou"
+            android:text="#EuVou"
+            android:background="@color/green"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"></Button>
+     </RelativeLayout>
 </LinearLayout>
 
 </ScrollView>

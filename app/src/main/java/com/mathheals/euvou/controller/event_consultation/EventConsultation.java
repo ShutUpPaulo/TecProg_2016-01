@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
+import com.mathheals.euvou.controller.user_profile.ShowUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import dao.EventDAO;
+import dao.UserDAO;
 
 public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
@@ -38,9 +40,14 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private SearchView searchView;
 
     private ListView listView;
-    private Integer eventId;
+    private Integer idItem;
     private JSONObject eventDATA;
     private TextView event_not_found_text;
+
+    private JSONObject peopleDATA;
+    private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
+
+    String option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +89,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                 switch (checkedButton) {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
+                        option="event";
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
@@ -105,6 +113,34 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                             event_not_found_text.setVisibility(View.VISIBLE);
                         }
                         break;
+
+                    case R.id.radio_people:
+                        option="people";
+                        UserDAO userDAO = new UserDAO(getParent());
+
+                        ArrayList<String> peopleFound = new ArrayList<String>();
+                        peopleDATA = userDAO.searchUserByName(query);
+                        final String NAME_USER_COLUMN = "nameUser";
+
+                        if (peopleDATA != null) {
+                            event_not_found_text.setVisibility(View.GONE);
+                            try {
+                                for (int i = 0; i < peopleDATA.length(); i++) {
+                                    peopleFound.add(peopleDATA.getJSONObject(new Integer(i).toString()).getString(NAME_USER_COLUMN));
+                                }
+
+                                String[] peopleFoundArray = peopleFound.toArray(new String[peopleFound.size()]);
+                                showPeopleAsList(peopleFoundArray);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            listView.setAdapter(null);
+                            event_not_found_text.setText(PEOPLE_NOT_FOUND_MESSAGE);
+                            event_not_found_text.setVisibility(View.VISIBLE);
+                        }
+
+                        break;
                 }
                 return true;
             }
@@ -124,22 +160,32 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
 
     }
 
+    private void showPeopleAsList(String[] peopleNames){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
+                R.layout.event_consultation_list_view,
+                peopleNames);
+        listView.setAdapter(adapter);
+    }
+
     private void setListViewListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             final Bundle bundle = new Bundle();
             final ShowEvent event = new ShowEvent();
+            final ShowUser user = new ShowUser();
 
             public void onItemClick(AdapterView<?> parent, View clickView,
                                     int position, long id) {
-                final String ID_COLUMN = "idEvent";
+                //final String ID_COLUMN = "idEvent";
+                final String ID_COLUMN = option=="event" ? "idEvent" : (option=="people" ? "idUser" : "idPlace");
 
                 try {
                     final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
-                    bundle.putString("idEventSearch", Integer.toString(eventId));
+                    idItem = new Integer((option=="event" ? eventDATA : peopleDATA).getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                    bundle.putString("id", Integer.toString(idItem));
 
                     event.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.content, event);
+                    user.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.content, option == "event" ? event : user);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 } catch (JSONException e) {
@@ -164,17 +210,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         String query = searchView.getQuery().toString();
         switch(checkedId) {
             case R.id.radio_events:
-                Toast.makeText(getBaseContext(), "AGORA EM EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                break;
-            case R.id.radio_places:
-                Toast.makeText(getBaseContext(), "AGORA EM LOCAIS: " + query, Toast.LENGTH_LONG).show();
                 break;
             case R.id.radio_people:
-                Toast.makeText(getBaseContext(), "AGORA EM PESSOAS: " + query, Toast.LENGTH_LONG).show();
                 break;
         }
     }

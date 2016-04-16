@@ -1,6 +1,7 @@
 package com.mathheals.euvou.controller.search_event;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.edit_event.EditOrRemoveFragment;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.json.JSONException;
@@ -62,16 +64,25 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         try {
             int id = (new LoginUtility(getActivity())).getUserId();
             events = new EventDAO(getActivity()).searchEventByOwner(id);
-            List<Map<String, String>> eventList= new ArrayList<Map<String, String>>();
+            if(events==null){
+                Toast.makeText(getContext(), "Você ainda não criou nenhum evento, que tal criar um agora?", Toast.LENGTH_LONG).show();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+            else {
+                List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
 
-            for (Event e :events)
-                eventList.add(createEvent("Nome",e.getNameEvent()));
+                for (Event e : events)
+                    eventList.add(createEvent("Nome", e.getNameEvent()));
 
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(),eventList,
-                    android.R.layout.simple_list_item_1,
-                    new String[]{"Nome"}, new int[]{android.R.id.text1});
+                SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
+                        android.R.layout.simple_list_item_1,
+                        new String[]{"Nome"}, new int[]{android.R.id.text1});
 
-            listView.setAdapter(simpleAdapter);
+                listView.setAdapter(simpleAdapter);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,6 +90,10 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
             e.printStackTrace();
         } catch (EventException e) {
             e.printStackTrace();
+        }catch( NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Sem eventos criados",Toast.LENGTH_SHORT).show();
+
         }
     }
     private HashMap<String, String> createEvent(String name, String number) {
@@ -98,5 +113,4 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         fragmentTransaction.commit();
 
     }
-
 }

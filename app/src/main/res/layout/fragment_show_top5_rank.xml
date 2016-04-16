@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank"
+    android:orientation="vertical">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ranking de lugares"
+        android:id="@+id/labelRankingPlace"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:id="@+id/rateEvent"
+        tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking"
+        android:name="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking"
+        tools:layout="@layout/fragment_show_place_rank"
+        android:layout_height="172dp">
+    </fragment>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/visualizarRanking"
+        android:id="@+id/more"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- ___________________________ -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Eventos Recomendados"
+        android:id="@+id/labelRecommendationEvent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
+
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:id="@+id/rateEventRecommendation"
+        tools:context="com.mathheals.euvou.controller.event_recommendation.RecommendEvent"
+        android:name="com.mathheals.euvou.controller.event_recommendation.RecommendEvent"
+        android:layout_height="172dp">
+    </fragment>
+
+
+</LinearLayout>

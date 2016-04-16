@@ -45,9 +45,10 @@ public class EventDAO extends DAO {
         }
 
     }
-    public  String deleteEvent(Event event)
+
+    public  String deleteEvent(int idEvent)
     {
-        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+event.getIdEvent());
+        return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+idEvent);
     }
 
     public void updateEvent(Event event)
@@ -118,6 +119,22 @@ public class EventDAO extends DAO {
 
     public String markOffParticipate(int idUser, int idEvent) {
         return this.executeQuery("DELETE FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
+    }
+
+    public void saveEventWithId(Event event)
+    {
+        executeQuery("insert into tb_event(idEvent,nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
+                event.getIdEvent() + "', '" + event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
+                "" + event.getLongitude() + "," + event.getLatitude() + ")");
+
+        Vector<String> categories = event.getCategory();
+        JSONObject jsonObject = executeConsult("SELECT idEvent FROM tb_event WHERE nameEvent = \"" + event.getNameEvent() + "\"");
+        int idEvent = 0;
+        try {
+            idEvent = jsonObject.getJSONObject("0").getInt("idEvent");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

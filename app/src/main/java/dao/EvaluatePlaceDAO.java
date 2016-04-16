@@ -36,8 +36,9 @@ public class EvaluatePlaceDAO extends DAO{
     }
 
 
-    public JSONObject searchEvaluateByPlaceID(int idPlace) {
-        final String QUERY = "SELECT * FROM evaluate_place WHERE idPlace = " + idPlace;
+    public JSONObject searchPlaceEvaluation(int placeId, int userId) {
+        final String QUERY = "SELECT * FROM evaluate_place WHERE idUser = \"" + userId
+                           + "\" AND idPlace = " + placeId;
         return executeConsult(QUERY);
     }
 }

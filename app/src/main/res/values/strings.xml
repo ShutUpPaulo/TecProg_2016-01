@@ -10,7 +10,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="username">Usuário</string>
+    <string name="username">Nome do usuário</string>
     <string name="dateTag">Data de nascimento:</string>
     <string name="email">Email:</string>
     <string name="emailConfirmation">Confirmação de email:</string>
@@ -63,5 +63,6 @@
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
     <string name="title_activity_show_single">ShowSingle</string>
+    <string name="visualizarRanking">Visualizar Rank Completo</string>
 
 </resources>

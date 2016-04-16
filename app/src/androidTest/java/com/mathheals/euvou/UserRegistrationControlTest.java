@@ -2,16 +2,25 @@ package com.mathheals.euvou;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.uiautomator.UiDevice;
+import android.support.test.uiautomator.UiObject;
+import android.support.test.uiautomator.UiObjectNotFoundException;
+import android.support.test.uiautomator.UiSelector;
 import android.test.ActivityInstrumentationTestCase2;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.junit.Before;
 
+import dao.UserDAO;
+import model.User;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
+import static android.support.test.espresso.matcher.ViewMatchers.hasFocus;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -21,7 +30,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 public class UserRegistrationControlTest extends ActivityInstrumentationTestCase2<HomePage> {
 
-    LoginUtility isLoged;
+    private LoginUtility isLoged;
+    private TestUtility setLogin;
+    private UiDevice device;
+    private User user;
+    private UserDAO userDao = new UserDAO();
 
     public UserRegistrationControlTest() {
         super(HomePage.class);
@@ -32,12 +45,12 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
         super.setUp();
         getActivity();
         isLoged = new LoginUtility(getActivity());
+        device = UiDevice.getInstance(getInstrumentation());
     }
 
     public void testRegisterOptionInActionBarMenu() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -47,8 +60,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
     
     public void testIfNameLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -58,8 +70,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testNameField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -71,8 +82,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testIfDateLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -82,8 +92,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testDateField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -95,8 +104,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testIfMailLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -106,8 +114,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testMailField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -119,8 +126,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testIfMailConfirmationLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -130,8 +136,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testMailConfirmationField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -143,8 +148,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testIfLoginLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -154,8 +158,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testLoginField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -167,8 +170,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testIfPasswordLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -178,21 +180,19 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testPasswordField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
         onView(withId(R.id.passwordField)).check(matches(isDisplayed()));
         onView(withId(R.id.passwordField)).perform(typeText("1234567"));
-        onView(withId(R.id.confirmMailPassword)).perform(click());
+        onView(withId(R.id.confirmPasswordField)).perform(click());
         onView(withId(R.id.passwordField)).check(matches(withText("1234567")));
     }
 
     public void testIfConfirmPasswordLabelIsCorrect() {
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
@@ -202,15 +202,352 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
 
     public void testConfirmPasswordField(){
         if(isLoged.hasUserLoggedIn()){
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
+            setLogin.makeUserLogOut();
         }
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(withText("Cadastrar")).perform(click());
-        onView(withId(R.id.confirmMailPassword)).check(matches(isDisplayed()));
-        onView(withId(R.id.confirmMailPassword)).perform(typeText("1234567"));
+        onView(withId(R.id.confirmPasswordField)).check(matches(isDisplayed()));
+        onView(withId(R.id.confirmPasswordField)).perform(typeText("1234567"));
         onView(withId(R.id.passwordField)).perform(click());
-        onView(withId(R.id.confirmMailPassword)).check(matches(withText("1234567")));
+        onView(withId(R.id.confirmPasswordField)).check(matches(withText("1234567")));
     }
 
+    public void testRegisterUserButtonWithEmptyName(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.nameField)).check(matches(hasErrorText(user.NAME_CANT_BE_EMPTY_NAME)));
+    }
+
+    public void testRegisterUserButtonWithEmptyDate(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.dateField)).check(matches(hasErrorText(user.BIRTH_DATE_CANT_BE_EMPTY)));
+    }
+
+    public void testRegisterUserButtonWithInvalidDate(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("80/80/2012"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.dateField)).check(matches(hasErrorText(user.INVALID_BIRTH_DATE)));
+    }
+
+
+    public void testRegisterUserButtonWithEmptyMail(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.mailField)).check(matches(hasErrorText(user.EMAIL_CANT_BE_EMPTY_EMAIL)));
+    }
+
+    public void testRegisterUserButtonWithInvalidMail(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.mailField)).check(matches(hasErrorText(user.INVALID_EMAIL)));
+    }
+
+    public void testRegisterUserButtonWithEmptyMailConfirmation(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.confirmMailField)).check(matches(hasErrorText(user.EMAIL_CONFIRMATION_CANT_BE_EMPTY)));
+    }
+
+    public void testRegisterUserButtonWithInvalidMailConfirmation(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.mailField)).check(matches(hasErrorText(user.EMAIL_ARE_NOT_EQUALS)));
+    }
+
+    public void testRegisterUserButtonWithEmptyLogin(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.loginField)).check(matches(hasErrorText(user.USERNAME_CANT_BE_EMPTY_USERNAME)));
+    }
+
+    public void testRegisterUserButtonWithExistentLogin(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("igodudu"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.loginField)).check(matches(hasErrorText(user.USERNAME_EXISTENT)));
+    }
+
+    public void testRegisterUserButtonWithEmptyPassword(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.passwordField)).check(matches(hasErrorText(user.PASSWORD_CANT_BE_EMPTY_PASSWORD)));
+    }
+
+    public void testRegisterUserButtonWithInvalidPassword(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        onView(withId(R.id.passwordField)).perform(typeText("1"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.passwordField)).check(matches(hasErrorText(user.PASSWORD_CANT_BE_LESS_THAN_6)));
+    }
+
+    public void testRegisterUserButtonWithEmptyPasswordConfirmation(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        onView(withId(R.id.passwordField)).perform(typeText("123456"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.confirmPasswordField)).check(matches(hasErrorText(user.CONFIRM_PASSWORD_CANT_BE_EMPTY)));
+    }
+
+    public void testRegisterUserButtonWithInvalidPasswordConfirmation(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        onView(withId(R.id.passwordField)).perform(typeText("123456"));
+        onView(withId(R.id.confirmPasswordField)).perform(typeText("1234567"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.passwordField)).check(matches(hasErrorText(user.PASSWORD_ARE_NOT_EQUALS)));
+    }
+
+    public void testRegisterUserButtonWithValidInput(){
+        if(isLoged.hasUserLoggedIn()){
+            setLogin.makeUserLogOut();
+        }
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        onView(withText("Cadastrar")).perform(click());
+        onView(withId(R.id.nameField)).perform(typeText("iza"));
+        onView(withId(R.id.dateField)).perform(typeText("12/12/2012"));
+        onView(withId(R.id.mailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.confirmMailField)).perform(typeText("oi@xau.com"));
+        onView(withId(R.id.loginField)).perform(typeText("izacris"));
+        onView(withId(R.id.passwordField)).perform(typeText("123456"));
+        onView(withId(R.id.confirmPasswordField)).perform(typeText("123456"));
+        UiObject marker = device.findObject(new UiSelector().textContains("Cadastrar"));
+        try {
+            marker.click();
+        } catch (UiObjectNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
+        userDao.delete("izacris");
+    }
 }
+
+

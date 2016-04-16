@@ -1,11 +1,9 @@
 package com.mathheals.euvou.controller.home_page;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -28,16 +26,15 @@ import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_consultation.EventConsultation;
 import com.mathheals.euvou.controller.event_registration.RegisterEventFragment;
-import com.mathheals.euvou.controller.login_user.LoginValidation;
-import com.mathheals.euvou.controller.remove_user.DisableAccountFragment;
-import com.mathheals.euvou.controller.remove_user.DisableAccountLoginConfirmation;
-import com.mathheals.euvou.controller.remove_user.OhGoshFragment;
 import com.mathheals.euvou.controller.edit_user.EditUserFragment;
 import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
-import com.mathheals.euvou.controller.remove_user.RemoveUserVIewMessages;
 import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRank;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRanking;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
@@ -69,6 +66,14 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
         callGoogleMaps();
         onConfigActionBar();
+        startPrincipalFragment();
+    }
+
+    private void startPrincipalFragment() {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void searchPlace(View view){
@@ -182,7 +187,6 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
 
     public boolean userLoggedInOptions(MenuItem item) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch(item.getItemId()) {
             case R.id.edit_register:
@@ -209,9 +213,14 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 startActivity(intent);
                 return true;
             case R.id.myEvents:
+                try{
                 fragmentTransaction.replace(R.id.content_frame, new ListEvents());
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();}
+                catch (NullPointerException exception)
+                {
+                    Toast.makeText(getBaseContext(),"Sem eventos criados",Toast.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 return false;

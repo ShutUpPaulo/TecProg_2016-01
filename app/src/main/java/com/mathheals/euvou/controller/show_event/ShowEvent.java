@@ -1,15 +1,20 @@
 package com.mathheals.euvou.controller.show_event;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
+import com.mathheals.euvou.controller.utility.Mask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,14 +22,19 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import dao.CategoryDAO;
+import dao.EvaluatePlaceDAO;
 import dao.EventCategoryDAO;
 import dao.EventDAO;
+import dao.EventEvaluationDAO;
+import exception.EventEvaluationException;
+import model.EventEvaluation;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener {
+
     private TextView eventCategoriesText;
     private EventDAO eventDAO;
     private final String PRICE_COLUMN = "price";
@@ -34,9 +44,20 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
-    private int idUser;
+
     private final String GO = "#EUVOU";
     private final String NOTGO = "#NÃOVOU";
+
+    private final String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
+
+    // fields for Event Evaluation
+    private final Integer LOGGED_OUT = -1;
+    private int userId;
+    private boolean isUserLoggedIn;
+    private TextView ratingMessage;
+    private View showEventView;
+    private RatingBar ratingBar;
+    private EventEvaluation eventEvaluation;
 
     public ShowEvent() {
         // Required empty public constructor
@@ -47,23 +68,23 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_show_event, container, false);
-        showEventOnMapButton = (Button) view.findViewById(R.id.showEventOnMapButton);
-        participateButton = (Button) view.findViewById(R.id.EuVou);
+        setShowEventView(inflater.inflate(R.layout.fragment_show_event, container, false));
+        showEventOnMapButton = (Button) showEventView.findViewById(R.id.showEventOnMapButton);
+        participateButton = (Button) showEventView.findViewById(R.id.EuVou);
         showEventOnMapButton.setOnClickListener(this);
         participateButton.setOnClickListener(this);
 
         eventDAO = new EventDAO(this.getActivity());
-        eventId = this.getArguments().getString("idEventSearch");
+        eventId = this.getArguments().getString("id");
         JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
-        idUser = new LoginUtility(getActivity()).getUserId();
-        if(new LoginUtility(getActivity()).getUserId() == -1)
-            participateButton.setVisibility(View.GONE);
-        else
-        {
+        setUserId(new LoginUtility(getActivity()).getUserId());
+        if(userId == LOGGED_OUT) {
+            participateButton.setVisibility(showEventView.GONE);
+        }
+        else {
             participateButton.setVisibility(View.VISIBLE);
-            if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null) {
+            if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) == null) {
                 participateButton.setText(GO);
             }
             else{
@@ -80,15 +101,15 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
-            TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
-            TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
-            TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
-            TextView addressShow = (TextView) view.findViewById(R.id.eventPlaces);
-            eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
-            eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
+            TextView name1Event = (TextView) showEventView.findViewById(R.id.nameEventShow);
+            TextView dateEvent = (TextView) showEventView.findViewById(R.id.dateEvent);
+            TextView description = (TextView) showEventView.findViewById(R.id.descriptionEvent);
+            TextView addressShow = (TextView) showEventView.findViewById(R.id.eventPlaces);
+            eventCategoriesText = (TextView) showEventView.findViewById(R.id.eventCategories);
+            eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
-            dateEvent.setText(eventDateTime);
+            dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
             setPriceText(eventPriceText, eventPrice);
             setCategoriesText(new Integer(eventId), eventCategoriesText);
             addressShow.setText(eventAdress);
@@ -98,7 +119,12 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         } catch (NullPointerException exception) {
             Toast.makeText(getActivity(), "O nome não foi encontrado", Toast.LENGTH_LONG);
         }
-        return view;
+
+        setIsUserLoggedIn(userId != LOGGED_OUT);
+        setRatingMessage(isUserLoggedIn);
+        setRatingBarIfNeeded();
+
+        return showEventView;
     }
 
 
@@ -156,18 +182,23 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
     private void markParticipate()
     {
-        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) != null)
+        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null)
             Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), eventDAO.markParticipate(idUser,Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+        else {
+            eventDAO.markParticipate(userId, Integer.parseInt(eventId));
+            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+        }
     }
     private void markOffParticipate()
     {
 
-        if(eventDAO.verifyParticipate(idUser,Integer.parseInt(eventId)) == null)
+        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) == null)
             Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), eventDAO.markOffParticipate(idUser, Integer.parseInt(eventId)), Toast.LENGTH_SHORT).show();
+        else{
+
+            eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
+            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+        };
     }
 
     public void onClick(View view) {
@@ -183,4 +214,89 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 break;
         }
     }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setIsUserLoggedIn(boolean isUserLoggedIn) {
+        this.isUserLoggedIn = isUserLoggedIn;
+    }
+
+    private void setRatingMessage(boolean isUserLoggedIn) {
+        final String LOGGED_IN_MESSAGE = "Sua avaliação:";
+        final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este evento!";
+        String message = isUserLoggedIn ? LOGGED_IN_MESSAGE : LOGGED_OUT_MESSAGE;
+
+        ratingMessage = (TextView) showEventView.findViewById(R.id.rate_event_text);
+        ratingMessage.setText(message);
+    }
+
+    public void setShowEventView(View showEventView) {
+        this.showEventView = showEventView;
+    }
+
+    private void setRatingBarIfNeeded() {
+        if(isUserLoggedIn)
+            setRatingBar();
+    }
+
+
+    private void setRatingBar() {
+        ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
+        ratingBar.setVisibility(View.VISIBLE);
+
+        EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+        JSONObject evaluationJSON = eventEvaluationDAO.searchEventEvaluation(Integer.parseInt(eventId), userId);
+
+        if(evaluationJSON!=null){
+            Float evaluation = null;
+            try {
+                evaluation = new Float(evaluationJSON.getJSONObject("0").getDouble("grade"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ratingBar.setRating(evaluation);
+        }
+
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
+                setEventEvaluation(rateValue, userId, new Integer(eventId));
+
+                EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+                eventEvaluationDAO.evaluateEvent(getEventEvaluation());
+            }
+        });
+        setRatingBarStyle();
+    }
+
+    public EventEvaluation getEventEvaluation() {
+        return eventEvaluation;
+    }
+
+    public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
+        try {
+            this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+        }catch (EventEvaluationException exception){
+            if(exception.getMessage() == EventEvaluation.EVALUATION_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage() == EventEvaluation.EVENT_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            if(exception.getMessage() == EventEvaluation.USER_ID_IS_INVALID){
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void setRatingBarStyle() {
+/*        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
+ */   }
 }

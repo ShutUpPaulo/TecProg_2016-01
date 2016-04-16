@@ -145,12 +145,9 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
             EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
             String dateEvent = dateEventField.getText().toString();
-            String[] dateEventSplit = dateEvent.split("/");
-            dateEvent = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
 
             EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
             String eventHour = hourEventField.getText().toString();
-            String dateHourEvent = dateEvent + " " + eventHour;
 
             EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
             String descriptionEvent = descriptionEventField.getText().toString();
@@ -159,16 +156,16 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             String addressEvent = addressEventField.getText().toString();
 
             EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+            String priceEventReal = priceEventRealField.getText().toString();
+
             EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
-            Integer priceEventReal = Integer.parseInt(priceEventRealField.getText().toString());
-            Integer priceEventDecimal = Integer.parseInt(priceEventDecimalField.getText().toString());
-            Integer priceEvent = priceEventReal * 100 + priceEventDecimal;
+            String priceEventDecimal = priceEventDecimalField.getText().toString();
 
             LoginUtility loginUtility = new LoginUtility(getActivity());
             int idOwner = loginUtility.getUserId();
 
             try {
-                Event event = new Event(idOwner, nameEvent, dateHourEvent, priceEvent, addressEvent, descriptionEvent,
+                Event event = new Event(idOwner, nameEvent, dateEvent, eventHour, priceEventReal, priceEventDecimal, addressEvent, descriptionEvent,
                                         latitude, longitude, categories);
                 registerEvent(event);
 
@@ -178,7 +175,18 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
                 //Verify address field
                 if(message.equals(Event.ADDRESS_IS_EMPTY)){
+                    addressEventField.requestFocus();
+                    addressEventField.setError(message);
+                }
 
+                if(message.equals(Event.INVALID_EVENT_HOUR)){
+                    hourEventField.requestFocus();
+                    hourEventField.setError(message);
+                }
+
+                if(message.equals(Event.EVENT_HOUR_IS_EMPTY)){
+                    hourEventField.requestFocus();
+                    hourEventField.setError(message);
                 }
 
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
@@ -210,6 +218,17 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     nameEventField.requestFocus();
                     nameEventField.setError(message);
                 }
+
+                if(message.equals(Event.PRICE_REAL_IS_EMPTY)){
+                    priceEventRealField.requestFocus();
+                    priceEventRealField.setError(message);
+                }
+
+                if(message.equals(Event.PRICE_DECIMAL_IS_EMPTY)){
+                    priceEventDecimalField.requestFocus();
+                    priceEventDecimalField.setError(message);
+                }
+
             } catch (ParseException e) {
                 e.printStackTrace();
 

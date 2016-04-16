@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mathheals.euvou.controller.event_recommendation.RecommendEvent">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_view_event_recomendations"
+        android:layout_below="@+id/eventName" />
+
+    <TextView
+        android:id="@+id/eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:layout_alignTop="@+id/eventEvaluation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginBottom="10dp" />
+    <TextView
+        android:id="@+id/eventEvaluation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nota"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp" />
+</RelativeLayout>

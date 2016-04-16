@@ -25,6 +25,7 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.EvaluatePlaceDAO;
 import model.Evaluation;
+import model.Place;
 
 public class ShowPlaceInfo extends FragmentActivity {
 

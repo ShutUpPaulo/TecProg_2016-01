@@ -25,10 +25,9 @@ public class UserDAO extends DAO{
         return this.executeConsult("SELECT * from vw_user WHERE idUser="+idUser+"").toString();
     }
 
-
     //This method is just used on the tests
     public String delete(String username){
-        return this.executeQuery("DELETE FROM tb_user WHERE login=\"" +username+ "\"");
+        return this.executeQuery("DELETE FROM tb_user WHERE login=\"" + username + "\"");
     }
 
     public String delete(int idUser){
@@ -46,8 +45,11 @@ public class UserDAO extends DAO{
         return this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
 
-    public JSONObject searchUserByUsername(String username)
-    {
-        return this.executeConsult("SELECT * from vw_user WHERE login=\""+username+"\"");
+    public JSONObject searchUserByUsername(String username){
+        return this.executeConsult("SELECT * FROM vw_user WHERE login=\"" + username + "\"");
+    }
+
+    public JSONObject searchUserByName(String name){
+        return this.executeConsult("SELECT * FROM vw_user WHERE nameUser LIKE \"%" + name + "%\"");
     }
 }

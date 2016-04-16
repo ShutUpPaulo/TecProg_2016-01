@@ -1,6 +1,7 @@
 package model;
 import android.app.Activity;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 
@@ -19,6 +20,8 @@ public class User {
     public static final String EMAIL_CANT_BE_EMPTY_EMAIL = "Hey, acho que você está esquecendo de nos dizer seu email.";
     public static final String EMAIL_CANT_BE_HIGHER_THAN_150 = "Hey, acho que você ultrapassou o número de caracteres permitido para email, tente novamente.";
     public static final String INVALID_EMAIL = "Ops, esse e-mail é inválido.";
+    public static final String CONFIRM_PASSWORD_CANT_BE_EMPTY = "Hey, confirme sua senha";
+    public static final String EMAIL_CONFIRMATION_CANT_BE_EMPTY = "Hey, confirme seu e-mail";
     public static final String USERNAME_CANT_BE_EMPTY_USERNAME = "Hey, acho que você está esquecendo de nos dizer seu login.";
     public static final String USERNAME_CANT_BE_HIGHER_THAN_100 = "Hey, acho que você ultrapassou o número de caracteres permitido para o login, tente novamente.";
     public static final String PASSWORD_CANT_BE_EMPTY_PASSWORD = "Hey, acho que você está esquecendo de nos dizer sua senha.";
@@ -57,6 +60,7 @@ public class User {
         verifyEmailConfirmation(mailConfirmation);
         setPassword(password);
         verifyPasswordConfirmation(passwordConfirmation);
+
     }
 
     public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
@@ -74,6 +78,7 @@ public class User {
         verifyEmailConfirmation(mailConfirmation);
         setPassword(password);
         verifyPasswordConfirmation(passwordConfirmation);
+
     }
 
     public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
@@ -109,13 +114,11 @@ public class User {
     private void setName(String name) throws UserException {
 
         if(!name.isEmpty() && name!=null){
-
             if(name.length() <= MAX_LENGTH_NAME){
                 this.name = name;
             }else{
                 throw new UserException(NAME_CANT_BE_HIGHER_THAN_50);
             }
-
         }else{
             throw new UserException(NAME_CANT_BE_EMPTY_NAME);
         }
@@ -143,15 +146,20 @@ public class User {
     }
 
     private void verifyEmailConfirmation(String confirmationMail) throws UserException{
-        if (!email.equals(confirmationMail)) {
-            throw new UserException(EMAIL_ARE_NOT_EQUALS);
+        if(confirmationMail!=null && !confirmationMail.isEmpty()) {
+            if (!email.equals(confirmationMail)) {
+                throw new UserException(EMAIL_ARE_NOT_EQUALS);
+            }
+        }
+        else{
+            throw new UserException(EMAIL_CONFIRMATION_CANT_BE_EMPTY);
         }
     }
 
     private  void  setUsername (String username) throws UserException{
 
-        if (!username.isEmpty()) {
-            if(new UserDAO().searchUserByUsername(username) != null){
+        if (username!=null && !username.isEmpty()) {
+            if (new UserDAO().searchUserByUsername(username) != null){
                 throw new UserException(USERNAME_EXISTENT);
             }
             if(username.length() <= MAX_LENGTH_USERNAME){
@@ -160,7 +168,8 @@ public class User {
             else{
                 throw  new UserException(USERNAME_CANT_BE_HIGHER_THAN_100);
             }
-        }else{
+        }
+        else{
             throw  new UserException(USERNAME_CANT_BE_EMPTY_USERNAME);
         }
 
@@ -183,8 +192,13 @@ public class User {
     }
 
     private void verifyPasswordConfirmation(String confirmationPassword) throws UserException {
-        if(!password.equals(confirmationPassword)) {
-            throw new UserException(PASSWORD_ARE_NOT_EQUALS);
+        if(confirmationPassword!=null && !confirmationPassword.isEmpty()) {
+            if (!password.equals(confirmationPassword)) {
+                throw new UserException(PASSWORD_ARE_NOT_EQUALS);
+            }
+        }
+        else{
+            throw new UserException(CONFIRM_PASSWORD_CANT_BE_EMPTY);
         }
     }
 

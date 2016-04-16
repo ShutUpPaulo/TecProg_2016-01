@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -29,6 +30,10 @@ import model.User;
 public class EditUserFragment extends Fragment implements View.OnClickListener {
     private int USER_STATUS;
     private final int LOGGED_OUT = -1;
+    private EditAndRegisterUtility utilityForEdit = new EditAndRegisterUtility();
+    private String name, birthDate, mail, mailConfirm, password, passwordConfirm;
+    private EditText nameField, birthDateField, mailField, mailConfirmationField, passwordField, passwordConfirmField;
+    private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
     public EditUserFragment() {
     }
@@ -42,12 +47,8 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
 
         UserDAO userDAO = new UserDAO(this.getActivity());
 
-        EditText nameField = (EditText) view.findViewById(R.id.nameField);
-
-        EditText dateField = (EditText) view.findViewById(R.id.dateField);
-        dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
-
-        EditText mailField = (EditText) view.findViewById(R.id.mailField);
+        setingEditText(view);
+        birthDateField.addTextChangedListener(Mask.insert("##/##/####", birthDateField));
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
@@ -69,7 +70,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
             birthDate = birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
 
             nameField.setText(nameUser);
-            dateField.setText(birthDate);
+            birthDateField.setText(birthDate);
             mailField.setText(mail);
 
         } catch (JSONException e) {
@@ -87,25 +88,29 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         userDAO.update(user);
     }
 
+    private void setingEditText(View view){
+        this.nameField = (EditText) view.findViewById(R.id.nameField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+        this.mailField = (EditText) view.findViewById(R.id.mailField);
+        this.passwordField = (EditText) view.findViewById(R.id.passwordField);
+        this.mailConfirmationField = (EditText) view.findViewById(R.id.confirmMailField);
+        this.passwordConfirmField = (EditText) view.findViewById(R.id.confirmPasswordField);
+        this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+    }
+
+    private void setingTextTyped(){
+        this.name = nameField.getText().toString();
+        this.mail = mailField.getText().toString();
+        this.mailConfirm = mailConfirmationField.getText().toString();
+        this.password = passwordField.getText().toString();
+        this.passwordConfirm = passwordConfirmField.getText().toString();
+        this.birthDate = birthDateField.getText().toString();
+    }
+
     @Override
     public void onClick(View v) {
-        EditText nameField = (EditText) this.getActivity().findViewById(R.id.nameField);
-        String name = nameField.getText().toString();
 
-        EditText birthDateField = (EditText) this.getActivity().findViewById(R.id.dateField);
-        String birthDate = birthDateField.getText().toString();
-
-        EditText mailField = (EditText) this.getActivity().findViewById(R.id.mailField);
-        String mail = mailField.getText().toString();
-
-        EditText mailConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmMailField);
-        String mailConfirm = mailConfirmField.getText().toString();
-
-        EditText passwordField = (EditText) this.getActivity().findViewById(R.id.passwordField);
-        String password = passwordField.getText().toString();
-
-        EditText passwordConfirmField = (EditText) this.getActivity().findViewById(R.id.confirmPasswordField);
-        String passwordConfirm = passwordConfirmField.getText().toString();
+        setingTextTyped();
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
@@ -123,88 +128,44 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
         } catch (Exception e) {
             String message = e.getMessage();
 
-            if (message.equals(User.NAME_CANT_BE_EMPTY_NAME)) {
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
-            if (message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)) {
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
             if (message.equals(User.EMAIL_CANT_BE_EMPTY_EMAIL)) {
-                mailField.requestFocus();
-                mailField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
+                editAndRegisterUtility.setMessageError(mailField, message);
             }
             if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
+                editAndRegisterUtility.setMessageError(nameField, message);
             }
-
             if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
-                nameField.requestFocus();
-                nameField.setError(message);
+                editAndRegisterUtility.setMessageError(nameField, message);
             }
-
-            if(message.equals(User.NAME_CANT_BE_EMPTY_NAME)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
-            if(message.equals(User.NAME_CANT_BE_HIGHER_THAN_50)){
-                nameField.requestFocus();
-                nameField.setError(message);
-            }
-
             if (message.equals(User.EMAIL_CANT_BE_HIGHER_THAN_150)) {
-                mailField.requestFocus();
-                mailField.setError(message);
+                editAndRegisterUtility.setMessageError(mailField, message);
             }
-
             if (message.equals(User.INVALID_EMAIL)) {
-                mailField.requestFocus();
-                mailField.setError(message);
+                editAndRegisterUtility.setMessageError(mailField, message);
             }
-
             if(message.equals(User.EMAIL_ARE_NOT_EQUALS)){
-                mailField.requestFocus();
-                mailField.setError(message);
+                editAndRegisterUtility.setMessageError(mailField, message);
             }
-
             if (message.equals(User.PASSWORD_CANT_BE_EMPTY_PASSWORD)) {
-                passwordField.requestFocus();
-                passwordField.setError(message);
+                editAndRegisterUtility.setMessageError(passwordField, message);
             }
-
             if (message.equals(User.PASSWORD_CANT_BE_LESS_THAN_6)) {
-                passwordField.requestFocus();
-                passwordField.setError(message);
+                editAndRegisterUtility.setMessageError(passwordField, message);
             }
-
             if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
-                passwordField.requestFocus();
-                passwordField.setError(message);
+                editAndRegisterUtility.setMessageError(passwordField, message);
             }
-
-            if(message.equals(User.PASSWORD_ARE_NOT_EQUALS)){
-                passwordField.requestFocus();
-                passwordField.requestFocus();
-            }
-
             if (message.equals(User.BIRTH_DATE_CANT_BE_EMPTY)) {
-                birthDateField.requestFocus();
-                birthDateField.setError(message);
+                editAndRegisterUtility.setMessageError(birthDateField, message);
             }
-
             if (message.equals(User.INVALID_BIRTH_DATE)) {
-                birthDateField.requestFocus();
-                birthDateField.setError(message);
+                editAndRegisterUtility.setMessageError(birthDateField, message);
+            }
+            if(message.equals(User.EMAIL_CONFIRMATION_CANT_BE_EMPTY)){
+                editAndRegisterUtility.setMessageError(mailConfirmationField, message);
+            }
+            if(message.equals(User.CONFIRM_PASSWORD_CANT_BE_EMPTY)){
+                editAndRegisterUtility.setMessageError(passwordConfirmField, message);
             }
         }
 

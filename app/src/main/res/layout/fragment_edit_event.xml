@@ -221,12 +221,32 @@
             android:ems="10"
             android:id="@+id/eventDescription" />
 
-        <Button
-            android:id="@+id/updateEvent"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:textColor="#FFFFFF"
-            android:background="#00C0C3"
-            android:text="Alterar"    />
+            android:layout_height="32dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/updateEvent"
+                android:layout_width="143dp"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:background="#00C0C3"
+                android:text="Alterar"
+                android:layout_gravity="left"
+                />
+
+            <Button
+                android:id="@+id/removeEvent"
+                android:layout_width="143dp"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:background="#00C0C3"
+                android:text="Remover"
+                android:layout_gravity="right|center_vertical"
+
+                />
+        </FrameLayout>
     </LinearLayout>
 </ScrollView>

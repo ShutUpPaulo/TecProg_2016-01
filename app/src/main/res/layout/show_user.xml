@@ -1,87 +1,94 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mathheals.euvou.controller.user_profile.ShowUser">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
-            android:textColor = "#000000"
-            android:id="@+id/labelName"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="77dp" />
+    android:background="@color/gray_CDC9C9"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
-            android:textColor = "#000000"
-            android:id="@+id/labelBirthDate"
-            android:layout_below="@+id/labelName"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" "
-            android:textColor = "#000000"
-            android:id="@+id/labelMail"
-            android:layout_below="@+id/labelBirthDate"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Perfil do Usuário"
-            android:id="@+id/textView8"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:id="@+id/textView8" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="15dp"
             android:text="Nome:"
-            android:id="@+id/name"
-            android:layout_above="@+id/labelBirthDate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:id="@+id/name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=" "
+            android:textSize="20dp"
+            android:textColor = "#000000"
+            android:id="@+id/labelName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Data de nascimento"
             android:id="@+id/birthDateShown"
-            android:layout_alignTop="@+id/labelBirthDate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=" "
+            android:textColor = "#000000"
+            android:textSize="20dp"
+            android:id="@+id/labelBirthDate" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="E-mail"
             android:id="@+id/emailShown"
-            android:layout_below="@+id/birthDateShown"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-    </RelativeLayout>
-</FrameLayout>
+            android:layout_marginTop="20dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text=" "
+            android:textColor = "#000000"
+            android:id="@+id/labelMail" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/rate_user_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grade"
+                android:text="Sua avaliação:"
+                android:layout_marginTop="10dp"
+                />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:rating="0.0"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:visibility="invisible"
+                android:layout_marginBottom="20dp"/>
+        </LinearLayout>
+
+</LinearLayout>

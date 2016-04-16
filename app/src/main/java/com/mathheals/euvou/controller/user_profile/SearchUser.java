@@ -38,45 +38,11 @@ public class SearchUser extends ActionBarActivity implements View.OnClickListene
 
         return super.onOptionsItemSelected(item);
     }
-/*
-    public String searchUser (String nameUser)
-    {
-        UserDAO userDAO = new UserDAO(SearchUser.this);
-        String userData = userDAO.searchUserByName(nameUser);
-        JSONObject json = null;
-
-        try {
-            json = new JSONObject(userData);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String nameUserDB = json.getJSONObject("0").getString("nameUser");
-            String birthDateDB = json.getJSONObject("0").getString("birthDate");
-            String mailDB = json.getJSONObject("0").getString("email");
-
-            TextView labelname = null, labelbrithdate = null,labelMail = null;
-
-            labelname.setText(nameUserDB);
-            labelbrithdate.setText(birthDateDB);
-            labelMail.setText(mailDB);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-);
-
-
-
-        return userDAO.searchUserByName(nameUser);
-    }*/
     @Override
     public void onClick(View v) {
 
         EditText searchName = (EditText) findViewById(R.id.searchNameField);
         String searchNameStr = searchName.getText().toString();
-        //searchUser(searchNameStr);
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (v.getId())
         {
@@ -84,9 +50,6 @@ public class SearchUser extends ActionBarActivity implements View.OnClickListene
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
                 return;
-
         }
-
-
     }
 }

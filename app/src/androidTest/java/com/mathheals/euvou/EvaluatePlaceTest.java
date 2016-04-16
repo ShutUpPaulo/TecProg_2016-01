@@ -24,7 +24,7 @@ public class EvaluatePlaceTest extends TestCase {
 
         EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
         evaluatePlaceDAO.evaluatePlace(new Evaluation(ID_PLACE, ID_USER, GRADE));
-        JSONObject jsonObject = evaluatePlaceDAO.searchEvaluateByPlaceID(ID_PLACE);
+        JSONObject jsonObject = evaluatePlaceDAO.searchPlaceEvaluation(ID_PLACE, ID_USER);
 
         try {
             float grade = new Float(jsonObject.getJSONObject("0").getString("grade"));

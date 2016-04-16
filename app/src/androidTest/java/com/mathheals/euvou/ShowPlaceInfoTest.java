@@ -28,6 +28,7 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isSelected;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -78,7 +79,10 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     }
 
     public void testIfRatingBarIsAvailableForLoggedOutUser() {
-        makeUserLogOut();
+        if(isUserLoggedIn) {
+            TestUtility.makeUserLogOut();
+            isUserLoggedIn = false;
+        }
         startShowPlaceInfoForSettedUpPlace();
         try {
             Thread.sleep(1000);
@@ -90,10 +94,15 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
 
     public void testIfRatingBarIsAvailableForLoggedInUser() {
         boolean result;
-        makeUserLogIn();
+        if(!isUserLoggedIn) {
+            TestUtility.makeUserLogIn();
+            isUserLoggedIn = true;
+        }
         startShowPlaceInfoForSettedUpPlace();
-        try {
-            onView(withId(R.id.ratingBar)).perform(new SetRating());
+        try {int[] ratingNumbersForTest = new int[]{1, 3, 5};
+
+            for(Integer ratingNumber : ratingNumbersForTest)
+                onView(withId(R.id.ratingBar)).perform(new SetRating(ratingNumber));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -130,46 +139,5 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
 
     public void setIsUserLoggedIn(boolean isUserLoggedIn) {
         this.isUserLoggedIn = isUserLoggedIn;
-    }
-
-
-
-    private void makeUserLogIn() {
-        if(!isUserLoggedIn) {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Entrar")).perform(click());
-            onView(withId(R.id.usernameField)).perform(typeText("igodudu"));
-            onView(withId(R.id.passwordField)).perform(typeText("123456"));
-            onView(withText("Login")).perform(click());
-            isUserLoggedIn = true;
-        }
-    }
-
-    private void makeUserLogOut() {
-        if(isUserLoggedIn) {
-            openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-            onView(withText("Sair")).perform(click());
-            isUserLoggedIn = false;
-        }
-    }
-
-    public final class SetRating implements ViewAction {
-
-        @Override
-        public Matcher<View> getConstraints() {
-            Matcher<View> isRatingBarConstraint = isAssignableFrom(RatingBar.class);
-            return isRatingBarConstraint;
-        }
-
-        @Override
-        public String getDescription() {
-            return "Custom view action to set rating.";
-        }
-
-        @Override
-        public void perform(UiController uiController, View view) {
-            RatingBar ratingBar = (RatingBar) view;
-            ratingBar.setRating(3);
-        }
     }
 }

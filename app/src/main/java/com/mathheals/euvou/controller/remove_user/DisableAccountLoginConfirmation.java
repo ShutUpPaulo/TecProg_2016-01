@@ -58,7 +58,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         switch (view.getId()) {
             case R.id.button_back_id:
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                returnToConfigurationOptions(fragmentManager);
                 RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
                 return;
             case R.id.button_disable_account_confirmation_id:
@@ -74,6 +74,11 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                 }
                 return;
         }
+    }
+
+    private void returnToConfigurationOptions(FragmentManager fragmentManager) {
+        fragmentManager.popBackStack();
+        fragmentManager.popBackStack();
     }
 
     public boolean isLoginConfirmationValid() {
