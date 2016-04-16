@@ -42,7 +42,6 @@ public class RemoveEventControlTest extends ActivityInstrumentationTestCase2<Hom
 
     private LoginUtility isLoged;
     private TestUtility setLogin;
-    private UiDevice device;
     private User user;
     private EventDAO eventDao = new EventDAO();
 
@@ -55,7 +54,7 @@ public class RemoveEventControlTest extends ActivityInstrumentationTestCase2<Hom
         super.setUp();
         getActivity();
         isLoged = new LoginUtility(getActivity());
-        device = UiDevice.getInstance(getInstrumentation());
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
     }
 
     public void testIfRemoveEventOptionIsDisplayedForUserLoggedOut(){

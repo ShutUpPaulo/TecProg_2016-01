@@ -48,7 +48,6 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
     private static final int USER_LOGGED_OUT = -1;
 
     private boolean isUserLoggedIn;
-    private Activity activity;
     private Integer userId;
 
     public EventConsultationTest() {
@@ -58,7 +57,7 @@ public class    EventConsultationTest extends ActivityInstrumentationTestCase2<H
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        activity = getActivity();
+        Activity activity = getActivity();
         setUserId(new LoginUtility(activity).getUserId());
         setIsUserLoggedIn(getUserId() != USER_LOGGED_OUT);
     }

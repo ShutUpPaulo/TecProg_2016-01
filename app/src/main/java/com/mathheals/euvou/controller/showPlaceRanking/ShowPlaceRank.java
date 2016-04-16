@@ -27,7 +27,6 @@ import model.Place;
 public class ShowPlaceRank extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
 
     private ListView listView;
-    private JSONObject result;
     private ArrayList<Place> places;
 
     public ShowPlaceRank() {
@@ -52,7 +51,7 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
     private void fillList() {
         //try {
             int id = (new LoginUtility(getActivity())).getUserId();
-            result = new PlaceDAO(getActivity()).searchAllPlaces();
+        JSONObject result = new PlaceDAO(getActivity()).searchAllPlaces();
             places = new ArrayList<>();
             populateArrayOfPlaces(result,places);
             PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);

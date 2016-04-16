@@ -35,28 +35,16 @@ import model.EventEvaluation;
  */
 public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener {
 
-    private TextView eventCategoriesText;
     private EventDAO eventDAO;
-    private final String PRICE_COLUMN = "price";
-    private String eventPrice;
-    private TextView eventPriceText;
-    private Button showEventOnMapButton, participateButton;
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
 
     private final String GO = "#EUVOU";
-    private final String NOTGO = "#NÃOVOU";
 
-    private final String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
-
-    // fields for Event Evaluation
-    private final Integer LOGGED_OUT = -1;
     private int userId;
     private boolean isUserLoggedIn;
-    private TextView ratingMessage;
     private View showEventView;
-    private RatingBar ratingBar;
     private EventEvaluation eventEvaluation;
 
     public ShowEvent() {
@@ -69,8 +57,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                              Bundle savedInstanceState) {
 
         setShowEventView(inflater.inflate(R.layout.fragment_show_event, container, false));
-        showEventOnMapButton = (Button) showEventView.findViewById(R.id.showEventOnMapButton);
-        participateButton = (Button) showEventView.findViewById(R.id.EuVou);
+        Button showEventOnMapButton = (Button) showEventView.findViewById(R.id.showEventOnMapButton);
+        Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
         showEventOnMapButton.setOnClickListener(this);
         participateButton.setOnClickListener(this);
 
@@ -79,6 +67,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
         setUserId(new LoginUtility(getActivity()).getUserId());
+        Integer LOGGED_OUT = -1;
         if(userId == LOGGED_OUT) {
             participateButton.setVisibility(showEventView.GONE);
         }
@@ -88,6 +77,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 participateButton.setText(GO);
             }
             else{
+                String NOTGO = "#NÃOVOU";
                 participateButton.setText(NOTGO);
             }
         }
@@ -97,7 +87,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             String eventAdress = eventDATA.getJSONObject("0").getString("address");
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
+            String PRICE_COLUMN = "price";
+            String eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
             eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
@@ -105,8 +96,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             TextView dateEvent = (TextView) showEventView.findViewById(R.id.dateEvent);
             TextView description = (TextView) showEventView.findViewById(R.id.descriptionEvent);
             TextView addressShow = (TextView) showEventView.findViewById(R.id.eventPlaces);
-            eventCategoriesText = (TextView) showEventView.findViewById(R.id.eventCategories);
-            eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
+            TextView eventCategoriesText = (TextView) showEventView.findViewById(R.id.eventCategories);
+            TextView eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
             name1Event.setText(eventNameDB);
             description.setText(eventDescription);
             dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
@@ -228,7 +219,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este evento!";
         String message = isUserLoggedIn ? LOGGED_IN_MESSAGE : LOGGED_OUT_MESSAGE;
 
-        ratingMessage = (TextView) showEventView.findViewById(R.id.rate_event_text);
+        TextView ratingMessage = (TextView) showEventView.findViewById(R.id.rate_event_text);
         ratingMessage.setText(message);
     }
 
@@ -243,7 +234,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
 
     private void setRatingBar() {
-        ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
+        RatingBar ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
         ratingBar.setVisibility(View.VISIBLE);
 
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
@@ -281,6 +272,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public void setEventEvaluation(Float rating, Integer userId, Integer eventId) {
         try {
             this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
+            String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
         }catch (EventEvaluationException exception){
             if(exception.getMessage() == EventEvaluation.EVALUATION_IS_INVALID){

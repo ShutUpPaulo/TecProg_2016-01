@@ -9,10 +9,6 @@ import java.util.Calendar;
 
 public abstract class DAO {
 
-    private final String URLQUERY = "http://euvoutimedoamor.webcindario.com/query.php";
-    private final String URLCONSULT = "http://euvoutimedoamor.webcindario.com/consult.php";
-
-    private final int LIMITCONECTIONTIME = 15000;
     protected Activity currentActivity;
 
     public DAO(Activity currentActivity){
@@ -27,6 +23,7 @@ public abstract class DAO {
         consult.exec();
 
         long currentTime = Calendar.getInstance().getTime().getTime();
+        int LIMITCONECTIONTIME = 15000;
         long timeLimit = currentTime + LIMITCONECTIONTIME;
         while(!consult.getIsDoing() && currentTime < timeLimit) {
             currentTime = Calendar.getInstance().getTime().getTime();
@@ -45,6 +42,7 @@ public abstract class DAO {
         return (currentTime >= timeLimit);
     }
     protected String executeQuery(String query){
+        String URLQUERY = "http://euvoutimedoamor.webcindario.com/query.php";
         return query(query, URLQUERY);
     }
 
@@ -53,7 +51,8 @@ public abstract class DAO {
         String json;
         JSONObject jObject = null;
         try {
-            json = query(query,URLCONSULT);
+            String URLCONSULT = "http://euvoutimedoamor.webcindario.com/consult.php";
+            json = query(query, URLCONSULT);
             jObject  = new JSONObject(json);
         } catch (Exception e) {
             e.printStackTrace();

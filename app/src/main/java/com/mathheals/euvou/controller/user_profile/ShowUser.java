@@ -25,14 +25,11 @@ import model.UserEvaluation;
 
 public class ShowUser extends android.support.v4.app.Fragment {
     private UserEvaluation userEvaluation;
-    private final String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
     private RatingBar ratingBar;
     private View showUserView;
     private String userEvaluatedId;
     private int currentUserId;
     private boolean isUserLoggedIn;
-    private TextView ratingMessage;
-    private final Integer LOGGED_OUT = -1;
 
     public ShowUser()
     {
@@ -69,6 +66,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
             e.printStackTrace();
         }
 
+        Integer LOGGED_OUT = -1;
         setIsUserLoggedIn(currentUserId != LOGGED_OUT);
         setRatingMessage(isUserLoggedIn);
         setRatingBarIfNeeded();
@@ -85,7 +83,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
         final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
         String message = isUserLoggedIn ? LOGGED_IN_MESSAGE : LOGGED_OUT_MESSAGE;
 
-        ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
+        TextView ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
         ratingMessage.setText(message);
     }
 
@@ -141,6 +139,7 @@ public class ShowUser extends android.support.v4.app.Fragment {
     public void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId) {
         try {
             this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
+            String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
         }
         catch (UserEvaluationException exception){

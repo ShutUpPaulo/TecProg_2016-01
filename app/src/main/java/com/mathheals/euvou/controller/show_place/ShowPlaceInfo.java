@@ -29,7 +29,6 @@ import model.Place;
 
 public class ShowPlaceInfo extends FragmentActivity {
 
-    private final Integer LOGGED_OUT = -1;
     protected GoogleMap mMap;
 
     private String name;
@@ -42,17 +41,10 @@ public class ShowPlaceInfo extends FragmentActivity {
     private float grade;
     private int idPlace;
 
-    private TextView addressText;
-    private TextView operationText;
-    private TextView phoneText;
-    private TextView descriptionText;
-    private TextView gradeText;
-
     private Button showMapButton;
     private Button hideMapButton;
     private SupportMapFragment mMapFragment;
 
-    private TextView ratingMessage;
     private RatingBar ratingBar;
     private Integer userId;
     private boolean isUserLoggedIn;
@@ -68,6 +60,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setHideMapButton((Button) findViewById(R.id.button_hide_map));
 
         setUserId(new LoginUtility(this).getUserId());
+        Integer LOGGED_OUT = -1;
         setIsUserLoggedIn(userId != LOGGED_OUT);
 
         setPlaceInfo();
@@ -209,31 +202,31 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setAddressText(String adressText) {
-        this.addressText = (TextView) findViewById(R.id.address_text);
-        this.addressText.setText(adressText);
-        this.addressText.setMovementMethod(new ScrollingMovementMethod());
+        TextView addressText = (TextView) findViewById(R.id.address_text);
+        addressText.setText(adressText);
+        addressText.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setOperationText(String operationText) {
-        this.operationText = (TextView) findViewById(R.id.operation_text);
-        this.operationText.setText(operationText);
-        this.operationText.setMovementMethod(new ScrollingMovementMethod());
+        TextView operationText1 = (TextView) findViewById(R.id.operation_text);
+        operationText1.setText(operationText);
+        operationText1.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setPhoneText(String phoneText) {
-        this.phoneText = (TextView) findViewById(R.id.phone_text);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.phoneText.setText(phoneText);
+        TextView phoneText1 = (TextView) findViewById(R.id.phone_text);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   phoneText1.setText(phoneText);
     }
 
     private void setGradeText(String gradeText) {
-        this.gradeText = (TextView) findViewById(R.id.grade_text);
-        this.gradeText.setText(gradeText);
+        TextView gradeText1 = (TextView) findViewById(R.id.grade_text);
+        gradeText1.setText(gradeText);
     }
 
     private void setDescriptionText(String descriptionText) {
-        this.descriptionText = (TextView) findViewById(R.id.description_text);
-        this.descriptionText.setText(descriptionText);
-        this.descriptionText.setMovementMethod(new ScrollingMovementMethod());
+        TextView descriptionText1 = (TextView) findViewById(R.id.description_text);
+        descriptionText1.setText(descriptionText);
+        descriptionText1.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setAllTextViews() {
@@ -254,7 +247,7 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setRatingMessage(boolean isUserLoggedIn) {
         String message = isUserLoggedIn ? "Sua avaliação:" : "Faça login para avaliar!";
-        ratingMessage = (TextView) findViewById(R.id.rate_it_text);
+        TextView ratingMessage = (TextView) findViewById(R.id.rate_it_text);
         ratingMessage.setText(message);
     }
 

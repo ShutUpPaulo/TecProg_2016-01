@@ -23,7 +23,6 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private boolean isUsernameValid;
     private boolean isPasswordValid;
     private ActionBar actionBar;
 
@@ -84,9 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         LoginValidation loginValidation = new LoginValidation(LoginActivity.this);
 
-        isUsernameValid=loginValidation.isUsernameValid(typedUsername);
+        boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
 
-        if(isUsernameValid==false || !loginValidation.isActivity(typedUsername)){
+        if(isUsernameValid ==false || !loginValidation.isActivity(typedUsername)){
             usernameField.requestFocus();
             usernameField.setError(loginValidation.getInvalidUsernameMessage());
         }else{

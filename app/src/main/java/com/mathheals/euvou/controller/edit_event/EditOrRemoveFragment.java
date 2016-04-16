@@ -30,7 +30,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     }
 
     public Event evento;
-    private TextView eventCategoriesText, eventPriceText;
+    private TextView eventPriceText;
     private ShowEvent showEvent = new ShowEvent();
 
     @Override
@@ -52,7 +52,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
         TextView eventAddres = (TextView) view.findViewById(R.id.eventPlaces);
         TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
-        eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
+        TextView eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
         name1Event.setText(eventName);
         description.setText(eventDescription);
         dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));

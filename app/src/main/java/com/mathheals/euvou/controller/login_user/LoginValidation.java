@@ -11,10 +11,7 @@ import dao.UserDAO;
  * Created by igor on 29/09/15.
  */
 public class LoginValidation {
-    private final String INVALID_USERNAME_MESSAGE = "Ops, acho que você digitou o login errado";
-    private final String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
     private final String JSON_FORMAT = "0";
-    private final String PASSWORD_USER = "passwordUser";
     private static final String COLUMN_USER_STATE = "isActivity";
     Activity activity;
 
@@ -75,6 +72,7 @@ public class LoginValidation {
         JSONObject json = userDAO.searchUserByUsername(validUsername);
 
         try {
+            String PASSWORD_USER = "passwordUser";
             String password = json.getJSONObject(JSON_FORMAT).getString(PASSWORD_USER);
 
             if(password.equals(passwordTyped)){
@@ -90,10 +88,12 @@ public class LoginValidation {
     }
 
     public String getInvalidUsernameMessage() {
+        String INVALID_USERNAME_MESSAGE = "Ops, acho que você digitou o login errado";
         return INVALID_USERNAME_MESSAGE;
     }
 
     public String getInvalidPasswordMessage() {
+        String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
         return INVALID_PASSWORD_MESSAGE;
     }
 

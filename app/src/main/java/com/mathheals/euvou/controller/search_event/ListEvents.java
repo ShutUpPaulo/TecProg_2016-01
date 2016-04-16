@@ -38,7 +38,6 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
 
     private ListView listView;
     private Vector<Event> events;
-    private  Event clicado;
 
     public ListEvents() {
         // Required empty public constructor
@@ -105,7 +104,7 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        clicado = events.get(position);
+        Event clicado = events.get(position);
         EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
         editOrRemoveFragment.evento = clicado;
         fragmentTransaction.replace(R.id.content_frame, editOrRemoveFragment);

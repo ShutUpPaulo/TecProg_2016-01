@@ -28,7 +28,6 @@ public class Consult {
     private String result;
     private boolean isDoing;
     private String query;
-    private final String PARAM = "query";
 
     public Consult(String query, String url)
     {
@@ -79,6 +78,7 @@ public class Consult {
                 HttpPost post = new HttpPost(url);
 
                 List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+                String PARAM = "query";
                 pairs.add(new BasicNameValuePair(PARAM, query));
 
                 post.setEntity(new UrlEncodedFormEntity(pairs));

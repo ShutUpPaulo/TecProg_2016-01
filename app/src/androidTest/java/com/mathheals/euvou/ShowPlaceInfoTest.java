@@ -46,7 +46,6 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     private static final int USER_LOGGED_OUT = -1;
     private UiDevice device;
     private boolean isUserLoggedIn;
-    private Activity activity;
 
     public ShowPlaceInfoTest() {
         super(HomePage.class);
@@ -55,7 +54,7 @@ public class ShowPlaceInfoTest extends ActivityInstrumentationTestCase2<HomePage
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        activity = getActivity();
+        Activity activity = getActivity();
         setIsUserLoggedIn(new LoginUtility(activity).getUserId() != USER_LOGGED_OUT);
         device = UiDevice.getInstance(getInstrumentation());
     }

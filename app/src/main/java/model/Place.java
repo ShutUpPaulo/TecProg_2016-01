@@ -9,11 +9,6 @@ import exception.PlaceException;
  */
 public class Place {
 
-    private final String INVALID_NAME = "Hey, nome invalido";
-    private final String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
-    private final String INVALID_LONGITUDE= "Hey, sem a longitude não é possível encontrar o lugar";
-    private final String INVALID_COMMENT= "Hey, o comentario não pode ser vazio";
-
     private int id;
     private String name;
     private ArrayList<String> comment;
@@ -60,6 +55,7 @@ public class Place {
     }
 
     private void setName(String name) throws PlaceException {
+        String INVALID_NAME = "Hey, nome invalido";
         if(name.isEmpty()) throw new PlaceException(INVALID_NAME);
         this.name = name;
     }
@@ -69,6 +65,7 @@ public class Place {
     }
 
     public void addComment(String comment) throws PlaceException {
+        String INVALID_COMMENT = "Hey, o comentario não pode ser vazio";
         if(comment == null)
             throw new PlaceException(INVALID_COMMENT);
         if(comment.isEmpty())
@@ -89,11 +86,13 @@ public class Place {
     }
 
     private void setLatitude(String latitude) throws ParseException, PlaceException{
+        String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
         if(latitude.isEmpty()) throw new PlaceException(INVALID_LATITUDE);
         this.latitude = Double.parseDouble(latitude);
     }
 
     private void setLongitude(String longitude) throws ParseException, PlaceException {
+        String INVALID_LONGITUDE = "Hey, sem a longitude não é possível encontrar o lugar";
         if(longitude.isEmpty()) throw new PlaceException(INVALID_LONGITUDE);
         this.longitude = Double.parseDouble(longitude);
     }
