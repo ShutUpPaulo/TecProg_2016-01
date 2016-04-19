@@ -26,8 +26,8 @@ public class PlaceDAO extends DAO{
 
         final String QUERY = "SELECT * FROM vw_place ORDER BY evaluate DESC";
 
-        JSONObject searchAllPlacesQueryResult = this.executeConsult(QUERY)
-                ;
+        JSONObject searchAllPlacesQueryResult = this.executeConsult(QUERY);
+
         return searchAllPlacesQueryResult;
     }
 
