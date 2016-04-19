@@ -1,31 +1,29 @@
 package dao;
 
-import android.app.Activity;
-
 import org.json.JSONObject;
 
 import model.UserEvaluation;
 
-/**
- * Created by igor on 20/11/15.
- */
 public class UserEvaluationDAO extends DAO{
-    public UserEvaluationDAO() {}
 
-    public UserEvaluationDAO(Activity activity) {
-        super(activity);
+    public UserEvaluationDAO(){
+
     }
 
-    public void evaluateUser(UserEvaluation evaluation) {
+    public void evaluateUser(UserEvaluation evaluation){
+
+        JSONObject findEvaluation = searchUserEvaluation(evaluation.getUserEvaluatedId(),
+                evaluation.getUserId());
+
         final String QUERY;
 
-        JSONObject findEvaluation = searchUserEvaluation(evaluation.getUserEvaluatedId(), evaluation.getUserId());
-
-        if(findEvaluation==null) {
-            QUERY = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (\"" + evaluation.getRating() + "\"," +
+        if(findEvaluation==null){
+            QUERY = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
+                    "\"" + evaluation.getRating() + "\"," +
                     "\"" + evaluation.getUserId() + "\"," +
                     "\"" + evaluation.getUserEvaluatedId() + "\")";
-        }else{
+        }
+        else{
             QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getRating() + "\" " +
                     "WHERE idUserEvaluated = \"" + evaluation.getUserEvaluatedId() + "\" " +
                     "AND idUser = \"" + evaluation.getUserId() + "\"";
@@ -34,9 +32,10 @@ public class UserEvaluationDAO extends DAO{
         executeQuery(QUERY);
     }
 
-    public JSONObject searchUserEvaluation(int userEvaluatedtId, int userId) {
+    public JSONObject searchUserEvaluation(int userEvaluatedtId, int userId){
         final String QUERY = "SELECT * FROM evaluate_user WHERE idUser = \"" + userId
                 + "\" AND idUserEvaluated = " + userEvaluatedtId;
+
         return executeConsult(QUERY);
     }
 }
