@@ -9,7 +9,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:background="@color/gray_CDC9C9"
+        android:background="#FFF"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:orientation="vertical"
         android:gravity="center_vertical"
@@ -204,9 +204,13 @@
         <Button
             android:id="@+id/eventLocal"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="30dp"
             android:singleLine="true"
-            android:text="Selecionar Local do evento" />
+            android:text="Selecionar Local do evento"
+            android:textColor="@color/DarkCyan"
+            android:background="@drawable/button_border"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:text="Descriçao do Evento"
