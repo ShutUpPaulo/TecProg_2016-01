@@ -22,13 +22,21 @@ public class PlaceDAO extends DAO{
         return placeByPartNameQueryResult;
     }
 
-    public JSONObject searchAllPlaces()
-    {
-        return this.executeConsult("SELECT * FROM vw_place ORDER BY evaluate DESC");
+    public JSONObject searchAllPlaces(){
+
+        final String QUERY = "SELECT * FROM vw_place ORDER BY evaluate DESC";
+
+        JSONObject searchAllPlacesQueryResult = this.executeConsult(QUERY)
+                ;
+        return searchAllPlacesQueryResult;
     }
 
-    public JSONObject searchTop5Places()
-    {
-        return this.executeConsult("SELECT * FROM vw_place ORDER BY evaluate DESC LIMIT 5");
+    public JSONObject searchTop5Places(){
+
+        final String QUERY = "SELECT * FROM vw_place ORDER BY evaluate DESC LIMIT 5";
+
+        JSONObject searchTop5PlacesQueryResult =  this.executeConsult(QUERY);
+
+        return searchTop5PlacesQueryResult;
     }
 }
