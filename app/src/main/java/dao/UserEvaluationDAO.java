@@ -17,16 +17,16 @@ public class UserEvaluationDAO extends DAO{
 
         final String QUERY;
 
-        if(findEvaluation==null){
+        if(findEvaluation!=null){
+            QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getRating() + "\" " +
+                    "WHERE idUserEvaluated = \"" + evaluation.getUserEvaluatedId() + "\" " +
+                    "AND idUser = \"" + evaluation.getUserId() + "\"";
+        }
+        else{
             QUERY = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
                     "\"" + evaluation.getRating() + "\"," +
                     "\"" + evaluation.getUserId() + "\"," +
                     "\"" + evaluation.getUserEvaluatedId() + "\")";
-        }
-        else{
-            QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getRating() + "\" " +
-                    "WHERE idUserEvaluated = \"" + evaluation.getUserEvaluatedId() + "\" " +
-                    "AND idUser = \"" + evaluation.getUserId() + "\"";
         }
 
         executeQuery(QUERY);
