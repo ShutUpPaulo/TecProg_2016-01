@@ -10,13 +10,10 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import dao.UserDAO;
 import dao.UserEvaluationDAO;
 import exception.UserEvaluationException;
