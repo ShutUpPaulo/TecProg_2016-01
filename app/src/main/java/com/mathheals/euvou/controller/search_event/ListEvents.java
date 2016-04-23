@@ -1,8 +1,5 @@
 package com.mathheals.euvou.controller.search_event;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -55,11 +52,11 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         // Inflate the layout for this fragment
         listView = (ListView) view.findViewById(R.id.eventList);
         listView.setOnItemClickListener(this);
-        populaList();
+        populateList();
         return view;
     }
 
-    private void populaList() {
+    private void populateList() {
         try {
             int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
             events = new EventDAO(getActivity()).searchEventByOwner(idUserLoggedIn);
