@@ -51,18 +51,18 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vw = inflater.inflate(R.layout.fragment_list_events, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_events, container, false);
         // Inflate the layout for this fragment
-        listView = (ListView) vw.findViewById(R.id.eventList);
+        listView = (ListView) view.findViewById(R.id.eventList);
         listView.setOnItemClickListener(this);
         populaList();
-        return vw;
+        return view;
     }
 
     private void populaList() {
         try {
-            int id = (new LoginUtility(getActivity())).getUserId();
-            events = new EventDAO(getActivity()).searchEventByOwner(id);
+            int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
+            events = new EventDAO(getActivity()).searchEventByOwner(idUserLoggedIn);
             if(events==null){
                 Toast.makeText(getContext(), "Você ainda não criou nenhum evento, que tal criar um agora?", Toast.LENGTH_LONG).show();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -73,8 +73,8 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
             else {
                 List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
 
-                for (Event e : events)
-                    eventList.add(createEvent("Nome", e.getNameEvent()));
+                for (Event event : events)
+                    eventList.add(createEvent("Nome", event.getNameEvent()));
 
                 SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
                         android.R.layout.simple_list_item_1,
@@ -102,11 +102,11 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int positionEvent, long id) {
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Event clicado = events.get(position);
+        Event eventClicked = events.get(positionEvent);
         EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
-        editOrRemoveFragment.evento = clicado;
+        editOrRemoveFragment.evento = eventClicked;
         fragmentTransaction.replace(R.id.content_frame, editOrRemoveFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
