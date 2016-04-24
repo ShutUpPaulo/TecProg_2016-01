@@ -50,29 +50,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        // Handle action bar menuItem clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int itemId = menuItem.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (itemId == R.id.action_settings) {
             return true;
         }else{
             //Nothing to do
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(menuItem);
     }
 
     private void onConfigActionBar(){
-
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
-
     }
 
     @Override
@@ -105,13 +103,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             LoginUtility loginUtility = new LoginUtility(LoginActivity.this);
 
             try {
-                int idUser = loginUtility.getUserId(typedUsername);
-                loginUtility.setUserLogIn(idUser);
-                Intent i = new Intent(this, HomePage.class);
+                int idUserLoggedIn = loginUtility.getUserId(typedUsername);
+                loginUtility.setUserLogIn(idUserLoggedIn);
+                Intent intent = new Intent(this, HomePage.class);
                 finish();
-                startActivityForResult(i, 1);
-            } catch (JSONException e) {
-                e.printStackTrace();
+                startActivityForResult(intent, 1);
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
             }
 
         }else{
