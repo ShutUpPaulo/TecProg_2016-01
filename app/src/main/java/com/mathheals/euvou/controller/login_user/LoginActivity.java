@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else{
+            //Nothing to do
         }
 
         return super.onOptionsItemSelected(item);
@@ -94,6 +96,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(isPasswordValid==false){
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
+            }else{
+                //Nothing to do
             }
         }
 
@@ -110,6 +114,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 e.printStackTrace();
             }
 
+        }else{
+            //Nothing to do
         }
     }
 }
