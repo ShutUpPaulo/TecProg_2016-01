@@ -15,6 +15,8 @@ public class PlaceDAO extends DAO{
 
     public JSONObject searchPlaceByPartName(String name){
 
+        assert name.isEmpty() == false;
+
         final String QUERY = "SELECT * FROM vw_place WHERE namePlace LIKE '%" + name + "%'";
 
         JSONObject placeByPartNameQueryResult = this.executeConsult(QUERY);

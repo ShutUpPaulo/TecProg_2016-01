@@ -40,6 +40,12 @@ public class UserEvaluationDAO extends DAO{
     }
 
     public JSONObject searchUserEvaluation(int userEvaluatedtId, int userId){
+
+        assert userEvaluatedtId >= 1;
+        assert userEvaluatedtId <= Integer.MAX_VALUE;
+        assert userId >= 1;
+        assert userId <=Integer.MAX_VALUE;
+
         final String QUERY = "SELECT * FROM evaluate_user WHERE idUser = \"" + userId
                 + "\" AND idUserEvaluated = " + userEvaluatedtId;
 
