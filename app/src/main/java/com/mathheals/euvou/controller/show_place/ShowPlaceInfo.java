@@ -73,8 +73,11 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setRatingBarIfNeeded() {
-        if(isUserLoggedIn)
+        if(isUserLoggedIn) {
             setRatingBar();
+        }else{
+            //nothing to do
+        }
     }
 
     private void setRatingBar() {
@@ -105,7 +108,11 @@ public class ShowPlaceInfo extends FragmentActivity {
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
+            }else{
+                //nothing to do
             }
+        }else{
+            //nothing to do
         }
     }
     
@@ -137,6 +144,9 @@ public class ShowPlaceInfo extends FragmentActivity {
                 hideMapButton.setVisibility(View.GONE);
                 showMapButton.setVisibility(View.VISIBLE);
                 mMapFragment.getView().setVisibility(View.GONE);
+                break;
+            default:
+                //nothing to do
                 break;
         }
     }
