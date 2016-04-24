@@ -34,6 +34,8 @@ public abstract class DAO {
         if(limitExceded(timeLimit,currentTime)) {
             Toast.makeText(currentActivity,"Problema de conexão com o servidor (verifique se esta conectado a internet)", Toast.LENGTH_LONG).show();
             return null;
+        }else{
+            //nothing to do
         }
 
 
@@ -45,6 +47,8 @@ public abstract class DAO {
 
         if(currentTime >= timeLimit) {
             isLimitExceded = true;
+        }else{
+            //nothing to do
         }
 
         return isLimitExceded;
