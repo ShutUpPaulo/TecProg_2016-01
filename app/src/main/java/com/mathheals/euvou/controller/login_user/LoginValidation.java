@@ -22,11 +22,11 @@ public class LoginValidation {
     public LoginValidation(){}
 
     private boolean checkUsernameCharacters(String username){
-        if(username.isEmpty())
+        if(username.isEmpty()==false && username.contains(" ")==false){
+            return true;
+        }else{
             return false;
-        if(username.contains(" "))
-            return false;
-        return true;
+        }
     }
 
     public boolean isActivity(String username){
