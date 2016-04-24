@@ -12,6 +12,13 @@ public class UserEvaluationDAO extends DAO{
 
     public void evaluateUser(UserEvaluation evaluation){
 
+        assert evaluation.getUserEvaluatedId() >=1;
+        assert evaluation.getUserId() >=1;
+        assert evaluation.getUserEvaluatedId() <= Integer.MAX_VALUE;
+        assert evaluation.getUserId() <= Integer.MAX_VALUE;
+        assert evaluation.getRating() >= 0F;
+        assert evaluation.getRating() <= 5F;
+
         JSONObject findEvaluation = searchUserEvaluation(evaluation.getUserEvaluatedId(),
                 evaluation.getUserId());
 
