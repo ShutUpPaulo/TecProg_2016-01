@@ -12,28 +12,28 @@ public class UserEvaluationDAO extends DAO{
 
     public void evaluateUser(UserEvaluation evaluation){
 
-        assert evaluation.getUserEvaluatedId() >=1;
-        assert evaluation.getUserId() >=1;
-        assert evaluation.getUserEvaluatedId() <= Integer.MAX_VALUE;
-        assert evaluation.getUserId() <= Integer.MAX_VALUE;
-        assert evaluation.getRating() >= 0F;
-        assert evaluation.getRating() <= 5F;
+        assert evaluation.getIdUserEvaluated() >=1;
+        assert evaluation.getIdUserLoggedIn() >=1;
+        assert evaluation.getIdUserEvaluated() <= Integer.MAX_VALUE;
+        assert evaluation.getIdUserLoggedIn() <= Integer.MAX_VALUE;
+        assert evaluation.getUserRating() >= 0F;
+        assert evaluation.getUserRating() <= 5F;
 
-        JSONObject findEvaluation = searchUserEvaluation(evaluation.getUserEvaluatedId(),
-                evaluation.getUserId());
+        JSONObject findEvaluation = searchUserEvaluation(evaluation.getIdUserEvaluated(),
+                evaluation.getIdUserLoggedIn());
 
         final String QUERY;
 
         if(findEvaluation!=null){
-            QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getRating() + "\" " +
-                    "WHERE idUserEvaluated = \"" + evaluation.getUserEvaluatedId() + "\" " +
-                    "AND idUser = \"" + evaluation.getUserId() + "\"";
+            QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getUserRating() + "\" " +
+                    "WHERE idUserEvaluated = \"" + evaluation.getIdUserEvaluated() + "\" " +
+                    "AND idUser = \"" + evaluation.getIdUserLoggedIn() + "\"";
         }
         else{
             QUERY = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
-                    "\"" + evaluation.getRating() + "\"," +
-                    "\"" + evaluation.getUserId() + "\"," +
-                    "\"" + evaluation.getUserEvaluatedId() + "\")";
+                    "\"" + evaluation.getUserRating() + "\"," +
+                    "\"" + evaluation.getIdUserLoggedIn() + "\"," +
+                    "\"" + evaluation.getIdUserEvaluated() + "\")";
         }
 
         executeQuery(QUERY);
