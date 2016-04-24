@@ -13,6 +13,9 @@ public class EventCategoryDAO extends DAO{
 
     public JSONObject searchCategoriesByEventId(int idEvent){
 
+        assert idEvent >= 1;
+        assert idEvent <= Integer.MAX_VALUE;
+
         final String QUERY = "SELECT idCategory FROM event_category WHERE idEvent = " + idEvent;
 
         JSONObject eventCategoriesQueryResult = this.executeConsult(QUERY);
