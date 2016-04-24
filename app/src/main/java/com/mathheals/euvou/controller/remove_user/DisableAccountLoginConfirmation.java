@@ -61,6 +61,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                 returnToConfigurationOptions(fragmentManager);
                 RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
                 return;
+
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
                     LoginUtility loginUtility = new LoginUtility(homePage);
@@ -71,7 +72,14 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
 
                     ActivityUtility.restartActivity(homePage);
                     RemoveUserVIewMessages.showAccountDeactivateMessage(homePage.getBaseContext());
+                }else{
+                    //nothing to do
                 }
+                break;
+
+            default:
+                //nothing to do
+                break;
         }
     }
 
@@ -103,8 +111,9 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
             }
-            else
+            else{
                 return true;
+            }
         }
         return false;
     }
