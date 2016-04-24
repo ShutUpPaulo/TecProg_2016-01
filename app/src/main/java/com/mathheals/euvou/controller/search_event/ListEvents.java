@@ -1,8 +1,5 @@
 package com.mathheals.euvou.controller.search_event;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -55,22 +52,27 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         // Inflate the layout for this fragment
         listView = (ListView) view.findViewById(R.id.eventList);
         listView.setOnItemClickListener(this);
-        populaList();
+        populateList();
         return view;
     }
 
-    private void populaList() {
+    private void populateList() {
         try {
             int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
             events = new EventDAO(getActivity()).searchEventByOwner(idUserLoggedIn);
-            if(events==null){
-                Toast.makeText(getContext(), "Você ainda não criou nenhum evento, que tal criar um agora?", Toast.LENGTH_LONG).show();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-            else {
+
+            if(events!=null){
+                List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
+
+                for (Event event : events)
+                    eventList.add(createEvent("Nome", event.getNameEvent()));
+
+                SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
+                        android.R.layout.simple_list_item_1,
+                        new String[]{"Nome"}, new int[]{android.R.id.text1});
+
+                listView.setAdapter(simpleAdapter);
+            }else{
                 List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
 
                 for (Event event : events)
