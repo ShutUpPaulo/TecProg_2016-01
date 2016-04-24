@@ -87,21 +87,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
 
-        if(isUsernameValid ==false || !loginValidation.isActivity(typedUsername)){
-            usernameField.requestFocus();
-            usernameField.setError(loginValidation.getInvalidUsernameMessage());
-        }else{
+        if(isUsernameValid == true && loginValidation.isActivity(typedUsername) == true){
             isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
 
-            if(isPasswordValid==false){
+            if(isPasswordValid == true){
+                //Nothing to do
+            }else{
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
-            }else{
-                //Nothing to do
             }
+        }else{
+            usernameField.requestFocus();
+            usernameField.setError(loginValidation.getInvalidUsernameMessage());
         }
 
-        if(isUsernameValid && isPasswordValid){
+        if(isUsernameValid == true && isPasswordValid == true){
             LoginUtility loginUtility = new LoginUtility(LoginActivity.this);
 
             try {
