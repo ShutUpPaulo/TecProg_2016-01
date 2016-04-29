@@ -11,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mathheals.euvou.R;
-import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.login_user.LoginValidation;
 import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
@@ -67,7 +65,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                     LoginUtility loginUtility = new LoginUtility(homePage);
                     UserDAO userDAO = new UserDAO(getActivity());
 
-                    userDAO.disableUser(new LoginUtility(homePage).getUserId());
+                    userDAO.disableUserById(new LoginUtility(homePage).getUserId());
                     loginUtility.setUserLogOff();
 
                     ActivityUtility.restartActivity(homePage);

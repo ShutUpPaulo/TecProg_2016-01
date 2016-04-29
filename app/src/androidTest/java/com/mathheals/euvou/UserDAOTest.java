@@ -4,19 +4,11 @@ package com.mathheals.euvou;
  * Created by igor on 01/10/15.
  */
 
-import com.mathheals.euvou.controller.utility.LoginUtility;
-
-import android.app.Activity;
-
-import com.mathheals.euvou.controller.utility.LoginUtility;
-
 import junit.framework.TestCase;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
-import java.util.Random;
 
 import dao.UserDAO;
 import exception.UserException;
@@ -88,7 +80,7 @@ public class UserDAOTest extends TestCase {
             userDAO.delete("umteste");
         }
         int id = userDAO.searchUserByUsername("umteste").getJSONObject("0").getInt("idUser");
-        assertTrue(userDAO.disableUser(id).contains("Salvo"));
+        assertTrue(userDAO.disableUserById(id).contains("Salvo"));
         userDAO.delete("umteste");
 
     }

@@ -1,24 +1,27 @@
-package dao;
-import android.app.Activity;
+/**
+ * File: UserDAO.java
+ * Purpose: manage the users data at database, searching, updating amd deleting when is needed.
+ */
 
+package dao;
+
+import android.app.Activity;
 import org.json.JSONObject;
 import model.User;
 
-/**
- * Created by emilie on 10/09/15.
- */
 public class UserDAO extends DAO{
 
-    public UserDAO(Activity currentActivity) {
+    public UserDAO(Activity currentActivity){
         super(currentActivity);
     }
 
     public UserDAO(){}
 
-    public String save(User user) {
-        return this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate, email)VALUES" +
-                "(\"" + user.getName() + "\", \"" + user.getUsername() + "\", \"" + user.getPassword() + "\"," +
-                " STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'),\"" + user.getEmail() + "\")");
+    public String save(User user){
+        return this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate +" +
+                " email)VALUES" + "(\"" + user.getName() + "\", \"" + user.getUsername() + "\", \""
+                + user.getPassword() + "\"," + " STR_TO_DATE(\"" + user.getBirthDate() +
+                "\",'%d/%m/%Y'),\"" + user.getEmail() + "\")");
     }
 
     public String searchUserById(int idUser){
@@ -26,6 +29,7 @@ public class UserDAO extends DAO{
     }
 
     //This method is just used on the tests
+
     public String delete(String username){
         return this.executeQuery("DELETE FROM tb_user WHERE login=\"" + username + "\"");
     }
@@ -41,7 +45,7 @@ public class UserDAO extends DAO{
                 " WHERE idUser=\""+user.getIdUser()+"\"");
     }
 
-    public String disableUser(int idUser){
+    public String disableUserById(int idUser){
         return this.executeQuery("UPDATE tb_user SET isActivity=\"N\" WHERE idUser=" +idUser+ "");
     }
 
