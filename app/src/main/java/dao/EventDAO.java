@@ -58,7 +58,7 @@ public class EventDAO extends DAO {
                 "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", " +
                 " "+" latitude=\""+event.getLatitude()+ "\" WHERE idEvent = " + event.getIdEvent());
 
-        executeQuery("delete from event_category where idEvent ="+event.getIdEvent());
+        executeQuery("deleteById from event_category where idEvent ="+event.getIdEvent());
 
         for (String category : event.getCategory()) {
             String query = "INSERT INTO event_category VALUES("+event.getIdEvent() +","

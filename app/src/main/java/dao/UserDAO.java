@@ -17,7 +17,7 @@ public class UserDAO extends DAO{
 
     public UserDAO(){}
 
-    public String save(User user){
+    public String saveUser(User user){
         return this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate +" +
                 " email)VALUES" + "(\"" + user.getName() + "\", \"" + user.getUsername() + "\", \""
                 + user.getPassword() + "\"," + " STR_TO_DATE(\"" + user.getBirthDate() +
@@ -30,15 +30,16 @@ public class UserDAO extends DAO{
 
     //This method is just used on the tests
 
-    public String delete(String username){
+    public String deleteByUsername(String username){
         return this.executeQuery("DELETE FROM tb_user WHERE login=\"" + username + "\"");
     }
 
-    public String delete(int idUser){
+    public String deleteById(int idUser){
         return this.executeQuery("DELETE FROM tb_user WHERE idUser=\"" +idUser+ "\"");
     }
 
     public String update(User user){
+
         return this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", " +
                 "birthDate=STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'), " +
                 "email=\""+user.getEmail()+"\", passwordUser=\"" + user.getPassword() + "\"" +
