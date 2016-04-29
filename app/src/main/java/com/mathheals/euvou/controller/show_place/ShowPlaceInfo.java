@@ -29,27 +29,29 @@ import model.Place;
 
 public class ShowPlaceInfo extends FragmentActivity {
 
-    private GoogleMap mMap;
+    private static final String STRING_EMPTY = "";
 
-    private String name;
-    private String phone;
-    private String operation;
-    private String description;
-    private double longitude;
-    private double latitude;
-    private String address;
-    private float grade;
-    private int idPlace;
+    private GoogleMap mMap = null;
 
-    private Button showMapButton;
-    private Button hideMapButton;
-    private SupportMapFragment mMapFragment;
+    private String name = STRING_EMPTY;
+    private String phone = STRING_EMPTY;
+    private String operation = STRING_EMPTY;
+    private String description = STRING_EMPTY;
+    private double longitude = 0.0;
+    private double latitude = 0.0;
+    private String address = STRING_EMPTY;
+    private float grade = 0.0f;
+    private int idPlace = 0;
 
-    private RatingBar ratingBar;
-    private Integer userId;
-    private boolean isUserLoggedIn;
+    private Button showMapButton = null;
+    private Button hideMapButton = null;
+    private SupportMapFragment mMapFragment = null;
 
-    private Evaluation ratingEvaluation;
+    private RatingBar ratingBar = null;
+    private Integer userId = 0;
+    private boolean isUserLoggedIn = false;
+
+    private Evaluation ratingEvaluation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,14 +98,16 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setRatingBarStyle() {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(),
+                R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
 
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMapFragment = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_show_place_info_map));
+            mMapFragment = ((SupportMapFragment)getSupportFragmentManager().
+                    findFragmentById(R.id.fragment_show_place_info_map));
             mMap = mMapFragment.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
@@ -115,7 +119,7 @@ public class ShowPlaceInfo extends FragmentActivity {
             //nothing to do
         }
     }
-    
+
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(getLatitude(), getLongitude()), 9));
@@ -169,6 +173,7 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setAddress(String address) {
         this.address = address;
+
     }
 
     private String getAddress() {
