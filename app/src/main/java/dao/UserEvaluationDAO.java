@@ -28,16 +28,18 @@ public class UserEvaluationDAO extends DAO{
 
         String query;
 
-        if(userEvaluationInDataBase!=null){
-            query = "UPDATE evaluate_user SET grade = \"" +evaluation.getUserRating() + "\" " +
-                    "WHERE idUserEvaluated = \"" + evaluation.getIdUserEvaluated() + "\" " +
-                    "AND idUser = \"" + evaluation.getIdUserLoggedIn() + "\"";
-        }
-        else{
+        //The main flow is the user doesn't have an evaluation
+        if(userEvaluationInDataBase==null){
             query = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
                     "\"" + evaluation.getUserRating() + "\"," +
                     "\"" + evaluation.getIdUserLoggedIn() + "\"," +
                     "\"" + evaluation.getIdUserEvaluated() + "\")";
+        }
+        else{
+            query = "UPDATE evaluate_user SET grade = \"" +evaluation.getUserRating() + "\" " +
+                    "WHERE idUserEvaluated = \"" + evaluation.getIdUserEvaluated() + "\" " +
+                    "AND idUser = \"" + evaluation.getIdUserLoggedIn() + "\"";
+
         }
 
         executeQuery(query);
