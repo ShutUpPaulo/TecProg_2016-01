@@ -1,7 +1,11 @@
+/**
+ * File: PlaceDAO.java
+ * Purpose: Establish communication with the database to send and receive data of Brasilia's places
+ */
+
 package dao;
 
 import android.support.v4.app.FragmentActivity;
-
 import org.json.JSONObject;
 
 public class PlaceDAO extends DAO{

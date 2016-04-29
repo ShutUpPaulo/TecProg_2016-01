@@ -1,9 +1,12 @@
+/**
+ * File: EventCategoryDAO.java
+ * Purpose: Establish communication with the database to send and receive the event categories
+ */
+
 package dao;
 
 import android.app.Activity;
-
 import org.json.JSONObject;
-
 
 public class EventCategoryDAO extends DAO{
 

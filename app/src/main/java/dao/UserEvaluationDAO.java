@@ -1,7 +1,11 @@
+/**
+ * File: UserEvaluationDAO.java
+ * Purpose: Establish communication with the database to send and receive the user evaluation
+ */
+
 package dao;
 
 import org.json.JSONObject;
-
 import model.UserEvaluation;
 
 public class UserEvaluationDAO extends DAO{
