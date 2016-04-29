@@ -18,6 +18,12 @@ public class UserDAO extends DAO{
     public UserDAO(){}
 
     public String saveUser(User user){
+
+        assert user.getName() != null;
+        assert user.getPassword() != null;
+        assert user.getIdUser() >= 1;
+        assert user.getIdUser() <=Integer.MAX_VALUE;
+
         return this.executeQuery("INSERT INTO tb_user(nameUser, login,passwordUser,birthDate +" +
                 " email)VALUES" + "(\"" + user.getName() + "\", \"" + user.getUsername() + "\", \""
                 + user.getPassword() + "\"," + " STR_TO_DATE(\"" + user.getBirthDate() +
@@ -39,6 +45,11 @@ public class UserDAO extends DAO{
     }
 
     public String update(User user){
+
+        assert user.getName() != null;
+        assert user.getPassword() != null;
+        assert user.getIdUser() >= 1;
+        assert user.getIdUser() <=Integer.MAX_VALUE;
 
         return this.executeQuery("UPDATE tb_user SET nameUser=\""+user.getName()+"\", " +
                 "birthDate=STR_TO_DATE(\"" + user.getBirthDate() + "\",'%d/%m/%Y'), " +
