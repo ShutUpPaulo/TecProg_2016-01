@@ -23,24 +23,26 @@ public class UserEvaluationDAO extends DAO{
         assert evaluation.getUserRating() >= 0F;
         assert evaluation.getUserRating() <= 5F;
 
-        JSONObject findEvaluation = searchUserEvaluation(evaluation.getIdUserEvaluated(),
+        JSONObject userEvaluationInDataBase = searchUserEvaluation(evaluation.getIdUserEvaluated(),
                 evaluation.getIdUserLoggedIn());
 
-        final String QUERY;
+        String query;
 
-        if(findEvaluation!=null){
-            QUERY = "UPDATE evaluate_user SET grade = \"" +evaluation.getUserRating() + "\" " +
-                    "WHERE idUserEvaluated = \"" + evaluation.getIdUserEvaluated() + "\" " +
-                    "AND idUser = \"" + evaluation.getIdUserLoggedIn() + "\"";
-        }
-        else{
-            QUERY = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
+        //The main flow is the user doesn't have an evaluation
+        if(userEvaluationInDataBase==null){
+            query = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
                     "\"" + evaluation.getUserRating() + "\"," +
                     "\"" + evaluation.getIdUserLoggedIn() + "\"," +
                     "\"" + evaluation.getIdUserEvaluated() + "\")";
         }
+        else{
+            query = "UPDATE evaluate_user SET grade = \"" +evaluation.getUserRating() + "\" " +
+                    "WHERE idUserEvaluated = \"" + evaluation.getIdUserEvaluated() + "\" " +
+                    "AND idUser = \"" + evaluation.getIdUserLoggedIn() + "\"";
 
-        executeQuery(QUERY);
+        }
+
+        executeQuery(query);
     }
 
     public JSONObject searchUserEvaluation(int userEvaluatedtId, int userId){
