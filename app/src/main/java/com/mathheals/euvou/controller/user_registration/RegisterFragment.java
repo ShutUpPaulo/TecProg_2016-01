@@ -23,21 +23,23 @@ import model.User;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener{
 
-    private EditText nameField;
-    private EditText birthDateField;
-    private EditText mailField;
-    private EditText mailConfirmationField;
-    private EditText usernameField;
-    private EditText passwordField;
-    private EditText passwordConfirmField;
+    private static final String STRING_EMPTY = "";
 
-    private String name;
-    private String birthDate;
-    private String username;
-    private String mail;
-    private String password;
-    private String passwordConfirm;
-    private String mailConfirm;
+    private EditText nameField = null;
+    private EditText birthDateField = null;
+    private EditText mailField = null;
+    private EditText mailConfirmationField = null;
+    private EditText usernameField = null;
+    private EditText passwordField = null;
+    private EditText passwordConfirmField = null;
+
+    private String name = STRING_EMPTY;
+    private String birthDate = STRING_EMPTY;
+    private String username = STRING_EMPTY;
+    private String mail = STRING_EMPTY;
+    private String password = STRING_EMPTY;
+    private String passwordConfirm = STRING_EMPTY;
+    private String mailConfirm = STRING_EMPTY;
 
 
     public RegisterFragment(){
