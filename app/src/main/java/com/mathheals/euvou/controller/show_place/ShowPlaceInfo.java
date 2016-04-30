@@ -57,6 +57,7 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        assert  savedInstanceState != null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_info);
 
@@ -85,6 +86,8 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setRatingBar() {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        assert ratingBar != null;
+
         ratingBar.setVisibility(View.VISIBLE);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
@@ -99,6 +102,8 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setRatingBarStyle() {
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        assert stars != null;
+
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(),
                 R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
@@ -122,8 +127,8 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setUpMap() {
-        placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(getLatitude(), getLongitude()), 9));
+        placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(getLatitude(),
+                getLongitude()), 9));
         markPlaceOnMap();
     }
 
@@ -138,6 +143,8 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     public void showPlaceInfoOnClick(View view) {
+        assert view != null;
+
         switch(view.getId()) {
             case R.id.button_show_map:
                 setUpMapIfNeeded();
@@ -160,12 +167,12 @@ public class ShowPlaceInfo extends FragmentActivity {
         setName(intent.getStringExtra("name"));
         setPhone(intent.getStringExtra("phone"));
         setAddress(intent.getStringExtra("address"));
-        setGrade(intent.getFloatExtra("grade", 0.0F));
+        setGrade(intent.getFloatExtra("grade", FLOAT_ZERO));
         setDescription(intent.getStringExtra("description"));
-        setLatitude(intent.getDoubleExtra("latitude", 0.0));
-        setLongitude(intent.getDoubleExtra("longitude", 0.0));
+        setLatitude(intent.getDoubleExtra("latitude", DOUBLE_ZERO));
+        setLongitude(intent.getDoubleExtra("longitude", DOUBLE_ZERO));
         setOperation(intent.getStringExtra("operation"));
-        setIdPlace(intent.getIntExtra("idPlace", 0));
+        setIdPlace(intent.getIntExtra("idPlace", DOUBLE_ZERO));
     }
 
     private void setGrade(float grade) {
@@ -173,8 +180,8 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setAddress(String address) {
+        assert address != null;
         this.address = address;
-
     }
 
     private String getAddress() {
@@ -190,14 +197,17 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setDescription(String description) {
+        assert description != null;
         this.description = description;
     }
 
     private void setOperation(String operation) {
+        assert operation != null;
         this.operation = operation;
     }
 
     private void setPhone(String phone) {
+        assert phone != null;
         this.phone = phone;
     }
 
@@ -206,6 +216,7 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setName(String name) {
+        assert name != null;
         this.name = name;
     }
 
@@ -218,29 +229,49 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setAddressText(String addressText) {
+        assert addressText != null;
+
         TextView addressTextView = (TextView) findViewById(R.id.address_text);
+        assert  addressText != null;
+
         addressTextView.setText(addressText);
         addressTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setOperationText(String operationText) {
+        assert operationText != null;
+
         TextView operationTextView = (TextView) findViewById(R.id.operation_text);
+        assert operationTextView != null;
+
         operationTextView.setText(operationText);
         operationTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setPhoneText(String phoneText) {
+        assert phoneText != null;
+
         TextView phoneTextView = (TextView) findViewById(R.id.phone_text);
+        assert phoneTextView != null;
+
         phoneTextView.setText(phoneText);
     }
 
     private void setGradeText(String gradeText) {
+        assert gradeText != null;
+
         TextView gradeTextView = (TextView) findViewById(R.id.grade_text);
+        assert gradeTextView != null;
+
         gradeTextView.setText(gradeText);
     }
 
     private void setDescriptionText(String descriptionText) {
+        assert descriptionText != null;
+
         TextView descriptionTextView = (TextView) findViewById(R.id.description_text);
+        assert descriptionTextView != null;
+
         descriptionTextView.setText(descriptionText);
         descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -254,21 +285,26 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setShowMapButton(Button showMapButton) {
+        assert showMapButton != null;
         this.showMapButton = showMapButton;
     }
 
     private void setHideMapButton(Button hideMapButton) {
+        assert hideMapButton != null;
         this.hideMapButton = hideMapButton;
     }
 
     private void setRatingMessage(boolean isUserLoggedIn) {
         String message = STRING_EMPTY;
+
         if(isUserLoggedIn) {
             message = "Sua avaliação:";
         } else {
             message = "Faça login para avaliar!";
         }
         TextView ratingMessage = (TextView) findViewById(R.id.rate_it_text);
+        assert ratingMessage != null;
+
         ratingMessage.setText(message);
     }
 
