@@ -29,7 +29,7 @@ public class UserDAOTest extends TestCase {
             User user;
         user = new User("marceloChavosaao","marceloChavosaao","marceloChavosao@euvou.com","marceloChavosao@euvou.com","123456","123456","11/09/2015");
         assertTrue(userDAO.saveUser(user).contains("Salvo"));
-            userDAO.deleteByUsername("marceloChavosaao");
+            userDAO.deleteUserByUsername("marceloChavosaao");
     }
 
     public void testDeleteByName() throws ParseException, UserException  {
@@ -38,7 +38,7 @@ public class UserDAOTest extends TestCase {
         User user = new User("Marcelo", "marceloChavosaoa", "galudo11cm@uol.com", "123456", "24/11/1969");
         if(!userDAO.saveUser(user).contains("Salvo"))
             assertTrue(false);
-        assertTrue(userDAO.deleteByUsername("marceloChavosaoa").contains("Salvo"));
+        assertTrue(userDAO.deleteUserByUsername("marceloChavosaoa").contains("Salvo"));
     }
 
 
@@ -49,8 +49,8 @@ public class UserDAOTest extends TestCase {
         if(!userDAO.saveUser(user).contains("Salvo"))
             assertTrue(false);
         int id = userDAO.searchUserByUsername("viny").getJSONObject("0").getInt("idUser");
-        assertTrue(userDAO.deleteById(id).contains("Salvo"));
-        userDAO.deleteByUsername("viny");
+        assertTrue(userDAO.deleteUserById(id).contains("Salvo"));
+        userDAO.deleteUserByUsername("viny");
     }
 
     public void testeSearchUserById()
@@ -64,10 +64,10 @@ public class UserDAOTest extends TestCase {
                 "viny-pinheiro@hotmail.com", "123456", "123456");
         if(!userDAO.saveUser(user).contains("Salvo")) {
             assertTrue(false);
-            userDAO.deleteByUsername("umteste");
+            userDAO.deleteUserByUsername("umteste");
         }
-        assertTrue(userDAO.update(user).contains("Salvo"));
-        userDAO.deleteByUsername("umteste");
+        assertTrue(userDAO.updateUser(user).contains("Salvo"));
+        userDAO.deleteUserByUsername("umteste");
 
     }
 
@@ -77,11 +77,11 @@ public class UserDAOTest extends TestCase {
                 "viny-pinheiro@hotmail.com", "123456", "123456");
         if(!userDAO.saveUser(user).contains("Salvo")) {
             assertTrue(false);
-            userDAO.deleteByUsername("umteste");
+            userDAO.deleteUserByUsername("umteste");
         }
         int id = userDAO.searchUserByUsername("umteste").getJSONObject("0").getInt("idUser");
         assertTrue(userDAO.disableUserById(id).contains("Salvo"));
-        userDAO.deleteByUsername("umteste");
+        userDAO.deleteUserByUsername("umteste");
 
     }
     

@@ -85,7 +85,7 @@ public class EditUserFragment extends Fragment implements View.OnClickListener {
 
     private void updateUser(User user){
         UserDAO userDAO = new UserDAO(getActivity());
-        userDAO.update(user);
+        userDAO.updateUser(user);
     }
 
     private void setingEditText(View view){

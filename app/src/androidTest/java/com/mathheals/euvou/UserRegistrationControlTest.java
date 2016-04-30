@@ -20,7 +20,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasErrorText;
-import static android.support.test.espresso.matcher.ViewMatchers.hasFocus;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -546,7 +545,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
             e.printStackTrace();
         }
         onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
-        userDao.deleteById("izacris");
+        userDao.deleteUserById("izacris");
     }
 }
 

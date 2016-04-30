@@ -36,15 +36,15 @@ public class UserDAO extends DAO{
 
     //This method is just used on the tests
 
-    public String deleteByUsername(String username){
+    public String deleteUserByUsername(String username){
         return this.executeQuery("DELETE FROM tb_user WHERE login=\"" + username + "\"");
     }
 
-    public String deleteById(int idUser){
+    public String deleteUserById(int idUser){
         return this.executeQuery("DELETE FROM tb_user WHERE idUser=\"" +idUser+ "\"");
     }
 
-    public String update(User user){
+    public String updateUser(User user){
 
         assert user.getName() != null;
         assert user.getPassword() != null;
