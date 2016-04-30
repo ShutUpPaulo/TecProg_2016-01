@@ -4,34 +4,34 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public abstract class Mask {
-    private static String unmask(String s) {
+public abstract class Mask{
+    private static String unmask(String s){
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "");
     }
 
-    public static TextWatcher insert(final String mask, final EditText ediTxt) {
-        return new TextWatcher() {
+    public static TextWatcher insert(final String mask, final EditText ediTxt){
+        return new TextWatcher(){
             boolean isUpdating;
             String old = "";
-            public void onTextChanged(CharSequence s, int start, int before,int count) {
+            public void onTextChanged(CharSequence s, int start, int before,int count){
                 String str = Mask.unmask(s.toString());
                 String mascara = "";
-                if (isUpdating) {
+                if (isUpdating){
                     old = str;
                     isUpdating = false;
                     return;
                 }
                 int i = 0;
-                for (char m : mask.toCharArray()) {
-                    if (m != '#' && str.length() > old.length()) {
+                for (char m : mask.toCharArray()){
+                    if (m != '#' && str.length() > old.length()){
                         mascara += m;
                         continue;
                     }
-                    try {
+                    try{
                         mascara += str.charAt(i);
-                    } catch (Exception e) {
+                    }catch (Exception e){
                         break;
                     }
                     i++;
@@ -45,7 +45,7 @@ public abstract class Mask {
         };
     }
 
-    public static String getDateTimeInBrazilianFormat(String dateTime) {
+    public static String getDateTimeInBrazilianFormat(String dateTime){
         String[] dateAndTime = dateTime.split(" ");
         String date = dateAndTime[0];
 
