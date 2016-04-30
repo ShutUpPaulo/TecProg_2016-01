@@ -172,7 +172,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setLatitude(intent.getDoubleExtra("latitude", DOUBLE_ZERO));
         setLongitude(intent.getDoubleExtra("longitude", DOUBLE_ZERO));
         setOperation(intent.getStringExtra("operation"));
-        setIdPlace(intent.getIntExtra("idPlace", DOUBLE_ZERO));
+        setIdPlace(intent.getIntExtra("idPlace", INT_ZERO));
     }
 
     private void setGrade(float grade) {
@@ -232,7 +232,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         assert addressText != null;
 
         TextView addressTextView = (TextView) findViewById(R.id.address_text);
-        assert  addressText != null;
+        assert  addressTextView != null;
 
         addressTextView.setText(addressText);
         addressTextView.setMovementMethod(new ScrollingMovementMethod());
