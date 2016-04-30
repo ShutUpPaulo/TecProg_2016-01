@@ -83,23 +83,25 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         try {
             convertJsonToPlace(foundPlaces);
             addMarkerPlace();
-        } catch (JSONException e) {
+        } catch (JSONException e){
             e.printStackTrace();
-        } catch (PlaceException e) {
+        } catch (PlaceException e){
             e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (ParseException e){
             e.printStackTrace();
         }
 
     }
 
-    private void convertJsonToPlace(JSONObject result) throws JSONException, PlaceException, ParseException {
+    private void convertJsonToPlace(JSONObject result) throws JSONException, PlaceException,
+            ParseException{
+
         places = new ArrayList<>();
         if(result == null) {
             Toast.makeText(this, "Sem Resultados", Toast.LENGTH_LONG).show();
             return;
         }
-        for (int i = 0; i < result.length(); i++) {
+        for (int i = 0; i < result.length(); i++){
             Place aux;
             aux = new Place(
                     result.getJSONObject("" + i).getString("namePlace"),
@@ -115,21 +117,22 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         }
     }
 
-    private void addMarkerPlace() {
+    private void addMarkerPlace(){
         if(places != null) {
-            for (int i = 0; i < places.size(); ++i) {
+            for (int i = 0; i < places.size(); ++i){
                 mMap.addMarker(
                         new MarkerOptions()
                                 .title(places.get(i).getName())
                                 .snippet(places.get(i).getAddress())
-                                .position(new LatLng(places.get(i).getLatitude(), places.get(i).getLongitude()))
+                                .position(new LatLng(places.get(i).getLatitude(),
+                                        places.get(i).getLongitude()))
                 );
             }
         }
     }
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(Marker marker){
         String marke = marker.getId().substring(1);
         int id = Integer.parseInt(marke);
         select(id);
@@ -137,21 +140,21 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         return false;
     }
 
-    private void select(int id) {
+    private void select(int id){
         clickedPlace = places.get(id);
         try {
             selectedPlaceId = foundPlaces.getJSONObject(Integer.toString(id)).getInt("idPlace");
-        } catch (JSONException e) {
+        } catch (JSONException e){
             e.printStackTrace();
         }
     }
-    private void startShowInfoActivity() {
+    private void startShowInfoActivity(){
         Intent intent = new Intent(this, ShowPlaceInfo.class);
         intent.putExtras(getPlaceInfoAsBundle());
         startActivity(intent);
     }
 
-    private Bundle getPlaceInfoAsBundle() {
+    private Bundle getPlaceInfoAsBundle(){
         Bundle placeInfo = new Bundle();
         placeInfo.putString("name", clickedPlace.getName());
         placeInfo.putString("phone", clickedPlace.getPhone());
@@ -161,6 +164,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         placeInfo.putDouble("longitude", clickedPlace.getLongitude());
         placeInfo.putString("operation", clickedPlace.getOperation());
         placeInfo.putInt("idPlace", selectedPlaceId);
+
         return placeInfo;
     }
 }
