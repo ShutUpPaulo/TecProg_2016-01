@@ -30,8 +30,9 @@ import model.Place;
 public class ShowPlaceInfo extends FragmentActivity {
 
     private static final String STRING_EMPTY = "";
+    private static final Integer LOGGED_OUT = -1;
 
-    private GoogleMap mMap = null;
+    private GoogleMap placeMap = null;
 
     private String name = STRING_EMPTY;
     private String phone = STRING_EMPTY;
@@ -62,8 +63,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setHideMapButton((Button) findViewById(R.id.button_hide_map));
 
         setUserId(new LoginUtility(this).getUserId());
-        Integer LOGGED_OUT = -1;
-        setIsUserLoggedIn(userId != LOGGED_OUT);
+        setIsUserLoggedIn(!userId.equals(LOGGED_OUT));
 
         setPlaceInfo();
         setAllTextViews();
@@ -87,7 +87,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         ratingBar.setVisibility(View.VISIBLE);
         ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2) {
+            public void onRatingChanged(RatingBar ratingBar, float rateValue, boolean fromUser) {
                 setRatingEvaluation(idPlace, userId, rateValue);
                 EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
                 evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
@@ -104,13 +104,13 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (placeMap == null) {
             // Try to obtain the map from the SupportMapFragment.
             mMapFragment = ((SupportMapFragment)getSupportFragmentManager().
                     findFragmentById(R.id.fragment_show_place_info_map));
-            mMap = mMapFragment.getMap();
+            placeMap = mMapFragment.getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (placeMap != null) {
                 setUpMap();
             }else{
                 //nothing to do
@@ -121,14 +121,14 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setUpMap() {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+        placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(getLatitude(), getLongitude()), 9));
         markPlaceOnMap();
     }
 
     private void markPlaceOnMap() {
 
-        mMap.addMarker(
+        placeMap.addMarker(
                 new MarkerOptions()
                         .title(getName())
                         .snippet(getAddress())
@@ -216,32 +216,32 @@ public class ShowPlaceInfo extends FragmentActivity {
         this.latitude = latitude;
     }
 
-    private void setAddressText(String adressText) {
-        TextView addressText = (TextView) findViewById(R.id.address_text);
-        addressText.setText(adressText);
-        addressText.setMovementMethod(new ScrollingMovementMethod());
+    private void setAddressText(String addressText) {
+        TextView addressTextView = (TextView) findViewById(R.id.address_text);
+        addressTextView.setText(addressText);
+        addressTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setOperationText(String operationText) {
-        TextView operationText1 = (TextView) findViewById(R.id.operation_text);
-        operationText1.setText(operationText);
-        operationText1.setMovementMethod(new ScrollingMovementMethod());
+        TextView operationTextView = (TextView) findViewById(R.id.operation_text);
+        operationTextView.setText(operationText);
+        operationTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setPhoneText(String phoneText) {
-        TextView phoneText1 = (TextView) findViewById(R.id.phone_text);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   phoneText1.setText(phoneText);
+        TextView phoneTextView = (TextView) findViewById(R.id.phone_text);
+        phoneTextView.setText(phoneText);
     }
 
     private void setGradeText(String gradeText) {
-        TextView gradeText1 = (TextView) findViewById(R.id.grade_text);
-        gradeText1.setText(gradeText);
+        TextView gradeTextView = (TextView) findViewById(R.id.grade_text);
+        gradeTextView.setText(gradeText);
     }
 
     private void setDescriptionText(String descriptionText) {
-        TextView descriptionText1 = (TextView) findViewById(R.id.description_text);
-        descriptionText1.setText(descriptionText);
-        descriptionText1.setMovementMethod(new ScrollingMovementMethod());
+        TextView descriptionTextView = (TextView) findViewById(R.id.description_text);
+        descriptionTextView.setText(descriptionText);
+        descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void setAllTextViews() {
