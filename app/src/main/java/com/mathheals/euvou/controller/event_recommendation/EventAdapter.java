@@ -25,14 +25,17 @@ public class EventAdapter extends ArrayAdapter<Event> {
     }
 
     private static class ViewHolder {
-        TextView eventName;
-        TextView eventEvaluation;
+        TextView eventName = null;
+        TextView eventEvaluation = null;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        assert parent != null;
 
         Event event = getItem(position);
+        assert event != null;
+
         ViewHolder viewHolder;
         if (convertView != null) {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -44,6 +47,8 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder.eventEvaluation = (TextView) convertView.findViewById(R.id.eventEvaluation);
             convertView.setTag(viewHolder);
         }
+
+        assert viewHolder != null;
 
         Integer maximumEventNameLength = 40;
         String shortenedNameEvent = STRING_EMPTY;
