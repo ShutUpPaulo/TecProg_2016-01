@@ -38,8 +38,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
     private String username = STRING_EMPTY;
     private String mail = STRING_EMPTY;
     private String password = STRING_EMPTY;
-    private String passwordConfirm = STRING_EMPTY;
-    private String mailConfirm = STRING_EMPTY;
+    private String passwordConfirmation = STRING_EMPTY;
+    private String mailConfirmation = STRING_EMPTY;
 
 
     public RegisterFragment(){
@@ -48,57 +48,89 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState){
+        assert inflater != null;
+        assert container != null;
+        assert savedInstanceState != null;
+
         View view = inflater.inflate(R.layout.register_user, container, false);
+        assert view != null;
 
         Button register = (Button) view.findViewById(R.id.saveButton);
+        assert register != null;
+
         register.setOnClickListener(this);
 
         this.settingEditText(view);
 
+        assert birthDateField != null;
         birthDateField.addTextChangedListener(Mask.insert("##/##/####", birthDateField));
 
         return view;
     }
 
     private void registerUser(User user){
+        assert user != null;
+
         UserDAO userDAO = new UserDAO(getActivity());
+
         userDAO.saveUser(user);
     }
 
     private void startLoginActivity(){
         Activity activity = getActivity();
+        assert activity != null;
+
         Intent loginIntent = new Intent(activity, LoginActivity.class);
+
         activity.startActivity(loginIntent);
     }
 
     private void settingEditText(View view){
         this.nameField = (EditText) view.findViewById(R.id.nameField);
+        assert this.nameField != null;
+
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+        assert this.birthDateField != null;
+
         this.mailField = (EditText) view.findViewById(R.id.mailField);
+        assert this.mailField != null;
+
         this.usernameField = (EditText) view.findViewById(R.id.loginField);
+        assert this.usernameField != null;
+
         this.passwordField = (EditText) view.findViewById(R.id.passwordField);
+        assert this.passwordField != null;
+
         this.mailConfirmationField = (EditText) view.findViewById(R.id.confirmMailField);
+        assert this.mailConfirmationField != null;
+
         this.passwordConfirmField = (EditText) view.findViewById(R.id.confirmPasswordField);
+        assert this.passwordConfirmField != null;
+
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+        assert this.birthDateField != null;
     }
 
     private void settingTextTyped(){
         this.name = nameField.getText().toString();
         this.username = usernameField.getText().toString();
         this.mail = mailField.getText().toString();
-        this.mailConfirm = mailConfirmationField.getText().toString();
+        this.mailConfirmation = mailConfirmationField.getText().toString();
         this.password = passwordField.getText().toString();
-        this.passwordConfirm = passwordConfirmField.getText().toString();
+        this.passwordConfirmation = passwordConfirmField.getText().toString();
         this.birthDate = birthDateField.getText().toString();
     }
 
     @Override
     public void onClick(View view){
+        assert view != null;
+
         this.settingTextTyped();
 
         try {
-            User user = new User(name, username, mail, mailConfirm,
-                    password, passwordConfirm, birthDate);
+            User user = new User(name, username, mail, mailConfirmation,
+                    password, passwordConfirmation, birthDate);
+
             registerUser(user);
 
             String SUCCESSFUL_REGISTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
@@ -109,6 +141,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
         } catch (UserException e){
             String exceptionMessage = e.getMessage();
+            assert exceptionMessage != null;
 
             EditAndRegisterUtility editAndRegisterUtility = new EditAndRegisterUtility();
 
