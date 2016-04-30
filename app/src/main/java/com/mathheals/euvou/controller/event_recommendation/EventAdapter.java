@@ -17,6 +17,9 @@ import model.Event;
  * Created by igor on 27/11/15.
  */
 public class EventAdapter extends ArrayAdapter<Event> {
+
+    private static final String STRING_EMPTY = "";
+
     public EventAdapter(Context context, List<Event> events) {
         super(context, 0, events);
     }
@@ -35,13 +38,22 @@ public class EventAdapter extends ArrayAdapter<Event> {
             viewHolder = (ViewHolder) convertView.getTag();
         } else {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_recommend_event, parent, false);
+            convertView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.fragment_recommend_event, parent, false);
             viewHolder.eventName = (TextView) convertView.findViewById(R.id.eventName);
             viewHolder.eventEvaluation = (TextView) convertView.findViewById(R.id.eventEvaluation);
             convertView.setTag(viewHolder);
         }
-        viewHolder.eventName.setText(
-                ((event.getNameEvent().length() > 40) ? event.getNameEvent().substring(0, 39).concat("...") : event.getNameEvent()));
+
+        Integer maximumEventNameLength = 40;
+        String shortenedNameEvent = STRING_EMPTY;
+        if(event.getNameEvent().length() > maximumEventNameLength){
+            shortenedNameEvent = event.getNameEvent().substring(0, 39).concat("...");
+        }else{
+            shortenedNameEvent = event.getNameEvent();
+        }
+
+        viewHolder.eventName.setText(shortenedNameEvent);
         viewHolder.eventEvaluation.setText(event.getEvaluation().toString());
 
         return convertView;
