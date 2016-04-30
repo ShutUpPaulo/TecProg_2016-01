@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.RatingBar.*;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,11 +24,13 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.EvaluatePlaceDAO;
 import model.Evaluation;
-import model.Place;
 
 public class ShowPlaceInfo extends FragmentActivity {
 
     private static final String STRING_EMPTY = "";
+    private static final double DOUBLE_ZERO = 0.0;
+    private static final float FLOAT_ZERO = 0.0f;
+    private static final int INT_ZERO = 0;
     private static final Integer LOGGED_OUT = -1;
 
     private GoogleMap placeMap = null;
@@ -38,18 +39,18 @@ public class ShowPlaceInfo extends FragmentActivity {
     private String phone = STRING_EMPTY;
     private String operation = STRING_EMPTY;
     private String description = STRING_EMPTY;
-    private double longitude = 0.0;
-    private double latitude = 0.0;
+    private double longitude = DOUBLE_ZERO;
+    private double latitude = DOUBLE_ZERO;
     private String address = STRING_EMPTY;
-    private float grade = 0.0f;
-    private int idPlace = 0;
+    private float grade = FLOAT_ZERO;
+    private int idPlace = INT_ZERO;
 
     private Button showMapButton = null;
     private Button hideMapButton = null;
-    private SupportMapFragment mMapFragment = null;
+    private SupportMapFragment placeMapFragment = null;
 
     private RatingBar ratingBar = null;
-    private Integer userId = 0;
+    private Integer userId = INT_ZERO;
     private boolean isUserLoggedIn = false;
 
     private Evaluation ratingEvaluation = null;
@@ -68,7 +69,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setPlaceInfo();
         setAllTextViews();
         setUpMapIfNeeded();
-        mMapFragment.getView().setVisibility(View.INVISIBLE);
+        placeMapFragment.getView().setVisibility(View.INVISIBLE);
 
         setRatingMessage(isUserLoggedIn);
         setRatingBarIfNeeded();
@@ -106,9 +107,9 @@ public class ShowPlaceInfo extends FragmentActivity {
         // Do a null check to confirm that we have not already instantiated the map.
         if (placeMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMapFragment = ((SupportMapFragment)getSupportFragmentManager().
+            placeMapFragment = ((SupportMapFragment)getSupportFragmentManager().
                     findFragmentById(R.id.fragment_show_place_info_map));
-            placeMap = mMapFragment.getMap();
+            placeMap = placeMapFragment.getMap();
             // Check if we were successful in obtaining the map.
             if (placeMap != null) {
                 setUpMap();
@@ -142,12 +143,12 @@ public class ShowPlaceInfo extends FragmentActivity {
                 setUpMapIfNeeded();
                 hideMapButton.setVisibility(View.VISIBLE);
                 showMapButton.setVisibility(View.GONE);
-                mMapFragment.getView().setVisibility(View.VISIBLE);
+                placeMapFragment.getView().setVisibility(View.VISIBLE);
                 break;
             case R.id.button_hide_map:
                 hideMapButton.setVisibility(View.GONE);
                 showMapButton.setVisibility(View.VISIBLE);
-                mMapFragment.getView().setVisibility(View.GONE);
+                placeMapFragment.getView().setVisibility(View.GONE);
                 break;
             default:
                 //nothing to do
@@ -261,7 +262,12 @@ public class ShowPlaceInfo extends FragmentActivity {
     }
 
     private void setRatingMessage(boolean isUserLoggedIn) {
-        String message = isUserLoggedIn ? "Sua avaliação:" : "Faça login para avaliar!";
+        String message = STRING_EMPTY;
+        if(isUserLoggedIn) {
+            message = "Sua avaliação:";
+        } else {
+            message = "Faça login para avaliar!";
+        }
         TextView ratingMessage = (TextView) findViewById(R.id.rate_it_text);
         ratingMessage.setText(message);
     }
