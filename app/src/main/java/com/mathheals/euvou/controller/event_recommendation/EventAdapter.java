@@ -31,14 +31,14 @@ public class EventAdapter extends ArrayAdapter<Event> {
 
         Event event = getItem(position);
         ViewHolder viewHolder;
-        if (convertView == null) {
+        if (convertView != null) {
+            viewHolder = (ViewHolder) convertView.getTag();
+        } else {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_recommend_event, parent, false);
             viewHolder.eventName = (TextView) convertView.findViewById(R.id.eventName);
             viewHolder.eventEvaluation = (TextView) convertView.findViewById(R.id.eventEvaluation);
             convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.eventName.setText(
                 ((event.getNameEvent().length() > 40) ? event.getNameEvent().substring(0, 39).concat("...") : event.getNameEvent()));
