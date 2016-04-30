@@ -36,6 +36,32 @@ public class EventAdapter extends ArrayAdapter<Event> {
         Event event = getItem(position);
         assert event != null;
 
+        ViewHolder viewHolder = getViewHolderByViewAndViewGroup(convertView, parent);
+
+        assert viewHolder != null;
+
+        String shortenedNameEvent = shortenEventName(event.getNameEvent());
+
+        viewHolder.eventName.setText(shortenedNameEvent);
+        viewHolder.eventEvaluation.setText(event.getEvaluation().toString());
+
+        return convertView;
+    }
+
+    private String shortenEventName(String eventName){
+        Integer maximumEventNameLength = 40;
+
+        String shortenedNameEvent = STRING_EMPTY;
+        if(eventName.length() > maximumEventNameLength){
+            shortenedNameEvent = eventName.substring(0, 39).concat("...");
+        }else{
+            shortenedNameEvent = eventName;
+        }
+
+        return shortenedNameEvent;
+    }
+
+    private ViewHolder getViewHolderByViewAndViewGroup(View convertView, ViewGroup parent){
         ViewHolder viewHolder;
         if (convertView != null) {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -48,19 +74,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
             convertView.setTag(viewHolder);
         }
 
-        assert viewHolder != null;
-
-        Integer maximumEventNameLength = 40;
-        String shortenedNameEvent = STRING_EMPTY;
-        if(event.getNameEvent().length() > maximumEventNameLength){
-            shortenedNameEvent = event.getNameEvent().substring(0, 39).concat("...");
-        }else{
-            shortenedNameEvent = event.getNameEvent();
-        }
-
-        viewHolder.eventName.setText(shortenedNameEvent);
-        viewHolder.eventEvaluation.setText(event.getEvaluation().toString());
-
-        return convertView;
+        return viewHolder;
     }
 }
