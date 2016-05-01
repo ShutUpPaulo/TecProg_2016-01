@@ -134,6 +134,8 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
             }else{
                 categories.remove(theaterCheckBox.getText().toString());
             }
+        }else{
+            // Nothing to do
         }
     }
 
@@ -177,56 +179,78 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                 if(message.equals(Event.ADDRESS_IS_EMPTY)){
                     addressEventField.requestFocus();
                     addressEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.INVALID_EVENT_HOUR)){
                     hourEventField.requestFocus();
                     hourEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.EVENT_HOUR_IS_EMPTY)){
                     hourEventField.requestFocus();
                     hourEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
                     descriptionEventField.requestFocus();
                     descriptionEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
                     descriptionEventField.requestFocus();
                     descriptionEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
                     dateEventField.requestFocus();
                     dateEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
                     nameEventField.requestFocus();
                     nameEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.INVALID_EVENT_DATE)){
                     dateEventField.requestFocus();
                     dateEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
                     nameEventField.requestFocus();
                     nameEventField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.PRICE_REAL_IS_EMPTY)){
                     priceEventRealField.requestFocus();
                     priceEventRealField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
                 if(message.equals(Event.PRICE_DECIMAL_IS_EMPTY)){
                     priceEventDecimalField.requestFocus();
                     priceEventDecimalField.setError(message);
+                }else{
+                    // Nothing to do
                 }
 
             } catch (ParseException e) {
@@ -254,6 +278,8 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     longitude = bundle.getString("longitude");
 
                     Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
+                }else{
+                    // Nothing to do
                 }
                 break;
             }
