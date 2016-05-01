@@ -98,21 +98,23 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         LoginValidation loginValidation = new LoginValidation(homePage);
 
         boolean isUsernameValid = loginValidation.isUsernameValid(typedUsername);
+        boolean isLoginConfirmationValid = false;
 
-        if(isUsernameValid==false){
-            usernameField.requestFocus();
-            usernameField.setError(loginValidation.getInvalidUsernameMessage());
-        }else{
+        if (isUsernameValid) {
             boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
 
-            if(isPasswordValid==false){
+            if (isPasswordValid) {
+                isLoginConfirmationValid = true;
+            } else {
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
+                isLoginConfirmationValid = false;
             }
-            else{
-                return true;
-            }
+        } else {
+            usernameField.requestFocus();
+            usernameField.setError(loginValidation.getInvalidUsernameMessage());
+            isLoginConfirmationValid = false;
         }
-        return false;
+        return isLoginConfirmationValid;
     }
 }

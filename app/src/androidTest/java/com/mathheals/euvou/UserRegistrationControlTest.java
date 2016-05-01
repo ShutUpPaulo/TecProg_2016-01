@@ -545,7 +545,7 @@ public class UserRegistrationControlTest extends ActivityInstrumentationTestCase
             e.printStackTrace();
         }
         onView(withId(R.id.usernameField)).check(matches(isDisplayed()));
-        userDao.deleteUserById("izacris");
+        userDao.deleteUserById(1);
     }
 }
 
