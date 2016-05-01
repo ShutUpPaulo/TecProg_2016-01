@@ -53,7 +53,11 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
+            }else{
+                // Nothing to do
             }
+        }else{
+            // Nothing to do
         }
     }
 
