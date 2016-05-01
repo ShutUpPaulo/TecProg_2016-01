@@ -44,11 +44,16 @@ public class RecommendEvent extends android.support.v4.app.Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        assert inflater != null;
+        assert container != null;
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
         // Inflate the layout for this fragment
         listViewEventRecomendations =
                 (ListView) view.findViewById(R.id.list_view_event_recomendations);
+        assert listViewEventRecomendations != null;
+
         listViewEventRecomendations.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
@@ -75,6 +80,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment
                     int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
                     String nameEvent = eventDATA.getJSONObject(Integer.toString(i))
                             .getString("nameEvent");
+                    assert nameEvent != null;
+
                     int eventEvaluation = 4;
 
                     Event event = new Event(idEvent, nameEvent, eventEvaluation);
@@ -99,9 +106,13 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        assert parent != null;
+        assert view != null;
+        assert id >= 0;
+
         final String ID_COLUMN = "idEvent";
 
-        int eventId;
+        int eventId = 0;
         final Bundle bundle = new Bundle();
         final ShowEvent event = new ShowEvent();
 
