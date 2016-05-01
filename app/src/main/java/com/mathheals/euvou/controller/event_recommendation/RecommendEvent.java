@@ -29,7 +29,7 @@ import model.Event;
  */
 public class RecommendEvent extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
 
-    private ListView listView;
+    private ListView listViewEventRecomendations;
     private ArrayList<Event> events;
     private JSONObject eventDATA;
     private int idUser;
@@ -44,10 +44,10 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vw = inflater.inflate(R.layout.fragment_recommend_event, container, false);
+        View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
         // Inflate the layout for this fragment
-        listView = (ListView) vw.findViewById(R.id.list_view_event_recomendations);
-        listView.setOnItemClickListener(this);
+        listViewEventRecomendations = (ListView) view.findViewById(R.id.list_view_event_recomendations);
+        listViewEventRecomendations.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
@@ -57,7 +57,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         }else {
             fillList();
         }
-        return  vw;
+        return view;
     }
 
     private void fillList() {
@@ -89,7 +89,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
 
         EventAdapter eventAdapter = new EventAdapter(getActivity(),events);
 
-        listView.setAdapter(eventAdapter);
+        listViewEventRecomendations.setAdapter(eventAdapter);
     }
 
     @Override
