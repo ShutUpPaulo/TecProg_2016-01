@@ -55,12 +55,12 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         if(idUser == -1){
             Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }else {
-            fillList();
+            fillEventsList();
         }
         return view;
     }
 
-    private void fillList() {
+    private void fillEventsList() {
         EventRecommendationDAO eventRecommendationDAO = new EventRecommendationDAO();
 
         events = new ArrayList<>();
