@@ -85,8 +85,11 @@ public class EventDAO extends DAO {
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
         JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=" + owner + " GROUP BY idEvent");
 
-        if(json == null)
+        if(json == null) {
             return null;
+        }else{
+            // Nothing to do
+        }
 
         Vector<Event> events = new Vector<>();
 
