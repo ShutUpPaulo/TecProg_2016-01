@@ -30,6 +30,8 @@ import model.Event;
 public class RecommendEvent extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener{
 
+    private static final int USER_NOT_LOGGED_IN = -1;
+
     private ListView listViewEventRecomendations;
     private ArrayList<Event> events;
     private JSONObject eventDATA;
@@ -59,7 +61,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
 
-        if(idUser == -1){
+        if(idUser == USER_NOT_LOGGED_IN){
             Toast.makeText(getActivity().getBaseContext(),
                     "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }else {
