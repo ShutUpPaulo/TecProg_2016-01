@@ -27,7 +27,8 @@ import model.Event;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecommendEvent extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
+public class RecommendEvent extends android.support.v4.app.Fragment
+        implements AdapterView.OnItemClickListener{
 
     private ListView listViewEventRecomendations;
     private ArrayList<Event> events;
@@ -46,14 +47,16 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
         // Inflate the layout for this fragment
-        listViewEventRecomendations = (ListView) view.findViewById(R.id.list_view_event_recomendations);
+        listViewEventRecomendations =
+                (ListView) view.findViewById(R.id.list_view_event_recomendations);
         listViewEventRecomendations.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
 
         if(idUser == -1){
-            Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getBaseContext(),
+                    "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }else {
             fillEventsList();
         }
@@ -70,7 +73,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
 
             for(int i=0; i<eventDATA.length(); i++){
                     int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
-                    String nameEvent = eventDATA.getJSONObject(Integer.toString(i)).getString("nameEvent");
+                    String nameEvent = eventDATA.getJSONObject(Integer.toString(i))
+                            .getString("nameEvent");
                     int eventEvaluation = 4;
 
                     Event event = new Event(idEvent, nameEvent, eventEvaluation);
@@ -84,7 +88,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         } catch (EventException e) {
             e.printStackTrace();
         } catch (NullPointerException e){
-            Toast.makeText(getActivity().getBaseContext(), "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity().getBaseContext(),
+                    "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }
 
         EventAdapter eventAdapter = new EventAdapter(getActivity(),events);
@@ -101,8 +106,11 @@ public class RecommendEvent extends android.support.v4.app.Fragment implements A
         final ShowEvent event = new ShowEvent();
 
         try {
-            final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            eventId = new Integer(eventDATA.getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+            final android.support.v4.app.FragmentTransaction fragmentTransaction
+                    = getActivity().getSupportFragmentManager().beginTransaction();
+
+            eventId = new Integer(eventDATA.getJSONObject
+                    (Integer.toString(position)).getString(ID_COLUMN));
             bundle.putString("idEventSearch", Integer.toString(eventId));
 
             event.setArguments(bundle);
