@@ -234,24 +234,44 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             //Verify address field
             if(message.equals(Event.ADDRESS_IS_EMPTY)){
                 editAndRegisterUtility.setMessageError(addressField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.DESCRIPTION_CANT_BE_EMPTY)){
                 editAndRegisterUtility.setMessageError(descriptionField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.DESCRIPTION_CANT_BE_GREATER_THAN)){
                 editAndRegisterUtility.setMessageError(descriptionField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.EVENT_DATE_IS_EMPTY)){
                 editAndRegisterUtility.setMessageError(dateField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.EVENT_NAME_CANT_BE_EMPTY_NAME)){
                 editAndRegisterUtility.setMessageError(nameField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.INVALID_EVENT_DATE)){
                 editAndRegisterUtility.setMessageError(dateField, message);
+            }else{
+                // Nothing to do
             }
+
             if(message.equals(Event.NAME_CANT_BE_GREATER_THAN_50)){
                 editAndRegisterUtility.setMessageError(nameField, message);
+            }else{
+                // Nothing to do
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -332,6 +352,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             }else{
                 CATEGORIES.remove(theaterCheckBox.getText().toString());
             }
+        }else{
+            // Nothing to do
         }
     }
 
@@ -362,6 +384,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                     longitude = bundle.getString("longitude");
 
                     Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
+                }else{
+                    // Nothing to do
                 }
                 break;
             }
