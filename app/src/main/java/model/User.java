@@ -149,6 +149,8 @@ public class User {
         if(confirmationMail!=null && !confirmationMail.isEmpty()) {
             if (!email.equals(confirmationMail)) {
                 throw new UserException(EMAIL_ARE_NOT_EQUALS);
+            }else{
+                // Nothing to do
             }
         }
         else{
@@ -161,7 +163,10 @@ public class User {
         if (username!=null && !username.isEmpty()) {
             if (new UserDAO().searchUserByUsername(username) != null){
                 throw new UserException(USERNAME_EXISTENT);
+            }else{
+                // Nothing to do
             }
+
             if(username.length() <= MAX_LENGTH_USERNAME){
                 this.username = username;
             }
@@ -195,6 +200,8 @@ public class User {
         if(confirmationPassword!=null && !confirmationPassword.isEmpty()) {
             if (!password.equals(confirmationPassword)) {
                 throw new UserException(PASSWORD_ARE_NOT_EQUALS);
+            }else{
+                // Nothing to do
             }
         }
         else{
