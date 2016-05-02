@@ -1,3 +1,8 @@
+/**
+ * File: ShowOnMap.java
+ * Purpose: Show event on map
+ */
+
 package com.mathheals.euvou.controller.show_event;
 
 import android.os.Bundle;
