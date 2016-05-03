@@ -22,7 +22,8 @@ import dao.UserDAO;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DisableAccountLoginConfirmation extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class DisableAccountLoginConfirmation extends android.support.v4.app.Fragment
+        implements View.OnClickListener {
 
     private Activity homePage;
 
@@ -37,12 +38,14 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         // Inflate the layout for this fragment
 
         homePage = getActivity();
-        View loginView = inflater.inflate(R.layout.fragment_disable_account_login_confirmation, container, false);
+        View loginView = inflater.inflate(R.layout.fragment_disable_account_login_confirmation,
+                container, false);
 
         Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
         backButton.setOnClickListener(this);
 
-        Button disableButton = (Button) loginView.findViewById(R.id.button_disable_account_confirmation_id);
+        Button disableButton = (Button) loginView
+                .findViewById(R.id.button_disable_account_confirmation_id);
         disableButton.setOnClickListener(this);
 
         return loginView;
@@ -54,11 +57,13 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
 
         FragmentActivity activity = this.getActivity();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
         switch (view.getId()) {
             case R.id.button_back_id:
                 returnToConfigurationOptions(fragmentManager);
                 RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
-                return;
+
+                break;
 
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
@@ -108,11 +113,13 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
             } else {
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
+
                 isLoginConfirmationValid = false;
             }
         } else {
             usernameField.requestFocus();
             usernameField.setError(loginValidation.getInvalidUsernameMessage());
+            
             isLoginConfirmationValid = false;
         }
         return isLoginConfirmationValid;
