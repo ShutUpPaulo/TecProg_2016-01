@@ -9,6 +9,10 @@ import java.util.Calendar;
 
 public abstract class DAO {
 
+    private final int LIMIT_CONNECTION_TIME = 15000;
+    private final String URL_QUERY = "http://euvou.esy.es/query.php";
+    private final String URL_CONSULT = "http://euvou.esy.es/consult.php";
+
     private Activity currentActivity;
 
     public DAO(Activity currentActivity){
@@ -25,8 +29,8 @@ public abstract class DAO {
         consult.exec();
 
         long currentTime = Calendar.getInstance().getTime().getTime();
-        int LIMITCONECTIONTIME = 15000;
-        long timeLimit = currentTime + LIMITCONECTIONTIME;
+
+        long timeLimit = currentTime + LIMIT_CONNECTION_TIME;
         while(!consult.getIsDoing() && currentTime < timeLimit) {
             currentTime = Calendar.getInstance().getTime().getTime();
         }
@@ -43,35 +47,34 @@ public abstract class DAO {
     }
     public static boolean limitExceded(long timeLimit, long currentTime){
 
-        boolean isLimitExceded = false;
+        boolean isLimitExceeded = false;
 
         if(currentTime >= timeLimit) {
-            isLimitExceded = true;
+            isLimitExceeded = true;
         }else{
             //nothing to do
         }
 
-        return isLimitExceded;
+        return isLimitExceeded;
     }
 
     protected String executeQuery(String query){
-        String URLQUERY = "http://euvou.esy.es/query.php";
-        return query(query, URLQUERY);
+        String executedQuery = query(query, URL_QUERY);
+        return executedQuery;
     }
 
     protected JSONObject executeConsult(String query)
     {
-        String json;
-        JSONObject jObject = null;
+        String consultJson;
+        JSONObject jsonObject = null;
         try {
-            String URLCONSULT = "http://euvou.esy.es/consult.php";
-            json = query(query, URLCONSULT);
-            jObject  = new JSONObject(json);
+            consultJson = query(query, URL_CONSULT);
+            jsonObject  = new JSONObject(consultJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return jObject;
+        return jsonObject;
     }
 
 }
