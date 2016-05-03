@@ -37,15 +37,15 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         // Inflate the layout for this fragment
 
         homePage = getActivity();
-        View view = inflater.inflate(R.layout.fragment_disable_account_login_confirmation, container, false);
+        View loginView = inflater.inflate(R.layout.fragment_disable_account_login_confirmation, container, false);
 
-        Button backButton = (Button)view.findViewById(R.id.button_back_id);
+        Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
         backButton.setOnClickListener(this);
 
-        Button disableButton = (Button)view.findViewById(R.id.button_disable_account_confirmation_id);
+        Button disableButton = (Button) loginView.findViewById(R.id.button_disable_account_confirmation_id);
         disableButton.setOnClickListener(this);
 
-        return view;
+        return loginView;
     }
 
 
@@ -87,12 +87,12 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
     }
 
     private boolean isLoginConfirmationValid() {
-        View view = getView();
+        View loginView = getView();
 
-        EditText usernameField = (EditText) view.findViewById(R.id.edit_text_login_id);
+        EditText usernameField = (EditText) loginView.findViewById(R.id.edit_text_login_id);
         String typedUsername = usernameField.getText().toString();
 
-        EditText passwordField = (EditText) view.findViewById(R.id.edit_text_password_id);
+        EditText passwordField = (EditText) loginView.findViewById(R.id.edit_text_password_id);
         String typedPassword = passwordField.getText().toString();
 
         LoginValidation loginValidation = new LoginValidation(homePage);
