@@ -1,8 +1,6 @@
 package com.mathheals.euvou.controller.remove_user;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.mathheals.euvou.R;
 
@@ -28,22 +25,22 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_remove_user, container, false);
+        View removeUserFragmentView = inflater.inflate(R.layout.fragment_remove_user, container, false);
 
-        Button deactivateButton = (Button)view.findViewById(R.id.button_disable_account_id);
+        Button deactivateButton = (Button) removeUserFragmentView.findViewById(R.id.button_disable_account_id);
         deactivateButton.setOnClickListener(this);
 
-        return view;
+        return removeUserFragmentView;
     }
 
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View git View) {
 
         FragmentActivity activity = this.getActivity();
         android.support.v4.app.FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
 
-        switch(view.getId()) {
+        switch(removeUserFragmentView.getId()) {
             case R.id.button_disable_account_id:
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
                 fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
