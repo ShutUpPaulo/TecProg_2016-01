@@ -44,16 +44,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                 container, false);
         assert loginView != null;
 
-        Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
-        assert backButton != null;
-
-        backButton.setOnClickListener(this);
-
-        Button disableButton = (Button) loginView
-                .findViewById(R.id.button_disable_account_confirmation_id);
-        assert disableButton != null;
-
-        disableButton.setOnClickListener(this);
+        this.createButtons(loginView);
 
         return loginView;
     }
@@ -142,5 +133,18 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
             isLoginConfirmationValid = false;
         }
         return isLoginConfirmationValid;
+    }
+
+    private void createButtons(View loginView){
+        Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
+        assert backButton != null;
+
+        backButton.setOnClickListener(this);
+
+        Button disableButton = (Button) loginView
+                .findViewById(R.id.button_disable_account_confirmation_id);
+        assert disableButton != null;
+
+        disableButton.setOnClickListener(this);
     }
 }
