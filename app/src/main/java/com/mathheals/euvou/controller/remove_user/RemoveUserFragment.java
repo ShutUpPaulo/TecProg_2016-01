@@ -14,7 +14,8 @@ import com.mathheals.euvou.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RemoveUserFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class RemoveUserFragment extends android.support.v4.app.Fragment
+        implements View.OnClickListener{
 
     public RemoveUserFragment() {
         // Required empty public constructor
@@ -25,9 +26,11 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View removeUserFragmentView = inflater.inflate(R.layout.fragment_remove_user, container, false);
+        View removeUserFragmentView = inflater.inflate(R.layout.fragment_remove_user,
+                container, false);
 
-        Button deactivateButton = (Button) removeUserFragmentView.findViewById(R.id.button_disable_account_id);
+        Button deactivateButton = (Button) removeUserFragmentView
+                .findViewById(R.id.button_disable_account_id);
         deactivateButton.setOnClickListener(this);
 
         return removeUserFragmentView;
@@ -35,18 +38,24 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment implemen
 
 
     @Override
-    public void onClick(View git View) {
+    public void onClick(View removeUserFragmentView) {
 
         FragmentActivity activity = this.getActivity();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                activity.getSupportFragmentManager().beginTransaction();
 
         switch(removeUserFragmentView.getId()) {
             case R.id.button_disable_account_id:
+
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
-                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(), String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
+                fragmentTransaction.add(R.id.content_frame, new DisableAccountFragment(),
+                        String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
+
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.addToBackStack(String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
+                fragmentTransaction.addToBackStack
+                        (String.valueOf(R.string.DISABLE_ACCOUNT_FRAGMENT_TAG));
                 fragmentTransaction.commit();
+
                 break;
 
             default:
