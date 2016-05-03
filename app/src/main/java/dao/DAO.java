@@ -23,7 +23,7 @@ public abstract class DAO {
 
     }
 
-    private String query(String query,String urlQuery)
+    private String processQuery(String query,String urlQuery)
     {
         Consult consult = new Consult(query,urlQuery);
         consult.exec();
@@ -35,7 +35,7 @@ public abstract class DAO {
             currentTime = Calendar.getInstance().getTime().getTime();
         }
 
-        if(limitExceded(timeLimit,currentTime)) {
+        if(limitExceeded(timeLimit,currentTime)) {
             Toast.makeText(currentActivity,"Problema de conexão com o servidor (verifique se esta conectado a internet)", Toast.LENGTH_LONG).show();
             return null;
         }else{
@@ -45,7 +45,7 @@ public abstract class DAO {
 
         return consult.getResult();
     }
-    public static boolean limitExceded(long timeLimit, long currentTime){
+    public static boolean limitExceeded(long timeLimit, long currentTime){
 
         boolean isLimitExceeded = false;
 
@@ -59,7 +59,7 @@ public abstract class DAO {
     }
 
     protected String executeQuery(String query){
-        String executedQuery = query(query, URL_QUERY);
+        String executedQuery = processQuery(query, URL_QUERY);
         return executedQuery;
     }
 
@@ -68,7 +68,7 @@ public abstract class DAO {
         String consultJson;
         JSONObject jsonObject = null;
         try {
-            consultJson = query(query, URL_CONSULT);
+            consultJson = processQuery(query, URL_CONSULT);
             jsonObject  = new JSONObject(consultJson);
         } catch (Exception e) {
             e.printStackTrace();
