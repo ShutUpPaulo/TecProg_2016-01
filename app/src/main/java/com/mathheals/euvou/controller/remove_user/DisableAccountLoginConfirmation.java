@@ -36,16 +36,23 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        assert inflater != null;
+        assert container != null;
 
         homePage = getActivity();
         View loginView = inflater.inflate(R.layout.fragment_disable_account_login_confirmation,
                 container, false);
+        assert loginView != null;
 
         Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
+        assert backButton != null;
+
         backButton.setOnClickListener(this);
 
         Button disableButton = (Button) loginView
                 .findViewById(R.id.button_disable_account_confirmation_id);
+        assert disableButton != null;
+
         disableButton.setOnClickListener(this);
 
         return loginView;
@@ -54,13 +61,18 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
 
     @Override
     public void onClick(View view) {
+        assert view != null;
 
         FragmentActivity activity = this.getActivity();
+        assert activity != null;
+
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        assert fragmentManager != null;
 
         switch (view.getId()) {
             case R.id.button_back_id:
                 returnToConfigurationOptions(fragmentManager);
+
                 RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
 
                 break;
@@ -87,17 +99,24 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
     }
 
     private void returnToConfigurationOptions(FragmentManager fragmentManager) {
+        assert fragmentManager != null;
+
         fragmentManager.popBackStack();
         fragmentManager.popBackStack();
     }
 
     private boolean isLoginConfirmationValid() {
         View loginView = getView();
+        assert loginView != null;
 
         EditText usernameField = (EditText) loginView.findViewById(R.id.edit_text_login_id);
+        assert usernameField != null;
+
         String typedUsername = usernameField.getText().toString();
 
         EditText passwordField = (EditText) loginView.findViewById(R.id.edit_text_password_id);
+        assert passwordField != null;
+
         String typedPassword = passwordField.getText().toString();
 
         LoginValidation loginValidation = new LoginValidation(homePage);
@@ -119,7 +138,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         } else {
             usernameField.requestFocus();
             usernameField.setError(loginValidation.getInvalidUsernameMessage());
-            
+
             isLoginConfirmationValid = false;
         }
         return isLoginConfirmationValid;
