@@ -25,12 +25,16 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        assert inflater != null;
 
         View removeUserFragmentView = inflater.inflate(R.layout.fragment_remove_user,
                 container, false);
+        assert removeUserFragmentView != null;
 
         Button deactivateButton = (Button) removeUserFragmentView
                 .findViewById(R.id.button_disable_account_id);
+        assert deactivateButton != null;
+
         deactivateButton.setOnClickListener(this);
 
         return removeUserFragmentView;
@@ -39,10 +43,14 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment
 
     @Override
     public void onClick(View removeUserFragmentView) {
+        assert removeUserFragmentView != null;
 
         FragmentActivity activity = this.getActivity();
+        assert activity != null;
+
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 activity.getSupportFragmentManager().beginTransaction();
+        assert fragmentTransaction != null;
 
         switch(removeUserFragmentView.getId()) {
             case R.id.button_disable_account_id:
