@@ -24,6 +24,8 @@ public class EventDAO extends DAO {
     public EventDAO(){}
 
     public void saveEvent(Event event){
+        assert event != null;
+
         executeQuery("insert into tb_event(nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
                 event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
@@ -48,11 +50,15 @@ public class EventDAO extends DAO {
 
     public  String deleteEvent(int idEvent)
     {
+        assert idEvent >= 1;
+
         return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+idEvent);
     }
 
     public void updateEvent(Event event)
     {
+        assert event != null;
+
         executeQuery("UPDATE tb_event SET price=\"" + event.getPrice() + "\", address=\"" + event.getAddress() + "\", " +
                 "nameEvent=\""+event.getNameEvent()+"\", "+"dateTimeEvent=\""+event.getDateTimeEvent()+
                 "\", "+"description=\""+event.getDescription()+"\", "+"longitude=\""+event.getLongitude()+"\", " +
@@ -70,19 +76,27 @@ public class EventDAO extends DAO {
     }
 
     public JSONObject searchEventByName(String eventName){
+        assert eventName != null;
+
         return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
 
     public JSONObject searchEventByNameGroup(String eventName)
     {
+        assert eventName != null;
+
         return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
     }
 
     public JSONObject searchEventById(int idEvent){
+        assert idEvent >= 1;
+
         return this.executeConsult("SELECT * FROM tb_event WHERE idEvent = " + idEvent);
     }
 
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
+        assert owner >= 1;
+
         JSONObject json = this.executeConsult("SELECT * FROM tb_event WHERE idOwner=" + owner + " GROUP BY idEvent");
 
         if(json == null) {
@@ -113,10 +127,16 @@ public class EventDAO extends DAO {
     }
 
     public String markParticipate(int idUser, int idEvent) {
+        assert idUser >= 1;
+        assert idEvent >= 1;
+
         return this.executeQuery("INSERT INTO participate(idEvent, idUser) VALUES(" + idEvent + "," + idUser + ");");
     }
 
     public JSONObject verifyParticipate(int idUser, int idEvent) {
+        assert idUser >= 1;
+        assert idEvent >= 1;
+
         return this.executeConsult("SELECT * FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
@@ -126,6 +146,8 @@ public class EventDAO extends DAO {
 
     public void saveEventWithId(Event event)
     {
+        assert event != null;
+
         executeQuery("insert into tb_event(idEvent,nameEvent, idOwner, price, address, dateTimeEvent,description,longitude,latitude) VALUES('" +
                 event.getIdEvent() + "', '" + event.getNameEvent() + "', '" + event.getIdOwner() + "', '" + event.getPrice() + "', '" + event.getAddress() + "','" + event.getDateTimeEvent() + "','" + event.getDescription() + "'," +
                 "" + event.getLongitude() + "," + event.getLatitude() + ")");
