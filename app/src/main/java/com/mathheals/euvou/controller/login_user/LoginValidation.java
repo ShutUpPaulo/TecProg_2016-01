@@ -22,6 +22,8 @@ public class LoginValidation {
     public LoginValidation(){}
 
     private boolean checkUsernameCharacters(String username){
+        assert username != null;
+
         if(username.isEmpty()==false && username.contains(" ")==false){
             return true;
         }else{
@@ -30,6 +32,8 @@ public class LoginValidation {
     }
 
     public boolean isActivity(String username){
+        assert username != null;
+
         UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = null;
@@ -49,6 +53,8 @@ public class LoginValidation {
     }
 
     private boolean isUsernameRegistred(String username){
+        assert username != null;
+
         UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(username);
@@ -62,11 +68,15 @@ public class LoginValidation {
     }
 
     public boolean isUsernameValid(String username){
+        assert username != null;
 
         return checkUsernameCharacters(username) && isUsernameRegistred(username);
     }
 
     public boolean checkPassword(String validUsername, String passwordTyped){
+        assert validUsername != null;
+        assert passwordTyped != null;
+
         UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(validUsername);
