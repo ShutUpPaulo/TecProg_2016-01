@@ -50,10 +50,10 @@ public abstract class DAO {
 
         boolean isLimitExceeded;
 
-        if(currentTime >= timeLimit) {
-            isLimitExceeded = true;
-        }else{
+        if (currentTime < timeLimit) {
             isLimitExceeded = false;
+        } else {
+            isLimitExceeded = true;
         }
 
         return isLimitExceeded;
