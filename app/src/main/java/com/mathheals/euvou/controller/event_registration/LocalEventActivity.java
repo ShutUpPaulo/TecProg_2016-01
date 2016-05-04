@@ -17,6 +17,8 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        assert savedInstanceState != null;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_event);
         setUpMapIfNeeded();
@@ -72,6 +74,8 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
 
     @Override
     public void onMapClick(LatLng latLng) {
+        assert latLng != null;
+
         Intent resultado = new Intent();
         resultado.putExtra("longitude", " "+latLng.longitude);
         resultado.putExtra("latitude", " "+latLng.latitude);
