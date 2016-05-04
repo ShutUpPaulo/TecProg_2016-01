@@ -33,24 +33,16 @@ public abstract class DAO {
         Consult consult = new Consult(query,urlQuery);
         consult.exec();
 
-        long currentTime = Calendar.getInstance().getTime().getTime();
-        assert currentTime >= 0;
+        boolean isConnectionTimedOut = testConnectionTime(consult);
 
-        long timeLimit = currentTime + LIMIT_CONNECTION_TIME;
-        assert timeLimit >= 0;
-
-        while(!consult.getIsDoing() && currentTime < timeLimit) {
-            currentTime = Calendar.getInstance().getTime().getTime();
-        }
-
-        if(limitExceeded(timeLimit,currentTime)) {
-            Toast.makeText(currentActivity,CONNECTION_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
-            return null;
+        String consultAnswer = STRING_EMPTY;
+        if(!isConnectionTimedOut){
+            consultAnswer = consult.getResult();
         }else{
-            //nothing to do
+            consultAnswer = null;
         }
 
-        return consult.getResult();
+        return consultAnswer;
     }
     public static boolean limitExceeded(long timeLimit, long currentTime){
         assert timeLimit >= 0;
@@ -93,6 +85,28 @@ public abstract class DAO {
         }
 
         return jsonObject;
+    }
+
+    private boolean testConnectionTime(Consult consult){
+        long currentTime = Calendar.getInstance().getTime().getTime();
+        assert currentTime >= 0;
+
+        long timeLimit = currentTime + LIMIT_CONNECTION_TIME;
+        assert timeLimit >= 0;
+
+        while(!consult.getIsDoing() && currentTime < timeLimit) {
+            currentTime = Calendar.getInstance().getTime().getTime();
+        }
+
+        boolean isConnectionTimedOut = false;
+        if(limitExceeded(timeLimit,currentTime)) {
+            Toast.makeText(currentActivity,CONNECTION_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
+            isConnectionTimedOut = false;
+        }else{
+            isConnectionTimedOut = true;
+        }
+
+        return isConnectionTimedOut;
     }
 
 }
