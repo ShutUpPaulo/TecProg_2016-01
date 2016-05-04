@@ -1,3 +1,8 @@
+/**
+ * File: ShowEvent.java
+ * Purpose: Show event information
+ */
+
 package com.mathheals.euvou.controller.show_event;
 
 import android.content.Intent;
@@ -28,7 +33,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
-
     private final String GO = "#EUVOU";
 
     private int userId;
@@ -39,7 +43,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public ShowEvent(){
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,7 +101,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }catch (JSONException ex){
             ex.printStackTrace();
         }catch (NullPointerException exception){
-            Toast.makeText(getActivity(), "O nome não foi encontrado", Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), "O nome não foi encontrado", Toast.LENGTH_LONG).show();
         }
 
         setIsUserLoggedIn(userId != LOGGED_OUT);
@@ -259,8 +262,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 eventEvaluationDAO.evaluateEvent(getEventEvaluation());
             }
         });
-
-        setRatingBarStyle();
     }
 
     private EventEvaluation getEventEvaluation(){
@@ -285,9 +286,4 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             }
         }
     }
-
-    private void setRatingBarStyle(){
-/*        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getContext(), R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
- */   }
 }

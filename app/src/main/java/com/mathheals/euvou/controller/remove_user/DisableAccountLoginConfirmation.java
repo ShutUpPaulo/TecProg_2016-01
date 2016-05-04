@@ -22,7 +22,8 @@ import dao.UserDAO;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DisableAccountLoginConfirmation extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class DisableAccountLoginConfirmation extends android.support.v4.app.Fragment
+        implements View.OnClickListener {
 
     private Activity homePage;
 
@@ -35,30 +36,37 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        assert inflater != null;
+        assert container != null;
 
         homePage = getActivity();
-        View view = inflater.inflate(R.layout.fragment_disable_account_login_confirmation, container, false);
+        View loginView = inflater.inflate(R.layout.fragment_disable_account_login_confirmation,
+                container, false);
+        assert loginView != null;
 
-        Button backButton = (Button)view.findViewById(R.id.button_back_id);
-        backButton.setOnClickListener(this);
+        this.createButtons(loginView);
 
-        Button disableButton = (Button)view.findViewById(R.id.button_disable_account_confirmation_id);
-        disableButton.setOnClickListener(this);
-
-        return view;
+        return loginView;
     }
 
 
     @Override
     public void onClick(View view) {
+        assert view != null;
 
         FragmentActivity activity = this.getActivity();
+        assert activity != null;
+
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        assert fragmentManager != null;
+
         switch (view.getId()) {
             case R.id.button_back_id:
                 returnToConfigurationOptions(fragmentManager);
+
                 RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
-                return;
+
+                break;
 
             case R.id.button_disable_account_confirmation_id:
                 if(isLoginConfirmationValid()) {
@@ -82,17 +90,24 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
     }
 
     private void returnToConfigurationOptions(FragmentManager fragmentManager) {
+        assert fragmentManager != null;
+
         fragmentManager.popBackStack();
         fragmentManager.popBackStack();
     }
 
     private boolean isLoginConfirmationValid() {
-        View view = getView();
+        View loginView = getView();
+        assert loginView != null;
 
-        EditText usernameField = (EditText) view.findViewById(R.id.edit_text_login_id);
+        EditText usernameField = (EditText) loginView.findViewById(R.id.edit_text_login_id);
+        assert usernameField != null;
+
         String typedUsername = usernameField.getText().toString();
 
-        EditText passwordField = (EditText) view.findViewById(R.id.edit_text_password_id);
+        EditText passwordField = (EditText) loginView.findViewById(R.id.edit_text_password_id);
+        assert passwordField != null;
+
         String typedPassword = passwordField.getText().toString();
 
         LoginValidation loginValidation = new LoginValidation(homePage);
@@ -108,13 +123,28 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
             } else {
                 passwordField.requestFocus();
                 passwordField.setError(loginValidation.getInvalidPasswordMessage());
+
                 isLoginConfirmationValid = false;
             }
         } else {
             usernameField.requestFocus();
             usernameField.setError(loginValidation.getInvalidUsernameMessage());
+
             isLoginConfirmationValid = false;
         }
         return isLoginConfirmationValid;
+    }
+
+    private void createButtons(View loginView){
+        Button backButton = (Button) loginView.findViewById(R.id.button_back_id);
+        assert backButton != null;
+
+        backButton.setOnClickListener(this);
+
+        Button disableButton = (Button) loginView
+                .findViewById(R.id.button_disable_account_confirmation_id);
+        assert disableButton != null;
+
+        disableButton.setOnClickListener(this);
     }
 }

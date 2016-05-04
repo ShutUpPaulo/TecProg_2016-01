@@ -24,7 +24,11 @@ public class OhGoshFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_oh_gosh, container, false);
+        assert inflater != null;
+
+        View ohGoshFragmentView = inflater.inflate(R.layout.fragment_oh_gosh, container, false);
+
+        return ohGoshFragmentView;
     }
 
 
