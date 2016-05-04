@@ -29,6 +29,9 @@ public class Consult {
 
     public Consult(String query, String URL)
     {
+        assert query != null;
+        assert URL != null;
+
         this.query= query;
         this.URL = URL;
         setIsDoing(false);
@@ -57,6 +60,8 @@ public class Consult {
 
     public void setResult(String result)
     {
+        assert result != null;
+
         this.result = result;
     }
 
@@ -69,6 +74,7 @@ public class Consult {
 
         @Override
         protected String doInBackground(String... args) {
+            assert args != null;
 
             try {
                 HttpResponse response;
@@ -92,11 +98,14 @@ public class Consult {
         }
 
         protected void onPostExecute(String result) {
+            assert result != null;
 
             Consult.this.setIsDoing(true);
         }
 
         private StringBuilder inputStreamToString(InputStream is) throws IOException {
+            assert is != null;
+
             String rLine = "";
             StringBuilder answer = new StringBuilder();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is));
