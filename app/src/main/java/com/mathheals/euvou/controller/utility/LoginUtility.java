@@ -30,6 +30,8 @@ public class LoginUtility {
     private SharedPreferences.Editor editor;
 
     public LoginUtility(Activity activity) {
+        assert activity != null;
+
         this.activity = activity;
         sharedPreferences = activity.getSharedPreferences(ID_FIELD, activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -42,12 +44,16 @@ public class LoginUtility {
     }
     // gets user's ID by username. OBS: IT'S ASSUMED THAT USERNAME DOES EXIST
     public int getUserId(String username) throws org.json.JSONException{
+        assert username != null;
+
         UserDAO userDAO = new UserDAO(this.activity);
         JSONObject jsonObject = userDAO.searchUserByUsername(username);
         return Integer.parseInt(jsonObject.getJSONObject("0").getString(COLUMN_USER_ID));
     }
 
     public User getUser(String username){
+        assert username != null;
+
         User user=null;
         try {
             UserDAO userDAO = new UserDAO(this.activity);
@@ -78,6 +84,8 @@ public class LoginUtility {
     }
 
     public void setUserLogIn(int userId) {
+        assert userId >= 1;
+
         editor.putInt(ID_FIELD, userId);
         editor.commit();
     }
@@ -88,6 +96,8 @@ public class LoginUtility {
     }
 
     public boolean isUserActive(String username) {
+        assert username != null;
+
         UserDAO userDAO = new UserDAO(this.activity);
         JSONObject jsonObject = userDAO.searchUserByUsername(username);
         String userState = null;
@@ -101,6 +111,8 @@ public class LoginUtility {
     }
 
     private String formatDateToBr(String birthDate){
+        assert birthDate != null;
+
         String[] birthDateSplit = birthDate.split("-");
         return birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
     }
