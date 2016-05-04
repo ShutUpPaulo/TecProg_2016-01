@@ -29,6 +29,10 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        assert inflater != null;
+        assert container != null;
+        assert savedInstanceState != null;
+
         View view = inflater.inflate(R.layout.fragment_disable_account, container, false);
 
         Button yesButton = (Button)view.findViewById(R.id.button_yes_id);
@@ -43,6 +47,8 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
 
     @Override
     public void onClick(View view) {
+        assert view != null;
+
         FragmentActivity activity = this.getActivity();
         FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
