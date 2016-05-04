@@ -48,6 +48,10 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        assert inflater != null;
+        assert container != null;
+        assert savedInstanceState != null;
+
         View view = inflater.inflate(R.layout.fragment_list_events, container, false);
         // Inflate the layout for this fragment
         listView = (ListView) view.findViewById(R.id.eventList);
@@ -98,6 +102,9 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         }
     }
     private HashMap<String, String> createEvent(String name, String number) {
+        assert name != null;
+        assert number != null;
+
         HashMap<String, String> eventName = new HashMap<String, String>();
         eventName.put(name, number);
         return eventName;
@@ -105,6 +112,10 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int positionEvent, long id) {
+        assert view != null;
+        assert positionEvent >= 0;
+        assert id >= 0;
+
         final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Event eventClicked = events.get(positionEvent);
         EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
