@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        assert savedInstanceState != null;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -45,6 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
+        assert menu != null;
+
         getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
@@ -54,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Handle action bar menuItem clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        assert menuItem != null;
+
         int itemId = menuItem.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -75,6 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        assert v != null;
+
         EditText usernameField = (EditText) findViewById(R.id.usernameField);
         String typedUsername = usernameField.getText().toString();
 
