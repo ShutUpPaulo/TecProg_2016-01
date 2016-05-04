@@ -47,6 +47,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void formatDate(JSONObject jsonEvent) throws JSONException {
+        assert jsonEvent != null;
 
         String dateHourEvent = jsonEvent.getJSONObject("0").getString("dateTimeEvent");
         String[] dateHourEventSplit = dateHourEvent.split(" ");
@@ -63,6 +64,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void formatPrice(JSONObject jsonEvent) throws JSONException {
+        assert jsonEvent != null;
+
         Integer priceEvent = jsonEvent.getJSONObject("0").getInt("price");
         this.priceRealField.setText(Integer.toString(priceEvent/100));
         this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
@@ -71,6 +74,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        assert inflater != null;
+        assert container != null;
+        assert savedInstanceState != null;
 
         idEvent = this.getArguments().getInt("idEvent");
 
@@ -175,6 +181,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void setingEditText(View view){
+        assert view != null;
+
         this.nameField = (EditText) view.findViewById(R.id.eventName);
         this.dateField = (EditText) view.findViewById(R.id.eventDate);
         this.hourField = (EditText) view.findViewById(R.id.eventHour);
@@ -185,6 +193,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void setingCheckBoxs(View view){
+        assert view != null;
+
         this.showCheckBox = (CheckBox) view.findViewById(R.id.optionShow);
         this.expositionCheckBox = (CheckBox) view.findViewById(R.id.optionExposition);
         this.cinemaCheckBox = (CheckBox) view.findViewById(R.id.optionCinema);
@@ -197,12 +207,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void updateEventOnDataBase(Event event){
+        assert event != null;
+
         EventDAO eventDAO = new EventDAO(getActivity());
         eventDAO.updateEvent(event);
     }
 
     private void updateEvent(){
-
         String nameEvent = nameField.getText().toString();
         String dateEvent = dateField.getText().toString();
 
@@ -280,6 +291,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void addEventCategories(View v){
+        assert v != null;
+
         if(v.getId() == R.id.optionCinema){
             CheckBox cinemaCheckBox = (CheckBox) v;
 
@@ -359,6 +372,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        assert v != null;
+
         if(v.getId() == R.id.updateEvent) {
             updateEvent();
         }
@@ -375,6 +390,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        assert data != null;
+
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
             case (2) : {
@@ -393,6 +410,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     }
 
     private void addCheckBoxListeners(View v){
+        assert v != null;
 
         CheckBox showCategory = (CheckBox) v.findViewById(R.id.optionShow);
         showCategory.setOnClickListener(this);
@@ -425,6 +443,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     private void removeEvent(int eventId)
     {
+        assert eventId >= 0;
+
         EventDAO eventDAO = new EventDAO(getActivity());
         if(eventDAO.deleteEvent(eventId).contains("Salvo")) {
             Toast.makeText(getActivity(), "Deletado com sucesso", Toast.LENGTH_LONG).show();
