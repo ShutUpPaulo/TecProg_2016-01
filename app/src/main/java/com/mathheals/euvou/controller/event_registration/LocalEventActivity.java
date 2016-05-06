@@ -1,3 +1,8 @@
+/**
+ * File: LocalEventActivity.java
+ * Purpose: Shows a map with a mark in the local of the event
+ */
+
 package com.mathheals.euvou.controller.event_registration;
 
 import android.app.Activity;

@@ -101,9 +101,9 @@ public abstract class DAO {
         boolean isConnectionTimedOut = false;
         if(limitExceeded(timeLimit,currentTime)) {
             Toast.makeText(currentActivity,CONNECTION_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
-            isConnectionTimedOut = false;
-        }else{
             isConnectionTimedOut = true;
+        }else{
+            isConnectionTimedOut = false;
         }
 
         return isConnectionTimedOut;
