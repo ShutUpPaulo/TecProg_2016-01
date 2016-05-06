@@ -9,16 +9,21 @@ import exception.PlaceException;
  */
 public class Place {
 
-    private int id;
-    private String name;
+    private static final String STRING_EMPTY = "";
+    private static final double DOUBLE_ZERO = 0.0;
+    private static final float FLOAT_ZERO = 0.0f;
+    private static final int INT_ZERO = 0;
+
+    private int id = INT_ZERO;
+    private String name = STRING_EMPTY;
     private ArrayList<String> comment;
-    private Float evaluate;
-    private Double longitude;
-    private Double latitude;
-    private String phone;
-    private String operation;
-    private String description;
-    private String address;
+    private Float evaluate = FLOAT_ZERO;
+    private Double longitude = DOUBLE_ZERO;
+    private Double latitude = DOUBLE_ZERO;
+    private String phone = STRING_EMPTY;
+    private String operation = STRING_EMPTY;
+    private String description = STRING_EMPTY;
+    private String address = STRING_EMPTY;
 
     public Place(String name, String evaluate, String longitude, String latitude,
                  String operation, String description, String address, String phone) throws PlaceException, ParseException {
