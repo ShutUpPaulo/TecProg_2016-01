@@ -1,3 +1,8 @@
+/**
+ * File: DisableAccountFragment.java
+ * Purpose: List the events created by the user logged in
+ */
+
 package com.mathheals.euvou.controller.search_event;
 
 import android.os.Bundle;
