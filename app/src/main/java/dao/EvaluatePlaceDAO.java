@@ -22,6 +22,8 @@ public class EvaluatePlaceDAO extends DAO{
     }
 
     public void evaluatePlace(Evaluation evaluation) {
+        assert evaluation != null;
+
         String evaluationQuery = STRING_EMPTY;
 
         String consultEvaluation = "SELECT * FROM evaluate_place WHERE idPlace = \"" +
@@ -29,6 +31,7 @@ public class EvaluatePlaceDAO extends DAO{
                 evaluation.getIdUser() + "\"";
 
         JSONObject findEvaluation = executeConsult(consultEvaluation);
+        assert findEvaluation != null;
 
         if(findEvaluation==null) {
             evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
@@ -45,6 +48,9 @@ public class EvaluatePlaceDAO extends DAO{
 
 
     public JSONObject searchPlaceEvaluation(int placeId, int userId) {
+        assert placeId >= 0;
+        assert userId >= 0;
+
         String searchPlaceEvaluationQuery = "SELECT * FROM evaluate_place WHERE idUser = \"" +
                 userId + "\" AND idPlace = " + placeId;
         return executeConsult(searchPlaceEvaluationQuery);
