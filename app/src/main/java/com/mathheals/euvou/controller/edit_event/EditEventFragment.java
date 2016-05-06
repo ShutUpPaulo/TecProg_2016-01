@@ -1,3 +1,8 @@
+/**
+ * File: EditEventFragment.java
+ * Purpose: Fragment responsible for edit or delete an event
+ */
+
 package com.mathheals.euvou.controller.edit_event;
 
 import android.app.Activity;
