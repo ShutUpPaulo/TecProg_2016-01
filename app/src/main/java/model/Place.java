@@ -26,7 +26,8 @@ public class Place {
     private String address = STRING_EMPTY;
 
     public Place(String name, String evaluate, String longitude, String latitude,
-                 String operation, String description, String address, String phone) throws PlaceException, ParseException {
+                 String operation, String description, String address, String phone)
+            throws PlaceException, ParseException {
         setName(name);
         setEvaluate(evaluate);
         setLongitude(longitude);
@@ -39,7 +40,8 @@ public class Place {
     }
 
     public Place(int id, String name, String evaluate, String longitude, String latitude,
-        String operation, String description, String address, String phone) throws PlaceException, ParseException {
+        String operation, String description, String address, String phone)
+            throws PlaceException, ParseException {
         setId(id);
         setName(name);
         setEvaluate(evaluate);
@@ -76,7 +78,7 @@ public class Place {
     }
 
     public void addComment(String comment) throws PlaceException {
-        String INVALID_COMMENT = "Hey, o comentario não pode ser vazio";
+        final String INVALID_COMMENT = "Hey, o comentario não pode ser vazio";
 
         if(comment == null) {
             throw new PlaceException(INVALID_COMMENT);
@@ -106,7 +108,7 @@ public class Place {
     }
 
     private void setLatitude(String latitude) throws ParseException, PlaceException{
-        String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
+        final String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
 
         if(latitude.isEmpty()){
             throw new PlaceException(INVALID_LATITUDE);
@@ -118,7 +120,7 @@ public class Place {
     }
 
     private void setLongitude(String longitude) throws ParseException, PlaceException {
-        String INVALID_LONGITUDE = "Hey, sem a longitude não é possível encontrar o lugar";
+        final String INVALID_LONGITUDE = "Hey, sem a longitude não é possível encontrar o lugar";
 
         if(longitude.isEmpty()){
             throw new PlaceException(INVALID_LONGITUDE);
@@ -131,7 +133,7 @@ public class Place {
 
     private void setEvaluate(String evaluate) throws NumberFormatException{
         if(evaluate.equals("null")) {
-            this.evaluate = 0.0F;
+            this.evaluate = FLOAT_ZERO;
         } else {
             this.evaluate = Float.parseFloat(evaluate);
         }
