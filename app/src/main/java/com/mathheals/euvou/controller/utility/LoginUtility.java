@@ -1,3 +1,9 @@
+/**
+ * File: LoginUtility.java
+ * Purpose: Contains methods to set the id of a user who is logging in and get
+ *          data of a user who's already logged in
+ */
+
 package com.mathheals.euvou.controller.utility;
 
 import android.app.Activity;
@@ -12,9 +18,6 @@ import dao.UserDAO;
 import exception.UserException;
 import model.User;
 
-/**
- * Created by marlonmendes on 30/09/15.
- */
 public class LoginUtility {
     private static final int LOGGED_OUT = -1;
     private static final String ID_FIELD =  "idField";
