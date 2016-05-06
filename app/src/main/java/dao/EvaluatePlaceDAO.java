@@ -31,16 +31,15 @@ public class EvaluatePlaceDAO extends DAO{
                 evaluation.getIdUser() + "\"";
 
         JSONObject findEvaluation = executeConsult(consultEvaluation);
-        assert findEvaluation != null;
 
-        if(findEvaluation==null) {
-            evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
-                    evaluation.getgrade() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
-                    "\"" + evaluation.getIdPlace() + "\")";
-        }else{
+        if (findEvaluation != null) {
             evaluationQuery = "UPDATE evaluate_place SET grade = \"" +
                     evaluation.getgrade() + "\" " + "WHERE idPlace = \"" + evaluation.getIdPlace() +
                     "\" AND idUser = \"" + evaluation.getIdUser() + "\"";
+        } else {
+            evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
+                    evaluation.getgrade() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
+                    "\"" + evaluation.getIdPlace() + "\")";
         }
 
         executeQuery(evaluationQuery);
