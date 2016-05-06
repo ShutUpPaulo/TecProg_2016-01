@@ -64,10 +64,10 @@ public class Place {
     private void setName(String name) throws PlaceException {
         String INVALID_NAME = "Hey, nome invalido";
 
-        if(name.isEmpty()){
-            throw new PlaceException(INVALID_NAME);
-        }else{
+        if (!name.isEmpty()) {
            //nothing to do
+        } else {
+            throw new PlaceException(INVALID_NAME);
         }
 
         this.name = name;
@@ -80,16 +80,16 @@ public class Place {
     public void addComment(String comment) throws PlaceException {
         final String INVALID_COMMENT = "Hey, o comentario não pode ser vazio";
 
-        if(comment == null) {
-            throw new PlaceException(INVALID_COMMENT);
-        }else{
+        if (comment != null) {
             //nothing to do
+        } else {
+            throw new PlaceException(INVALID_COMMENT);
         }
 
-        if(comment.isEmpty()) {
-            throw new PlaceException(INVALID_COMMENT);
-        }else{
+        if (!comment.isEmpty()) {
             //nothing to do
+        } else {
+            throw new PlaceException(INVALID_COMMENT);
         }
 
         this.comment.add(comment);
@@ -110,10 +110,10 @@ public class Place {
     private void setLatitude(String latitude) throws ParseException, PlaceException{
         final String INVALID_LATITUDE = "Hey, sem a latitude não é possível encontrar o lugar";
 
-        if(latitude.isEmpty()){
-            throw new PlaceException(INVALID_LATITUDE);
-        }else{
+        if (!latitude.isEmpty()) {
             //nothing to do
+        } else {
+            throw new PlaceException(INVALID_LATITUDE);
         }
 
         this.latitude = Double.parseDouble(latitude);
@@ -122,20 +122,20 @@ public class Place {
     private void setLongitude(String longitude) throws ParseException, PlaceException {
         final String INVALID_LONGITUDE = "Hey, sem a longitude não é possível encontrar o lugar";
 
-        if(longitude.isEmpty()){
-            throw new PlaceException(INVALID_LONGITUDE);
-        }else{
+        if (!longitude.isEmpty()) {
             //nothing to do
+        } else {
+            throw new PlaceException(INVALID_LONGITUDE);
         }
 
         this.longitude = Double.parseDouble(longitude);
     }
 
     private void setEvaluate(String evaluate) throws NumberFormatException{
-        if(evaluate.equals("null")) {
-            this.evaluate = FLOAT_ZERO;
-        } else {
+        if (!evaluate.equals("null")) {
             this.evaluate = Float.parseFloat(evaluate);
+        } else {
+            this.evaluate = FLOAT_ZERO;
         }
     }
 
