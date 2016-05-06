@@ -1,3 +1,8 @@
+/**
+ * File: RegisterEventFragment.java
+ * Purpose: Fragment responsible for register a new user
+ */
+
 package com.mathheals.euvou.controller.event_registration;
 import android.app.Activity;
 import android.content.Intent;

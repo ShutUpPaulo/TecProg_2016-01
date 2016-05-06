@@ -1,6 +1,6 @@
 /**
  * File: LoginActivity.java
- * Purpose: Activity responsible by doing the login of the user
+ * Purpose: Activity responsible for doing the login of the user
  */
 
 package com.mathheals.euvou.controller.login_user;
