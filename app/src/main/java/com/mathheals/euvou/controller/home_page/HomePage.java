@@ -8,7 +8,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -46,6 +45,7 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     private ActionBarDrawerToggle drawerToggle;
     private String[] textOptions;
     private ActionBar actionBar;
+    public static final String OPTION = "option";
     private int USER_STATUS;
     private final int LOGGED_OUT = -1;
 

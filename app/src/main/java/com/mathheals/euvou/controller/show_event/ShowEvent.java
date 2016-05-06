@@ -49,8 +49,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                              Bundle savedInstanceState){
 
         setShowEventView(inflater.inflate(R.layout.fragment_show_event, container, false));
+
         Button showEventOnMapButton = (Button) showEventView.findViewById(R.id.showEventOnMapButton);
         Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
+
         showEventOnMapButton.setOnClickListener(this);
         participateButton.setOnClickListener(this);
 
