@@ -14,7 +14,11 @@ public class CategoryDAO extends DAO {
     }
 
     public JSONObject searchCategoryById(int idCategory){
-        JSONObject consultQuery = executeConsult("SELECT nameCategory FROM tb_category WHERE idCategory = " + idCategory);
+        String consultQueryString =
+                "SELECT nameCategory FROM tb_category WHERE idCategory = " + idCategory
+
+        JSONObject consultQuery = executeConsult(consultQueryString);
+
         return consultQuery;
     }
 }
