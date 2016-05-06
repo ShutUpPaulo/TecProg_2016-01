@@ -11,34 +11,36 @@ import model.Evaluation;
  */
 public class EvaluatePlaceDAO extends DAO{
 
-    public EvaluatePlaceDAO() {}
+    public EvaluatePlaceDAO() {
+
+    }
 
     public EvaluatePlaceDAO(Activity currentActivity) {
         super(currentActivity);
     }
 
     public void evaluatePlace(Evaluation evaluation) {
-        final String QUERY;
+        final String evaluationQuery;
 
         JSONObject findEvaluation = executeConsult("SELECT * FROM evaluate_place WHERE idPlace = \"" + evaluation.getIdPlace() + "\" " +
                 "AND idUser = \"" + evaluation.getIdUser() + "\"");
 
         if(findEvaluation==null) {
-            QUERY = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" + evaluation.getgrade() + "\"," +
+            evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" + evaluation.getgrade() + "\"," +
                     "\"" + evaluation.getIdUser() + "\"," +
                     "\"" + evaluation.getIdPlace() + "\")";
         }else{
-            QUERY = "UPDATE evaluate_place SET grade = \"" +evaluation.getgrade() + "\" " +
+            evaluationQuery = "UPDATE evaluate_place SET grade = \"" +evaluation.getgrade() + "\" " +
                     "WHERE idPlace = \"" + evaluation.getIdPlace() + "\" AND idUser = \"" + evaluation.getIdUser() + "\"";
         }
 
-        executeQuery(QUERY);
+        executeQuery(evaluationQuery);
     }
 
 
     public JSONObject searchPlaceEvaluation(int placeId, int userId) {
-        final String QUERY = "SELECT * FROM evaluate_place WHERE idUser = \"" + userId
+        String searchPlaceEvaluationQuery = "SELECT * FROM evaluate_place WHERE idUser = \"" + userId
                            + "\" AND idPlace = " + placeId;
-        return executeConsult(QUERY);
+        return executeConsult(searchPlaceEvaluationQuery);
     }
 }
