@@ -1,3 +1,8 @@
+/**
+ * File: LoginValidation.java
+ * Purpose: Contains the methods needed to validate the data typed by the user on the login screen
+ */
+
 package com.mathheals.euvou.controller.login_user;
 
 import android.app.Activity;
