@@ -1,8 +1,14 @@
+/*
+ *File: SearchPlaceMaps.java
+ * Purpose: search for the asked place in the Map
+ */
+
 package com.mathheals.euvou.controller.search_place;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,18 +38,18 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     private Place clickedPlace;
     private int selectedPlaceId;
     private JSONObject foundPlaces;
+    private static final String TAG = "setUpMapIfNeeded";
 
-    private String getFilter() {
+    private String getFilter(){
         return filter;
     }
-
-    private void setFilter(String filter) {
+    private void setFilter(String filter){
         this.filter = filter;
     }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
@@ -51,26 +57,29 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         setUpMapIfNeeded();
     }
 
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded(){
         // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
+        if (mMap == null){
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+        }else{
+            //nothing to do
+        }
+        if (mMap != null){
                 setUpMap();
-            }
+            }else{
+            Log.d(TAG, "setUpMapIfNeeded: Map can't be used.");
         }
     }
 
-    private JSONObject searchPlaces()
-    {
+    private JSONObject searchPlaces(){
         return new PlaceDAO(this).searchPlaceByPartName(getFilter());
     }
 
@@ -122,10 +131,10 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
             for (int i = 0; i < places.size(); ++i){
                 mMap.addMarker(
                         new MarkerOptions()
-                                .title(places.get(i).getName())
-                                .snippet(places.get(i).getAddress())
-                                .position(new LatLng(places.get(i).getLatitude(),
-                                        places.get(i).getLongitude()))
+                                .title(places.get(i).getPlaceName())
+                                .snippet(places.get(i).getPlaceAddress())
+                                .position(new LatLng(places.get(i).getPlacetLatitude(),
+                                        places.get(i).getPlaceLongitude()))
                 );
             }
         }
@@ -133,8 +142,8 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
     @Override
     public boolean onMarkerClick(Marker marker){
-        String marke = marker.getId().substring(1);
-        int id = Integer.parseInt(marke);
+        String placeMarker = marker.getId().substring(1);
+        int id = Integer.parseInt(placeMarker);
         select(id);
         startShowInfoActivity();
         return false;
@@ -156,12 +165,12 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
     private Bundle getPlaceInfoAsBundle(){
         Bundle placeInfo = new Bundle();
-        placeInfo.putString("name", clickedPlace.getName());
-        placeInfo.putString("phone", clickedPlace.getPhone());
-        placeInfo.putString("address", clickedPlace.getAddress());
-        placeInfo.putString("description", clickedPlace.getDescription());
-        placeInfo.putDouble("latitude", clickedPlace.getLatitude());
-        placeInfo.putDouble("longitude", clickedPlace.getLongitude());
+        placeInfo.putString("name", clickedPlace.getPlaceName());
+        placeInfo.putString("phone", clickedPlace.getPlacePhone());
+        placeInfo.putString("address", clickedPlace.getPlaceAddress());
+        placeInfo.putString("description", clickedPlace.getPlaceDescription());
+        placeInfo.putDouble("latitude", clickedPlace.getPlacetLatitude());
+        placeInfo.putDouble("longitude", clickedPlace.getPlaceLongitude());
         placeInfo.putString("operation", clickedPlace.getOperation());
         placeInfo.putInt("idPlace", selectedPlaceId);
 

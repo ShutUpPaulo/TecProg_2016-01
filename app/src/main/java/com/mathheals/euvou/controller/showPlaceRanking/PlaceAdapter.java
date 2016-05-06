@@ -42,7 +42,7 @@ public class PlaceAdapter extends ArrayAdapter<Place>{
             convertView.setTag(viewHolder);
         }
 
-        String placeNameText = resumePlaceName(place.getName());
+        String placeNameText = resumePlaceName(place.getPlaceName());
 
         viewHolder.placeName.setText(placeNameText);
         viewHolder.placeEvaluation.setText(place.getEvaluate().toString());

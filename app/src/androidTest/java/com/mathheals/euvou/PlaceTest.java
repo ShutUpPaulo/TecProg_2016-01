@@ -130,7 +130,7 @@ public class PlaceTest extends TestCase {
         try {
             Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores","33613110");
 
-            assertTrue(place.getName().equals("Nome"));
+            assertTrue(place.getPlaceName().equals("Nome"));
         } catch (PlaceException e) {
             assertTrue(false);
         } catch (ParseException e) {
@@ -143,7 +143,7 @@ public class PlaceTest extends TestCase {
         try {
             Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores","33613110");
 
-            assertTrue(place.getLatitude() == 14.0025);
+            assertTrue(place.getPlacetLatitude() == 14.0025);
         } catch (PlaceException e) {
             assertTrue(false);
         } catch (ParseException e) {
@@ -157,7 +157,7 @@ public class PlaceTest extends TestCase {
         try {
             Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores","33613110");
 
-            assertTrue(place.getLongitude() == 14.0025);
+            assertTrue(place.getPlaceLongitude() == 14.0025);
         } catch (PlaceException e) {
             assertTrue(false);
         } catch (ParseException e) {
@@ -170,7 +170,7 @@ public class PlaceTest extends TestCase {
         try {
             Place place= new Place("Nome","2","14.0025","14.0025","8h às 12h","Descrição","rua das flores","33613110");
 
-            assertTrue(place.getAddress().equals("rua das flores"));
+            assertTrue(place.getPlaceAddress().equals("rua das flores"));
         } catch (PlaceException e) {
             assertTrue(false);
         } catch (ParseException e) {

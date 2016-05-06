@@ -57,7 +57,7 @@ public class Place {
         this.address = address;
     }
 
-    public String getName() {
+    public String getPlaceName() {
         return name;
     }
 
@@ -95,15 +95,15 @@ public class Place {
         this.comment.add(comment);
     }
 
-    public Double getLongitude() {
+    public Double getPlaceLongitude() {
         return longitude;
     }
 
-    public Double getLatitude() {
+    public Double getPlacetLatitude() {
         return latitude;
     }
 
-    public String getAddress() {
+    public String getPlaceAddress() {
         return address;
     }
 
@@ -155,11 +155,11 @@ public class Place {
         return evaluate;
     }
 
-    public String getDescription() {
+    public String getPlaceDescription() {
         return description;
     }
 
-    public String getPhone() {
+    public String getPlacePhone() {
         return phone;
     }
 

@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import dao.PlaceDAO;
 import exception.PlaceException;
@@ -105,12 +104,12 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
     private Bundle getPlaceInfoAsBundle(int id) {
         Bundle placeInfo = new Bundle();
         Toast.makeText(getActivity(), "" + id, Toast.LENGTH_LONG);
-        placeInfo.putString("name", places.get(id).getName());
-        placeInfo.putString("phone", places.get(id).getPhone());
-        placeInfo.putString("address", places.get(id).getAddress());
-        placeInfo.putString("description", places.get(id).getDescription());
-        placeInfo.putDouble("latitude", places.get(id).getLatitude());
-        placeInfo.putDouble("longitude", places.get(id).getLongitude());
+        placeInfo.putString("name", places.get(id).getPlaceName());
+        placeInfo.putString("phone", places.get(id).getPlacePhone());
+        placeInfo.putString("address", places.get(id).getPlaceAddress());
+        placeInfo.putString("description", places.get(id).getPlaceDescription());
+        placeInfo.putDouble("latitude", places.get(id).getPlacetLatitude());
+        placeInfo.putDouble("longitude", places.get(id).getPlaceLongitude());
         placeInfo.putString("operation", places.get(id).getOperation());
         placeInfo.putInt("idPlace", places.get(id).getId());
         return placeInfo;
