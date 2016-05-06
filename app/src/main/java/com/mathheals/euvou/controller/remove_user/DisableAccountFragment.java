@@ -1,3 +1,8 @@
+/**
+ * File: DisableAccountFragment.java
+ * Purpose: Gives to the user the option to disable his account
+ */
+
 package com.mathheals.euvou.controller.remove_user;
 
 
