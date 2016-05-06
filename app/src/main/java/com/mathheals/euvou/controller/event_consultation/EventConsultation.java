@@ -1,3 +1,7 @@
+/*
+ *File: EventConsultation.java
+ * Purpose: allows to search details of events
+ */
 package com.mathheals.euvou.controller.event_consultation;
 
 import android.app.Activity;
@@ -6,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +26,10 @@ import android.widget.TextView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.home_page.HomePage;
 import com.mathheals.euvou.controller.show_event.ShowEvent;
@@ -29,11 +39,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import dao.EventDAO;
 import dao.UserDAO;
 
-public class EventConsultation extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class EventConsultation extends AppCompatActivity implements OnCheckedChangeListener {
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
@@ -48,18 +59,26 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
     private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
 
     private String option;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_consultation);
         listView = (ListView) findViewById(R.id.events_list);
         event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
         setListViewListener();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
         actionBar = getSupportActionBar();
@@ -72,7 +91,7 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         return true;
     }
 
-    private void setSearchBar(Menu menu) {
+    private void setSearchBar(Menu menu){
         final String SEARCH_VIEW_HINT = "Pesquisar";
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -81,15 +100,15 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint(SEARCH_VIEW_HINT);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
 
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query){
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
                 switch (checkedButton) {
                     case R.id.radio_events:
                         //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
-                        option="event";
+                        option = "event";
                         EventDAO eventDAO = new EventDAO(getParent());
 
                         ArrayList<String> eventsFound = new ArrayList<String>();
@@ -99,13 +118,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         if (eventDATA != null) {
                             event_not_found_text.setVisibility(View.GONE);
                             try {
-                                for (int i = 0; i < eventDATA.length(); ++i) {
-                                    eventsFound.add(eventDATA.getJSONObject(new Integer(i).toString()).getString(EVENT_COLUMN));
+                                for (int i = 0; i < eventDATA.length(); ++i){
+                                    eventsFound.add(eventDATA.getJSONObject(Integer.toString(i)).getString(EVENT_COLUMN));
                                 }
 
                                 String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
                                 showEventsAsList(eventsFoundArray);
-                            } catch (JSONException e) {
+                            } catch (JSONException e){
                                 e.printStackTrace();
                             }
                         } else {
@@ -115,26 +134,26 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
                         break;
 
                     case R.id.radio_people:
-                        option="people";
+                        option = "people";
                         UserDAO userDAO = new UserDAO(getParent());
 
                         ArrayList<String> peopleFound = new ArrayList<String>();
                         peopleDATA = userDAO.searchUserByName(query);
                         final String NAME_USER_COLUMN = "nameUser";
 
-                        if (peopleDATA != null) {
+                        if (peopleDATA != null){
                             event_not_found_text.setVisibility(View.GONE);
                             try {
-                                for (int i = 0; i < peopleDATA.length(); i++) {
-                                    peopleFound.add(peopleDATA.getJSONObject(new Integer(i).toString()).getString(NAME_USER_COLUMN));
+                                for (int i = 0; i < peopleDATA.length(); i++){
+                                    peopleFound.add(peopleDATA.getJSONObject(Integer.toString(i)).getString(NAME_USER_COLUMN));
                                 }
 
                                 String[] peopleFoundArray = peopleFound.toArray(new String[peopleFound.size()]);
                                 showPeopleAsList(peopleFoundArray);
-                            } catch (JSONException e) {
+                            } catch (JSONException e){
                                 e.printStackTrace();
                             }
-                        } else {
+                        } else{
                             listView.setAdapter(null);
                             event_not_found_text.setText(PEOPLE_NOT_FOUND_MESSAGE);
                             event_not_found_text.setVisibility(View.VISIBLE);
@@ -146,13 +165,13 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String newText){
                 return true;
             }
         });
     }
 
-    private void showEventsAsList(String[] eventNames) {
+    private void showEventsAsList(String[] eventNames){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
                 R.layout.event_consultation_list_view,
                 eventNames);
@@ -167,41 +186,42 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         listView.setAdapter(adapter);
     }
 
-    private void setListViewListener() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void setListViewListener(){
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             final Bundle bundle = new Bundle();
             final ShowEvent event = new ShowEvent();
             final ShowUser user = new ShowUser();
 
             public void onItemClick(AdapterView<?> parent, View clickView,
-                                    int position, long id) {
+                                    int position, long id){
                 //final String ID_COLUMN = "idEvent";
-                final String ID_COLUMN = option=="event" ? "idEvent" : (option=="people" ? "idUser" : "idPlace");
+                final String ID_COLUMN = Objects.equals(option, "event") ? "idEvent" : (Objects.equals(option, "people") ? "idUser" : "idPlace");
 
-                try {
-                    final android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    idItem = new Integer((option=="event" ? eventDATA : peopleDATA).getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                try{
+                    final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    idItem = Integer.valueOf((Objects.equals(option, "event") ? eventDATA : peopleDATA).getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
                     bundle.putString("id", Integer.toString(idItem));
 
                     event.setArguments(bundle);
                     user.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.content, option == "event" ? event : user);
+                    fragmentTransaction.replace(R.id.content, Objects.equals(option, "event") ? event : user);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
-                } catch (JSONException e) {
+                }catch(JSONException e){
                     e.printStackTrace();
                 }
             }
         });
     }
-    private void configActionBar() {
+
+    private void configActionBar(){
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
             case android.R.id.home:
                 Intent intent = new Intent(this, HomePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -211,13 +231,53 @@ public class EventConsultation extends AppCompatActivity implements RadioGroup.O
         return super.onOptionsItemSelected(item);
     }
 
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    public void onCheckedChanged(RadioGroup group, int checkedId){
         String query = searchView.getQuery().toString();
-        switch(checkedId) {
+        switch (checkedId){
             case R.id.radio_events:
                 break;
             case R.id.radio_people:
                 break;
         }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EventConsultation Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EventConsultation Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
