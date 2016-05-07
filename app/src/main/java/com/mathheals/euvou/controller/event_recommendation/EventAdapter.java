@@ -1,3 +1,8 @@
+/**
+ * File: EventAdapter.java
+ * Purpose: Adapt event information to improve visualization in the application screen
+ */
+
 package com.mathheals.euvou.controller.event_recommendation;
 
 import android.content.Context;
