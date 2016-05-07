@@ -14,6 +14,11 @@ public class EventCategoryDAO extends DAO{
         super(currentActivity);
     }
 
+    /**
+     * Searches the categories of an event with a given identifier
+     * @param idEvent - Identifier of the event
+     * @return JSONObject - Names of the categories of the event
+     */
     public JSONObject searchCategoriesByEventId(int idEvent){
 
         assert idEvent >= 1;
