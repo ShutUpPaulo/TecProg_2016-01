@@ -5,16 +5,11 @@
 
 package dao;
 
-import android.support.v4.app.FragmentActivity;
 import org.json.JSONObject;
 
 public class PlaceDAO extends DAO{
 
     public PlaceDAO(){
-        
-    }
-
-    public PlaceDAO(FragmentActivity activity){
     }
 
     public JSONObject searchPlaceByPartName(String name){
