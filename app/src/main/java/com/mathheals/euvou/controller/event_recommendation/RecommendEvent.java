@@ -1,5 +1,9 @@
-package com.mathheals.euvou.controller.event_recommendation;
+/**
+ * File: RecommendEvent.java
+ * Purpose: Show recommended events to the user
+ */
 
+package com.mathheals.euvou.controller.event_recommendation;
 
 import android.os.Bundle;
 import android.app.Fragment;
