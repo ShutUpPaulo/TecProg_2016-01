@@ -4,17 +4,16 @@
  */
 package com.mathheals.euvou.controller.event_consultation;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,10 +21,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -44,7 +42,7 @@ import java.util.Objects;
 import dao.EventDAO;
 import dao.UserDAO;
 
-public class EventConsultation extends AppCompatActivity implements OnCheckedChangeListener {
+public class EventConsultation extends AppCompatActivity implements OnCheckedChangeListener{
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
@@ -59,10 +57,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
 
     private String option;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
     private GoogleApiClient client;
 
     @Override
@@ -72,14 +67,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         listView = (ListView) findViewById(R.id.events_list);
         event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
         setListViewListener();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
         actionBar = getSupportActionBar();
 
@@ -105,9 +97,8 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
             @Override
             public boolean onQueryTextSubmit(String query){
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
-                switch (checkedButton) {
+                switch(checkedButton){
                     case R.id.radio_events:
-                        //Toast.makeText(getBaseContext(), "EVENTOS: " + query, Toast.LENGTH_LONG).show();
                         option = "event";
                         EventDAO eventDAO = new EventDAO(getParent());
 
@@ -115,19 +106,21 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
                         eventDATA = eventDAO.searchEventByNameGroup(query);
                         final String EVENT_COLUMN = "nameEvent";
 
-                        if (eventDATA != null) {
+                        if(eventDATA != null){
                             event_not_found_text.setVisibility(View.GONE);
-                            try {
-                                for (int i = 0; i < eventDATA.length(); ++i){
-                                    eventsFound.add(eventDATA.getJSONObject(Integer.toString(i)).getString(EVENT_COLUMN));
+                            try{
+                                for(int i = 0; i < eventDATA.length(); ++i){
+                                    eventsFound.add(eventDATA.getJSONObject(
+                                            Integer.toString(i)).getString(EVENT_COLUMN));
                                 }
 
-                                String[] eventsFoundArray = eventsFound.toArray(new String[eventsFound.size()]);
+                                String[] eventsFoundArray = eventsFound.toArray(
+                                        new String[eventsFound.size()]);
                                 showEventsAsList(eventsFoundArray);
                             } catch (JSONException e){
                                 e.printStackTrace();
                             }
-                        } else {
+                        } else{
                             listView.setAdapter(null);
                             event_not_found_text.setVisibility(View.VISIBLE);
                         }
@@ -145,10 +138,12 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
                             event_not_found_text.setVisibility(View.GONE);
                             try {
                                 for (int i = 0; i < peopleDATA.length(); i++){
-                                    peopleFound.add(peopleDATA.getJSONObject(Integer.toString(i)).getString(NAME_USER_COLUMN));
+                                    peopleFound.add(peopleDATA.getJSONObject(
+                                            Integer.toString(i)).getString(NAME_USER_COLUMN));
                                 }
 
-                                String[] peopleFoundArray = peopleFound.toArray(new String[peopleFound.size()]);
+                                String[] peopleFoundArray = peopleFound.toArray(
+                                        new String[peopleFound.size()]);
                                 showPeopleAsList(peopleFoundArray);
                             } catch (JSONException e){
                                 e.printStackTrace();
@@ -194,17 +189,21 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
             public void onItemClick(AdapterView<?> parent, View clickView,
                                     int position, long id){
-                //final String ID_COLUMN = "idEvent";
-                final String ID_COLUMN = Objects.equals(option, "event") ? "idEvent" : (Objects.equals(option, "people") ? "idUser" : "idPlace");
+                final String ID_COLUMN = Objects.equals(option, "event") ? "idEvent" :
+                        (Objects.equals(option, "people") ? "idUser" : "idPlace");
 
                 try{
-                    final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    idItem = Integer.valueOf((Objects.equals(option, "event") ? eventDATA : peopleDATA).getJSONObject(Integer.toString(position)).getString(ID_COLUMN));
+                    final FragmentTransaction fragmentTransaction = getSupportFragmentManager()
+                            .beginTransaction();
+                    idItem = Integer.valueOf((Objects.equals(option, "event") ?
+                            eventDATA : peopleDATA).getJSONObject(Integer.toString(position))
+                            .getString(ID_COLUMN));
                     bundle.putString("id", Integer.toString(idItem));
 
                     event.setArguments(bundle);
                     user.setArguments(bundle);
-                    fragmentTransaction.replace(R.id.content, Objects.equals(option, "event") ? event : user);
+                    fragmentTransaction.replace(R.id.content,
+                            Objects.equals(option, "event") ? event : user);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }catch(JSONException e){
@@ -245,17 +244,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     public void onStart(){
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "EventConsultation Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "EventConsultation Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
@@ -265,16 +258,10 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     public void onStop(){
         super.onStop();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "EventConsultation Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "EventConsultation Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
