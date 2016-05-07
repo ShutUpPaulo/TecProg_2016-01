@@ -1,5 +1,10 @@
-package com.mathheals.euvou.controller.remove_user;
+/**
+ * File: DisableAccountLoginConfirmation.java
+ * Purpose: Disable login confirmation of removed user account
+ */
 
+
+package com.mathheals.euvou.controller.remove_user;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,9 +24,6 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import dao.UserDAO;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DisableAccountLoginConfirmation extends android.support.v4.app.Fragment
         implements View.OnClickListener {
 
@@ -116,7 +118,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
         boolean isLoginConfirmationValid = false;
 
         if (isUsernameValid) {
-            boolean isPasswordValid=loginValidation.checkPassword(typedUsername, typedPassword);
+            boolean isPasswordValid = loginValidation.checkPassword(typedUsername, typedPassword);
 
             if (isPasswordValid) {
                 isLoginConfirmationValid = true;
