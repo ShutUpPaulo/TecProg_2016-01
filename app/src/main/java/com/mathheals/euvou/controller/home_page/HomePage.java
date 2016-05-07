@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -37,7 +38,6 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 public class HomePage extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
     private static final String QUERY = "query";
-    private static final String SETTINGS_FRAGMENT = "settings_fragment_tag";
     private CharSequence mTitle;
     private DrawerLayout drawerLayout;
     private LinearLayout linearLayout;
@@ -60,13 +60,15 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
         callGoogleMaps();
         onConfigActionBar();
-        startPrincipalFragment();
+
+        ShowTop5Rank showTop5Rank = new ShowTop5Rank();
+        openFragment(showTop5Rank);
     }
 
-    private void startPrincipalFragment(){
+    private void openFragment(Fragment fragmentToBeOpen){
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
+        fragmentTransaction.replace(R.id.content_frame, fragmentToBeOpen);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -181,26 +183,20 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
 
     private boolean userLoggedInOptions(MenuItem item){
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
+
         switch(item.getItemId()){
             case R.id.edit_register:
-                // Put here code for "Alterar Cadastro"
-                fragmentTransaction.replace(R.id.content_frame, new EditUserFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                EditUserFragment editUserFragment = new EditUserFragment();
+                openFragment(editUserFragment);
                 return true;
             case R.id.settings:
                 ActivityUtility.clearBackStack(this);
-                fragmentTransaction.replace(R.id.content_frame,
-                        new RemoveUserFragment(), SETTINGS_FRAGMENT);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                RemoveUserFragment removeUserFragment = new RemoveUserFragment();
+                openFragment(removeUserFragment);
                 return true;
             case R.id.register_event:
-                fragmentTransaction.replace(R.id.content_frame, new RegisterEventFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                RegisterEventFragment registerEventFragment = new RegisterEventFragment();
+                openFragment(registerEventFragment);
                 return true;
             case R.id.logout:
                 new LoginUtility(HomePage.this).setUserLogOff();
@@ -210,9 +206,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 return true;
             case R.id.myEvents:
                 try{
-                    fragmentTransaction.replace(R.id.content_frame, new ListEvents());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    ListEvents listEvents = new ListEvents();
+                    openFragment(listEvents);
                 }
                 catch (NullPointerException exception){
                     Toast.makeText(getBaseContext(),"Sem eventos criados",
@@ -225,13 +220,10 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     }
 
     private boolean userLoggedOutOptions(MenuItem item){
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
         switch (item.getItemId()){
             case R.id.registration:
-                fragmentTransaction.replace(R.id.content_frame, new RegisterFragment());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                RegisterEventFragment registerEventFragment = new RegisterEventFragment();
+                openFragment(registerEventFragment);
                 return true;
             case R.id.log_in:
                 Intent myIntent = new Intent(HomePage.this, LoginActivity.class);
