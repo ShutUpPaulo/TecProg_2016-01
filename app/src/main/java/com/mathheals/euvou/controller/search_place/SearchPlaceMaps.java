@@ -80,7 +80,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     }
 
     private JSONObject searchPlaces(){
-        return new PlaceDAO().searchPlaceByPartName(getFilter());
+        return new PlaceDAO(this).searchPlaceByPartName(getFilter());
     }
 
     private void setUpMap() {

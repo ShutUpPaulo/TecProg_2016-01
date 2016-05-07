@@ -48,7 +48,7 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
 
     private void fillList(){
 
-            JSONObject result = new PlaceDAO().searchAllPlaces();
+            JSONObject result = new PlaceDAO(getActivity()).searchAllPlaces();
             places = new ArrayList<>();
             populateArrayOfPlaces(result,places);
 

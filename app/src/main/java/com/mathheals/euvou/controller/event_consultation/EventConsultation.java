@@ -239,32 +239,4 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
                 break;
         }
     }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW,
-                "EventConsultation Page",
-                Uri.parse("http://host/path"),
-                Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop(){
-        super.onStop();
-
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW,
-                "EventConsultation Page",
-                Uri.parse("http://host/path"),
-                Uri.parse("android-app://com.mathheals.euvou.controller.event_consultation/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
 }

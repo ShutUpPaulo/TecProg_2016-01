@@ -52,7 +52,7 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
     private void fillList() {
         try {
             int id = (new LoginUtility(getActivity())).getUserId();
-            JSONObject result = new PlaceDAO().searchTop5Places();
+            JSONObject result = new PlaceDAO(getActivity()).searchTop5Places();
             //List<Map<String, String>> placeList= new ArrayList<Map<String, String>>();
             places = new ArrayList<>();
             for (int i = 0; i < result.length(); i++) {
