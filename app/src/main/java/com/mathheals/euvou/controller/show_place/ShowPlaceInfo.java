@@ -1,3 +1,9 @@
+/**
+ * File: ShowPlaceInfo.java
+ * Purpose: Show information of a given place
+ */
+
+
 package com.mathheals.euvou.controller.show_place;
 
 import android.graphics.PorterDuff;
