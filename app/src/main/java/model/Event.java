@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
-//confirmar restrições de tamanho
 import exception.EventException;
 
 public class Event{
@@ -134,7 +133,7 @@ public class Event{
     }
 
     private void setDateTimeEvent(String date, String hour) throws ParseException, EventException{
-        if(!date.isEmpty() && date!=null && !hour.isEmpty() && hour!=null){
+        if (!date.isEmpty() && date != null && !hour.isEmpty() && hour != null){
             try{
                 SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
                 formatDate.setLenient(false);
@@ -142,7 +141,7 @@ public class Event{
 
                 if(eventDate.after(new Date())){
                     String[] dateEventSplit = date.split("/");
-                    date = dateEventSplit[2]+"-"+dateEventSplit[1]+"-"+dateEventSplit[0];
+                    date = dateEventSplit[2] + "-" + dateEventSplit[1] + "-" + dateEventSplit[0];
                 }else{
                     throw new EventException(INVALID_EVENT_DATE);
                 }
@@ -160,15 +159,12 @@ public class Event{
                 throw new EventException(INVALID_EVENT_HOUR);
             }
         }else{
-            if(date.isEmpty() || date==null){
+            if (date.isEmpty() || date == null) {
                 throw new EventException(EVENT_DATE_IS_EMPTY);
-            }
-
-            if(hour.isEmpty() || hour==null){
+            } else if(hour.isEmpty() || hour == null){
                 throw new EventException(EVENT_HOUR_IS_EMPTY);
             }
         }
-
     }
 
     public Integer getEvaluation(){
@@ -195,9 +191,7 @@ public class Event{
         }else{
             if(priceReal==null || priceReal.isEmpty()){
                 throw new EventException(PRICE_REAL_IS_EMPTY);
-            }
-
-            if(priceDecimal==null || priceDecimal.isEmpty()){
+            }else if(priceDecimal==null || priceDecimal.isEmpty()){
                 throw new EventException(PRICE_DECIMAL_IS_EMPTY);
             }
         }
@@ -279,7 +273,6 @@ public class Event{
             }else{
                 throw new EventException(DESCRIPTION_CANT_BE_GREATER_THAN);
             }
-
         }else{
             throw new EventException(DESCRIPTION_CANT_BE_EMPTY);
         }
