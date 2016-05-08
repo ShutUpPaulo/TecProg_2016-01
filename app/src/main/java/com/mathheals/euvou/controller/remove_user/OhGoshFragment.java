@@ -1,3 +1,9 @@
+/**
+ * File: OhGoshFragment.java
+ * Purpose: Set the view of "OhGosh" message
+ */
+
+
 package com.mathheals.euvou.controller.remove_user;
 
 
@@ -9,9 +15,6 @@ import android.view.ViewGroup;
 
 import com.mathheals.euvou.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class OhGoshFragment extends android.support.v4.app.Fragment {
 
 
