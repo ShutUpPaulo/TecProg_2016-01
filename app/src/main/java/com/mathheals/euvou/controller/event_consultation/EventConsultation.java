@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -25,7 +24,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mathheals.euvou.R;
@@ -60,6 +58,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
     private GoogleApiClient client;
 
+
+    /*
+     * Creates the data that should be printed in the screem.
+     * @param savedInstanceState - Saved instance state from the last time the app was executed.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -70,6 +73,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    /*
+     * Creates the options menu and calls the method that set the search bar in the menu.
+     * @param menu - menu of the application.
+     * @return boolean  - ensure that the options menu will be created.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
@@ -83,6 +91,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         return true;
     }
 
+    /*
+     * initiates the search bar, receiving the data to be find and making the search.
+     * @param menu - menu of the application
+     * MUST BE REFACTORED!
+     */
     private void setSearchBar(Menu menu){
         final String SEARCH_VIEW_HINT = "Pesquisar";
 
@@ -94,6 +107,10 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
 
+            /*
+             * analyze the option selected by the user, to see if heś looking for event or person.
+             * @return boolean - must show the results for the search - MUST BE REFACTORED
+             */
             @Override
             public boolean onQueryTextSubmit(String query){
                 int checkedButton = radioGroup.getCheckedRadioButtonId();
@@ -166,6 +183,10 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         });
     }
 
+    /*
+     * Makes a list with the results to the search for events
+     * @param eventNames - the names of the events found in database
+     */
     private void showEventsAsList(String[] eventNames){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
                 R.layout.event_consultation_list_view,
@@ -174,6 +195,10 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
     }
 
+    /*
+     * Makes a list with the results to the search for people
+     * @param peopleNames - the names of the people found in database
+     */
     private void showPeopleAsList(String[] peopleNames){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventConsultation.this,
                 R.layout.event_consultation_list_view,
@@ -181,12 +206,22 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         listView.setAdapter(adapter);
     }
 
+    /*
+     * starts a listener to see where the user will click in the list of results to the search made.
+     */
     private void setListViewListener(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             final Bundle bundle = new Bundle();
             final ShowEvent event = new ShowEvent();
             final ShowUser user = new ShowUser();
 
+            /*
+             * analyze the choosen item by the user and show details of the item searched.
+             * @param parent
+             * @param clickView
+             * @param position - position of the item in the list of results
+             * @param id - id of the choosen item
+             */
             public void onItemClick(AdapterView<?> parent, View clickView,
                                     int position, long id){
                 final String ID_COLUMN = Objects.equals(option, "event") ? "idEvent" :
@@ -213,11 +248,18 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         });
     }
 
+    /*
+     * configures the action bar to be drawable and show the option Home enabled
+     */
     private void configActionBar(){
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+    /*
+     * send the application to the home page, if the home option is choosen in the option menu.
+     * @param item - item selected by the user
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -230,6 +272,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+     * sees if the user has selected the radio button for events or people
+     * @param group
+     * @param checkedId - Id of the choosen item
+     */
     public void onCheckedChanged(RadioGroup group, int checkedId){
         String query = searchView.getQuery().toString();
         switch (checkedId){
