@@ -1,3 +1,8 @@
+/**
+ * File: DAO.java
+ * Purpose: Process database queries
+ */
+
 package dao;
 
 import android.app.Activity;
