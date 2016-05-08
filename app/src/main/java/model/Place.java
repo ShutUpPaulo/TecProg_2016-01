@@ -1,12 +1,15 @@
+/**
+ * File: Place.java
+ * Purpose: Maintain place data
+ */
+
 package model;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
 import exception.PlaceException;
-/**
- * Created by geovanni on 09/09/15.
- */
+
 public class Place {
 
     private static final String STRING_EMPTY = "";
