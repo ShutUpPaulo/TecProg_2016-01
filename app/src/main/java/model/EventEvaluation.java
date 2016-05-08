@@ -1,11 +1,13 @@
+/**
+ * File: EventEvaluation.java
+ * Purpose: Maintain event evaluations data
+ */
+
 package model;
 
 import exception.EventEvaluationException;
 import exception.EventException;
 
-/**
- * Created by marlonmendes on 15/11/15.
- */
 public class EventEvaluation {
     private Float rating;
     private Integer userId;
