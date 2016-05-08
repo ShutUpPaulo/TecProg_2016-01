@@ -34,11 +34,11 @@ public class EvaluatePlaceDAO extends DAO{
 
         if (findEvaluation != null) {
             evaluationQuery = "UPDATE evaluate_place SET grade = \"" +
-                    evaluation.getgrade() + "\" " + "WHERE idPlace = \"" + evaluation.getIdPlace() +
+                    evaluation.getGrid() + "\" " + "WHERE idPlace = \"" + evaluation.getIdPlace() +
                     "\" AND idUser = \"" + evaluation.getIdUser() + "\"";
         } else {
             evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
-                    evaluation.getgrade() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
+                    evaluation.getGrid() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
                     "\"" + evaluation.getIdPlace() + "\")";
         }
 

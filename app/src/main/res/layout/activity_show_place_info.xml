@@ -66,7 +66,7 @@
         android:id="@+id/rate_it_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/grade"
+        android:layout_below="@+id/grid"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:textStyle="italic"
@@ -100,7 +100,7 @@
         />
 
     <TextView
-        android:id="@+id/grade"
+        android:id="@+id/grid"
         android:text="Avaliação: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,9 +115,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/grade_text"
         android:layout_marginLeft="10dp"
-        android:layout_alignTop="@+id/grade"
-        android:layout_toRightOf="@+id/grade"
-        android:layout_toEndOf="@+id/grade"
+        android:layout_alignTop="@+id/grid"
+        android:layout_toRightOf="@+id/grid"
+        android:layout_toEndOf="@+id/grid"
         />
 
     <TextView
