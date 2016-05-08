@@ -1,3 +1,8 @@
+/**
+ * File: ShowPlaceRank.java
+ * Purpose: Show the complete ranking of places based on evaluation
+ */
+
 package com.mathheals.euvou.controller.showPlaceRanking;
 
 import android.content.Intent;
