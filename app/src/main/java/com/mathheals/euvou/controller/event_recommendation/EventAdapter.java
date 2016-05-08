@@ -18,24 +18,36 @@ import java.util.List;
 
 import model.Event;
 
-/**
- * Created by igor on 27/11/15.
- */
-public class EventAdapter extends ArrayAdapter<Event> {
+public class EventAdapter extends ArrayAdapter<Event>{
 
     private static final String STRING_EMPTY = "";
 
-    public EventAdapter(Context context, List<Event> events) {
+    /**
+     * Constructs an event adapter with a given context and list of events
+     * @param context Context of event adapter
+     * @param events List of given events
+     */
+    public EventAdapter(Context context, List<Event> events){
         super(context, 0, events);
     }
 
-    private static class ViewHolder {
+    /**
+     * Class with text view for event name and evaluation
+     */
+    private static class ViewHolder{
         TextView eventName = null;
         TextView eventEvaluation = null;
     }
 
+    /**
+     * Returns View in given position.
+     * @param position Position of the View
+     * @param convertView Old view that will be reused
+     * @param parent Parent that this view will be attached to
+     * @return Updated view
+     */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent){
         assert parent != null;
 
         Event event = getItem(position);
@@ -53,6 +65,11 @@ public class EventAdapter extends ArrayAdapter<Event> {
         return convertView;
     }
 
+    /**
+     * Shorts eventName to 40 characters or less
+     * @param eventName Event name that will be shortened
+     * @return Shortened event name
+     */
     private String shortenEventName(String eventName){
         Integer maximumEventNameLength = 40;
 
@@ -66,11 +83,17 @@ public class EventAdapter extends ArrayAdapter<Event> {
         return shortenedNameEvent;
     }
 
+    /**
+     * Gets view holder by view and view group
+     * @param convertView
+     * @param parent View group
+     * @return
+     */
     private ViewHolder getViewHolderByViewAndViewGroup(View convertView, ViewGroup parent){
         ViewHolder viewHolder;
-        if (convertView != null) {
+        if (convertView != null){
             viewHolder = (ViewHolder) convertView.getTag();
-        } else {
+        }else{
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.fragment_recommend_event, parent, false);
