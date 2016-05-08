@@ -22,19 +22,28 @@ import model.UserEvaluation;
 public class ShowUser extends android.support.v4.app.Fragment implements RatingBar.OnRatingBarChangeListener{
 
     private UserEvaluation userEvaluation;
-    private RatingBar ratingBar;
-    private View showUserView;
     private String userEvaluatedId;
     private int currentUserId;
-    private boolean isUserLoggedIn;
 
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public ShowUser(){
+
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the ShowPlaceRank fragment
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        setShowUserView(inflater.inflate(R.layout.show_user, container, false));
+        View showUserView = inflater.inflate(R.layout.show_user, container, false);
 
         UserDAO userDAO = new UserDAO(getActivity());
 
@@ -68,50 +77,43 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
             e.printStackTrace();
         }
 
-        Integer LOGGED_OUT = -1; //-1 is the flag for user logged out
 
-        setIsUserLoggedIn(currentUserId != LOGGED_OUT);
+        boolean isUserLoggedIn = getUserLoginStatus();
 
-        setRatingMessage(isUserLoggedIn);
-
-        setRatingBarIfNeeded();
+        setUpRatingBar(isUserLoggedIn, showUserView);
 
         return showUserView;
     }
 
-    private void setIsUserLoggedIn(boolean isUserLoggedIn){
-        this.isUserLoggedIn = isUserLoggedIn;
-    }
+    private boolean getUserLoginStatus(){
+        boolean isUserLoggedIn;
+        LoginUtility loginUtility = new LoginUtility(this.getActivity());
 
-    private void setRatingMessage(boolean isUserLoggedIn){
-
-        final String LOGGED_IN_MESSAGE = "Sua avaliação:";
-        final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
-
-        String message;
-
-        if(isUserLoggedIn){
-            message =  LOGGED_IN_MESSAGE;
+        if(loginUtility.hasUserLoggedIn()){
+            isUserLoggedIn = true;
         }
         else{
-            message = LOGGED_OUT_MESSAGE;
+            isUserLoggedIn = false;
         }
+        
+        return isUserLoggedIn;
+    }
 
+    private void setRatingMessage(View showUserView, String message){
         TextView ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
-
         ratingMessage.setText(message);
     }
 
-    private void setShowUserView(View showUserView){
-        this.showUserView = showUserView;
-    }
-
-    private void setRatingBarIfNeeded(){
+    private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
         if(isUserLoggedIn){
-            setRatingBar();
+            String LOGGED_IN_MESSAGE = "Sua avaliação:";
+            setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
+
+            setRatingBar(showUserView);
         }
         else{
-            //RatingBar is not enable for users logged out
+            final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
+            setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
         }
     }
 
@@ -119,9 +121,9 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
         this.currentUserId = currentUserId;
     }
 
-    private void setRatingBar(){
+    private void setRatingBar(View showUserView){
 
-        ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
+        RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
         ratingBar.setVisibility(View.VISIBLE);
 
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
@@ -144,7 +146,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
 
         ratingBar.setOnRatingBarChangeListener(this);
 
-        setRatingBarStyle();
+        setRatingBarStyle(ratingBar);
     }
 
     private UserEvaluation getUserEvaluation(){
@@ -175,7 +177,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
         }
     }
 
-    private void setRatingBarStyle(){
+    private void setRatingBarStyle(RatingBar ratingBar){
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
 
         stars.getDrawable(2).setColorFilter(ContextCompat.
