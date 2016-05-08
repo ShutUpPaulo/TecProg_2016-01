@@ -1,4 +1,10 @@
+/**
+ * File: User.java
+ * Purpose: Maintain user data
+ */
+
 package model;
+
 import android.app.Activity;
 import android.util.Patterns;
 import android.widget.Toast;
