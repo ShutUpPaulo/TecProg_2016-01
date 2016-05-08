@@ -22,14 +22,15 @@ import com.mathheals.euvou.R;
 public class RemoveUserFragment extends android.support.v4.app.Fragment
         implements View.OnClickListener{
 
-    public RemoveUserFragment() {
-        // Required empty public constructor
+    /**
+     * Required empty public constructor
+     */
+    public RemoveUserFragment(){
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+                             Bundle savedInstanceState){
         assert inflater != null;
 
         View removeUserFragmentView = inflater.inflate(R.layout.fragment_remove_user,
@@ -45,10 +46,13 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment
         return removeUserFragmentView;
     }
 
-
+    /**
+     * Method invoked when view is clicked
+     * @param view View that was clicked
+     */
     @Override
-    public void onClick(View removeUserFragmentView) {
-        assert removeUserFragmentView != null;
+    public void onClick(View view){
+        assert view != null;
 
         FragmentActivity activity = this.getActivity();
         assert activity != null;
@@ -57,7 +61,7 @@ public class RemoveUserFragment extends android.support.v4.app.Fragment
                 activity.getSupportFragmentManager().beginTransaction();
         assert fragmentTransaction != null;
 
-        switch(removeUserFragmentView.getId()) {
+        switch(view.getId()){
             case R.id.button_disable_account_id:
 
                 fragmentTransaction.replace(R.id.content_frame, new OhGoshFragment());
