@@ -57,11 +57,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Creates and returns the view hierarchy associated with the fragment
-     * @param inflater - Object used to inflate any views in the fragment
-     * @param container - If non-null, is the parent view that the fragment should be attached to
-     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     * @param inflater Object used to inflate any views in the fragment
+     * @param container If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a
      *                             previous saved state as given here
-     * @return View - View of the Register fragment
+     * @return View View of the Register fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -88,7 +88,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Registers new user in database
-     * @param user - Object that contain information of new user
+     * @param user Object that contain information of new user
      */
     private void registerUser(User user){
         assert user != null;
@@ -112,7 +112,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Sets conditions to edit new user information
-     * @param view - current view where the texts will be edited
+     * @param view Current view where the texts will be edited
      */
     private void settingEditText(View view){
         this.nameField = (EditText) view.findViewById(R.id.nameField);
@@ -155,7 +155,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Sets the information typed on registration view
-     * @param view - current view where the text was edited
+     * @param view Current view where the text was edited
      */
     @Override
     public void onClick(View view){
