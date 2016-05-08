@@ -24,11 +24,21 @@ import com.mathheals.euvou.R;
  */
 public class DisableAccountFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public DisableAccountFragment() {
-        // Required empty public constructor
+
     }
 
-
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the ShowPlaceRank fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,7 +59,11 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
         return view;
     }
 
-
+    /**
+     * Disable the account when the user clicks on the yes button or comes back to the previous
+     * screen if the user clicks on the no button
+     * @param view Current view where the text was edited
+     */
     @Override
     public void onClick(View view) {
         assert view != null;
