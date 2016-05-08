@@ -36,7 +36,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
     private static final int USER_NOT_LOGGED_IN = -1;
 
-    private ListView listViewEventRecomendations;
+    private ListView listViewEventRecommendations;
     private ArrayList<Event> events;
     private JSONObject eventDATA;
     private int idUser;
@@ -63,16 +63,16 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
         View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
 
-        listViewEventRecomendations =
+        listViewEventRecommendations =
                 (ListView) view.findViewById(R.id.list_view_event_recomendations);
-        assert listViewEventRecomendations != null;
+        assert listViewEventRecommendations != null;
 
-        listViewEventRecomendations.setOnItemClickListener(this);
+        listViewEventRecommendations.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
 
-        if (idUser != USER_NOT_LOGGED_IN){
+        if(idUser != USER_NOT_LOGGED_IN){
             fillEventsList();
         }else{
             Toast.makeText(getActivity().getBaseContext(),
@@ -117,7 +117,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
         EventAdapter eventAdapter = new EventAdapter(getActivity(),events);
 
-        listViewEventRecomendations.setAdapter(eventAdapter);
+        listViewEventRecommendations.setAdapter(eventAdapter);
     }
 
     /**

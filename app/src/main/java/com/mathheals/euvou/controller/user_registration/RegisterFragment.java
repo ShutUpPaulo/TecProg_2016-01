@@ -170,7 +170,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
      * Validates user information and registers if is valid
      */
     private void validateUserInformation(){
-        try {
+        try{
             User user = new User(name, username, mail, mailConfirmation,
                     password, passwordConfirmation, birthDate);
 
@@ -182,13 +182,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
             startLoginActivity();
 
-        } catch (UserException e){
+        }catch(UserException e){
             String exceptionMessage = e.getMessage();
             assert exceptionMessage != null;
 
             EditAndRegisterUtility editAndRegisterUtility = new EditAndRegisterUtility();
 
-            switch (exceptionMessage){
+            switch(exceptionMessage){
                 case User.NAME_CANT_BE_EMPTY_NAME:
                     editAndRegisterUtility.setMessageError(nameField, exceptionMessage);
                     break;
@@ -241,7 +241,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
                     //nothing to do
                     break;
             }
-        } catch (ParseException e){
+        }catch(ParseException e){
             e.printStackTrace();
         }
     }
