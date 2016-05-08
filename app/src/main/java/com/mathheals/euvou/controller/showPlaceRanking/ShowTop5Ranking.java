@@ -2,14 +2,19 @@ package com.mathheals.euvou.controller.showPlaceRanking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mathheals.euvou.R;
+import com.mathheals.euvou.controller.event_recommendation.RecommendEvent;
 import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
@@ -23,7 +28,8 @@ import dao.PlaceDAO;
 import exception.PlaceException;
 import model.Place;
 
-public class ShowTop5Ranking extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
+public class ShowTop5Ranking extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener,
+        View.OnClickListener{
 
     private ListView listView;
     private ArrayList<Place> places;
@@ -41,7 +47,15 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vw = inflater.inflate(R.layout.fragment_show_top5_ranking, container, false);
+        View vw = inflater.inflate(R.layout.fragment_show_top5_rank, container, false);
+
+        Fragment recommendEventFragment = new RecommendEvent();
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.recommendedEventList, recommendEventFragment).commit();
+
+        Button completeRankingButton = (Button) vw.findViewById(R.id.more);
+        completeRankingButton.setOnClickListener(this);
+
         // Inflate the layout for this fragment
         listView = (ListView) vw.findViewById(R.id.listViewPlaces5);
         listView.setOnItemClickListener(this);
@@ -113,6 +127,15 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
         placeInfo.putString("operation", places.get(id).getOperation());
         placeInfo.putInt("idPlace", places.get(id).getId());
         return placeInfo;
+    }
+
+    @Override
+    public void onClick(View v) {
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, new ShowPlaceRank());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 
 }

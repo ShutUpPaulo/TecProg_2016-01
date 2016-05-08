@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_registration.LocalEventActivity;
-import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking;
 import com.mathheals.euvou.controller.utility.EditAndRegisterUtility;
 import com.mathheals.euvou.controller.utility.Mask;
 
@@ -454,7 +454,7 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         if(eventDAO.deleteEvent(eventId).contains("Salvo")) {
             Toast.makeText(getActivity(), "Deletado com sucesso", Toast.LENGTH_LONG).show();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, new ShowTop5Rank());
+            fragmentTransaction.replace(R.id.content_frame, new ShowTop5Ranking());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }

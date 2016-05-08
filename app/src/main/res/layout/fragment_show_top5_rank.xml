@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank"
+    tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
@@ -35,16 +35,41 @@
 
     </LinearLayout>
 
-    <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:id="@+id/rateEvent"
-        tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking"
-        android:name="com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking"
-        tools:layout="@layout/fragment_show_place_rank"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="172dp">
-    </fragment>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewPlaces5"
+            android:layout_below="@+id/placeName" />
+
+        <TextView
+            android:id="@+id/placeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_alignTop="@+id/placeEvaluation"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/placeEvaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nota"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp" />
+
+    </RelativeLayout>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -85,15 +110,10 @@
 
     </LinearLayout>
 
-    <fragment
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="wrap_content"
-        android:id="@+id/rateEventRecommendation"
-        tools:context="com.mathheals.euvou.controller.event_recommendation.RecommendEvent"
-        android:name="com.mathheals.euvou.controller.event_recommendation.RecommendEvent"
-        android:layout_height="172dp">
-    </fragment>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        android:orientation="horizontal"
+        android:id="@+id/recommendedEventList"/>
 
 </LinearLayout>

@@ -14,10 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.edit_event.EditOrRemoveFragment;
-import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 
 import org.json.JSONException;

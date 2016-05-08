@@ -30,7 +30,7 @@ import com.mathheals.euvou.controller.login_user.LoginActivity;
 import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
-import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Rank;
+import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking;
 import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
@@ -52,7 +52,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.fragment_navigation_drawer);
+
         initViews();
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item,
                 textOptions));
@@ -61,8 +63,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         callGoogleMaps();
         onConfigActionBar();
 
-        ShowTop5Rank showTop5Rank = new ShowTop5Rank();
-        openFragment(showTop5Rank);
+        ShowTop5Ranking showTop5Ranking = new ShowTop5Ranking();
+        openFragment(showTop5Ranking);
     }
 
     private void openFragment(Fragment fragmentToBeOpen){
