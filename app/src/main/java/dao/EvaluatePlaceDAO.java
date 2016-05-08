@@ -1,3 +1,8 @@
+/**
+ * File: EvaluatePlaceDAO.java
+ * Purpose: Process an evaluation and register on database
+ */
+
 package dao;
 
 import android.app.Activity;
@@ -6,9 +11,6 @@ import org.json.JSONObject;
 
 import model.Evaluation;
 
-/**
- * Created by marlonmendes on 09/11/15.
- */
 public class EvaluatePlaceDAO extends DAO{
 
     private static final String STRING_EMPTY = "";
