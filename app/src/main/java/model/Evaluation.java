@@ -1,41 +1,42 @@
+/*
+ * File: Evaluation.java
+ * Purpose: allows evaluate am user or a place
+ */
 package model;
 
-/**
- * Created by igor on 06/11/15.
- */
-public class Evaluation {
+public class Evaluation{
 
-    private float grade;
+    private float grid;
     private int idPlace;
     private int idUser;
 
-    public Evaluation(int idPlace, int idUser, float grade){
+    public Evaluation(int idPlace, int idUser, float grid){
         setIdPlace(idPlace);
         setIdUser(idUser);
-        setGrade(grade);
+        setGrid(grid);
     }
 
-    private void setGrade(float grade) {
-        this.grade = grade;
+    private void setGrid(float grid){
+        this.grid = grid;
     }
 
-    private  void setIdUser(int idUser) {
+    private  void setIdUser(int idUser){
         this.idUser = idUser;
     }
 
-    private void setIdPlace(int idPlace) {
+    private void setIdPlace(int idPlace){
         this.idPlace = idPlace;
     }
 
-    public float getgrade() {
-        return grade;
+    public float getGrid(){
+        return grid;
     }
 
-    public int getIdPlace() {
+    public int getIdPlace(){
         return idPlace;
     }
 
-    public int getIdUser() {
+    public int getIdUser(){
         return idUser;
     }
 }

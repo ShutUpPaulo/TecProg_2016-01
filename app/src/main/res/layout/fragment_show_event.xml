@@ -113,7 +113,7 @@
             android:id="@+id/rate_event_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/grade"
+            android:layout_below="@+id/grid"
             android:text="Sua avaliação:"
             android:layout_marginTop="10dp"
             />
