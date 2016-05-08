@@ -1,3 +1,8 @@
+/**
+ * File: Consult.java
+ * Purpose: Responsible by doing a consult in the database
+ */
+
 package dao;
 
 import android.os.AsyncTask;
@@ -17,9 +22,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by viny on 23/09/15.
- */
 public class Consult {
 
     private final String URL;
