@@ -1,10 +1,12 @@
+/**
+ * File: UserEvaluation.java
+ * Purpose: Maintain user evaluations data
+ */
+
 package model;
 
 import exception.UserEvaluationException;
 
-/**
- * Created by igor on 20/11/15.
- */
 public class UserEvaluation {
     private Float userRating;
     private Integer idUserLoggedIn;
