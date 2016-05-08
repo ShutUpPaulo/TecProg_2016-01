@@ -53,6 +53,8 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
 
         View rankingView = inflater.inflate(R.layout.fragment_show_place_rank, container, false);
 
+        assert rankingView != null;
+
         //Sets the listener that allows to get when the user click in a list item
         ListView listToBeFilled = (ListView) rankingView.findViewById(R.id.listViewPlacesTotall);
         listToBeFilled.setOnItemClickListener(this);
@@ -68,13 +70,20 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
      */
     private void fillList(ListView listToBeFilled){
 
+        assert listToBeFilled != null;
+
         JSONObject placesData = new PlaceDAO(getActivity()).searchAllPlaces();
         places = new ArrayList<Place>();
         populateArrayOfPlaces(placesData,places);
 
         //Sets the required adapter to adapt items of the places array in items of the places list
         PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);
+
+        assert placeAdapter != null;
+
         listToBeFilled.setAdapter(placeAdapter);
+
+        assert listToBeFilled.getAdapter() == placeAdapter;
     }
 
     /**
@@ -84,21 +93,34 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
      */
     private void populateArrayOfPlaces(JSONObject placesData, ArrayList<Place> places){
 
+        assert placesData != null;
+        assert places != null;
+
         try{
-            for(int i = 0; i < placesData.length(); i++){
+            int placesDataSize = placesData.length();
+
+            for(int i = 0; i < placesDataSize; i++){
+
                 int idPlace = placesData.getJSONObject("" + i).getInt("idPlace");
-                String namePlace = placesData.getJSONObject("" + i).getString("namePlace");
-                Place aux = new Place(idPlace,namePlace,
-                        placesData.getJSONObject("" + i).getString("evaluate"),
-                        placesData.getJSONObject("" + i).getString("longitude"),
-                        placesData.getJSONObject("" + i).getString("latitude"),
-                        placesData.getJSONObject("" + i).getString("operation"),
-                        placesData.getJSONObject("" + i).getString("description"),
-                        placesData.getJSONObject("" + i).getString("address"),
-                        placesData.getJSONObject("" + i).getString("phonePlace")
-                );
+                String placeName = placesData.getJSONObject("" + i).getString("namePlace");
+                String placeEvaluate = placesData.getJSONObject("" + i).getString("evaluate");
+                String placeLongitude = placesData.getJSONObject("" + i).getString("longitude");
+                String placeLatitude = placesData.getJSONObject("" + i).getString("latitude");
+                String placeOperationTime = placesData.getJSONObject("" + i).getString("operation");
+                String placeDescription = placesData.getJSONObject("" + i).getString("description");
+                String placeAddress = placesData.getJSONObject("" + i).getString("address");
+                String placePhone = placesData.getJSONObject("" + i).getString("phonePlace");
+
+                Place aux = new Place(idPlace,placeName, placeEvaluate, placeLongitude,
+                        placeLatitude, placeOperationTime, placeDescription, placeAddress,
+                        placePhone);
+
+                int placesArrayListSize = places.size();
 
                 places.add(aux);
+
+                assert places.size() == placesArrayListSize + 1;
+                assert places.get(placesArrayListSize) == aux;
             }
         }catch(JSONException e){
             e.printStackTrace();
@@ -129,7 +151,16 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
      */
     private void startShowPlaceInfoActivity(int position){
         Intent intent = new Intent(getActivity(), ShowPlaceInfo.class);
-        intent.putExtras(getPlaceInfoAsBundle(position));
+
+        assert intent != null;
+        assert position <= Integer.MAX_VALUE;
+        assert position >=0;
+
+        Bundle placeInfoBundle = getPlaceInfoAsBundle(position);
+        intent.putExtras(placeInfoBundle);
+
+        assert intent.getExtras() == placeInfoBundle;
+
         startActivity(intent);
     }
 
@@ -140,6 +171,8 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
      */
     private Bundle getPlaceInfoAsBundle(int position){
         Bundle placeInfo = new Bundle();
+
+        assert placeInfo != null;
 
         placeInfo.putString("name", places.get(position).getPlaceName());
         placeInfo.putString("phone", places.get(position).getPlacePhone());
