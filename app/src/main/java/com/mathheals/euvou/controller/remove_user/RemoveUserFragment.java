@@ -1,3 +1,8 @@
+/**
+ * File: RemoveUserFragment.java
+ * Purpose: Set the remove user fragment on view
+ */
+
 package com.mathheals.euvou.controller.remove_user;
 
 

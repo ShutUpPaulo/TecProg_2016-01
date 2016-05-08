@@ -1,6 +1,6 @@
 /**
  * File: OhGoshFragment.java
- * Purpose: Set the view of "OhGosh" message
+ * Purpose: Set "OhGosh" message fragment on view
  */
 
 
