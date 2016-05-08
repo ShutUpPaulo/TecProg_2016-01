@@ -48,6 +48,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
         boolean isUserLoggedIn = getUserLoginStatus();
 
+        //Get the identifier of the user logged in
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         currentUserId = loginUtility.getUserId();
 
@@ -65,97 +66,29 @@ public class ShowUser extends android.support.v4.app.Fragment implements
         return showUserView;
     }
 
-    private void getUserInfoFromDataBase(String userName, String userBirthDate, String userMail){
-        try{
-            UserDAO userDAO = new UserDAO(getActivity());
-            userEvaluatedId = this.getArguments().getString("id");
-            JSONObject userData = new JSONObject(userDAO.searchUserById(Integer.parseInt(userEvaluatedId)));
+    /**
+     * Triggers actions that must be done when the rating changes
+     * @param ratingBar - The RatingBar whose rating has changed
+     * @param rating - The current rating (>=0 ... <=5)
+     * @param fromUser - True if the rating change was initiated by a user's touch gesture or
+     *                 arrow key/horizontal trackbell movement
+     */
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
 
-            userName = userData.getJSONObject("0").getString("nameUser");
-            userBirthDate = userData.getJSONObject("0").getString("birthDate");
-            userMail = userData.getJSONObject("0").getString("email");
+        setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
 
-        }catch(JSONException jsonException){
-            jsonException.printStackTrace();
-        }
-    }
-
-    private void showUserInformationOnTextView(View showUserView, String userName, String userBirthDate, String userMail){
-
-        //Gets the text views of the fragment view
-        TextView userNameTextView = (TextView) showUserView.findViewById(R.id.labelName);
-        TextView userDateTextView = (TextView) showUserView.findViewById(R.id.labelBirthDate);
-        TextView userMailTextView = (TextView) showUserView.findViewById(R.id.labelMail);
-
-        //Sets the text of text views for the data of the parameters
-        userNameTextView.setText(userName);
-        userDateTextView.setText(userBirthDate);
-        userMailTextView.setText(userMail);
-    }
-
-    private boolean getUserLoginStatus(){
-        boolean isUserLoggedIn;
-        LoginUtility loginUtility = new LoginUtility(this.getActivity());
-
-        if(loginUtility.hasUserLoggedIn()){
-            isUserLoggedIn = true;
-        }
-        else{
-            isUserLoggedIn = false;
-        }
-        
-        return isUserLoggedIn;
-    }
-
-    private void setRatingMessage(View showUserView, String message){
-        TextView ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
-        ratingMessage.setText(message);
-    }
-
-    private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
-        if(isUserLoggedIn){
-            String LOGGED_IN_MESSAGE = "Sua avaliação:";
-            setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
-
-            RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
-            ratingBar.setOnRatingBarChangeListener(this);
-
-            setRatingBarStyle(ratingBar);
-
-            setEvaluationAtRatingBar(ratingBar);
-        }
-        else{
-            final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
-            setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
-        }
-    }
-
-    private void setEvaluationAtRatingBar(RatingBar ratingBar){
-
-        ratingBar.setVisibility(View.VISIBLE);
-
+        //Saves the user evaluation set at database
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
-        JSONObject userEvaluationAtDataBase = userEvaluationDAO.searchUserEvaluation(
-                Integer.parseInt(userEvaluatedId), currentUserId);
-
-        if(userEvaluationAtDataBase != null){
-            try{
-                Float currentUserEvaluation = new Float(userEvaluationAtDataBase.getJSONObject("0").getDouble("grade"));
-                ratingBar.setRating(currentUserEvaluation);
-
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-        else{
-            //If user don't have an evaluation, it don't need to be set at ratingBar
-        }
+        userEvaluationDAO.evaluateUser(userEvaluation);
     }
 
-    private UserEvaluation getUserEvaluation(){
-        return userEvaluation;
-    }
-
+    /**
+     * Instantiates an UserEvaluation object
+     * @param rating - Evaluation given to the user (>=0 ... <=5)
+     * @param userId - Identifier of the evaluator user
+     * @param userEvaluatedId - Identifier of the user evaluated
+     */
     private void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId){
         try{
             this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
@@ -180,16 +113,129 @@ public class ShowUser extends android.support.v4.app.Fragment implements
         }
     }
 
-    @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
+    /**
+     * Get the user name, birth date and mail from database
+     * @param userName - String to stores the name of the user
+     * @param userBirthDate - String to stores the birth date of the user
+     * @param userMail - String to stores the mail of the user
+     */
+    private void getUserInfoFromDataBase(String userName, String userBirthDate, String userMail){
+        try{
+            UserDAO userDAO = new UserDAO(getActivity());
+            userEvaluatedId = this.getArguments().getString("id");
+            JSONObject userData = new JSONObject(userDAO.searchUserById(Integer.parseInt(userEvaluatedId)));
 
-        setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
+            userName = userData.getJSONObject("0").getString("nameUser");
+            userBirthDate = userData.getJSONObject("0").getString("birthDate");
+            userMail = userData.getJSONObject("0").getString("email");
 
-        //Saves the user evaluation set at database
-        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
-        userEvaluationDAO.evaluateUser(getUserEvaluation());
+        }catch(JSONException jsonException){
+            jsonException.printStackTrace();
+        }
     }
 
+    /**
+     * If the user already has an evaluation, this method sets it at ratingBar
+     * @param ratingBar - RatingBar to sets the evaluation
+     */
+    private void setEvaluationAtRatingBar(RatingBar ratingBar){
+
+        ratingBar.setVisibility(View.VISIBLE);
+
+        //Searches the user evaluation at database
+        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
+        JSONObject userEvaluationAtDataBase = userEvaluationDAO.searchUserEvaluation(
+                Integer.parseInt(userEvaluatedId), currentUserId);
+
+        if(userEvaluationAtDataBase != null){
+            try{
+                Float currentUserEvaluation = new Float(userEvaluationAtDataBase.getJSONObject("0").getDouble("grade"));
+                ratingBar.setRating(currentUserEvaluation);
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        else{
+            //If user don't have an evaluation, it don't need to be set at ratingBar
+        }
+    }
+
+    /**
+     * Sets the TextViews to show the user information
+     * @param showUserView - View that contains the TextViews
+     * @param userName - Name to be set at the text view that shows the user name
+     * @param userBirthDate - Date to be set at the text view that shows the user birth date
+     * @param userMail - Mail to be set at the text view that shows the user mail
+     */
+    private void showUserInformationOnTextView(View showUserView, String userName, String userBirthDate, String userMail){
+
+        //Gets the text views of the fragment view
+        TextView userNameTextView = (TextView) showUserView.findViewById(R.id.labelName);
+        TextView userDateTextView = (TextView) showUserView.findViewById(R.id.labelBirthDate);
+        TextView userMailTextView = (TextView) showUserView.findViewById(R.id.labelMail);
+
+        //Sets the text of text views for the data of the parameters
+        userNameTextView.setText(userName);
+        userDateTextView.setText(userBirthDate);
+        userMailTextView.setText(userMail);
+    }
+
+    /**
+     * Verify if the user is logged in or logged out
+     * @return boolean - True if user is logged in and False if user is logged out
+     */
+    private boolean getUserLoginStatus(){
+        boolean isUserLoggedIn;
+        LoginUtility loginUtility = new LoginUtility(this.getActivity());
+
+        if(loginUtility.hasUserLoggedIn()){
+            isUserLoggedIn = true;
+        }
+        else{
+            isUserLoggedIn = false;
+        }
+        
+        return isUserLoggedIn;
+    }
+
+    /**
+     * Sets the message of the ratingBar label based on user login status
+     * @param showUserView - View that contains the ratingBar label
+     * @param message - Message to be displayed at the label
+     */
+    private void setRatingMessage(View showUserView, String message){
+        TextView ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
+        ratingMessage.setText(message);
+    }
+
+    /**
+     * Sets the necessary configurations of the ratingBar based on user login status
+     * @param isUserLoggedIn - User login status
+     * @param showUserView - View that contains the ratingBar
+     */
+    private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
+        if(isUserLoggedIn){
+            String LOGGED_IN_MESSAGE = "Sua avaliação:";
+            setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
+
+            RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
+            ratingBar.setOnRatingBarChangeListener(this);
+
+            setRatingBarStyle(ratingBar);
+
+            setEvaluationAtRatingBar(ratingBar);
+        }
+        else{
+            final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
+            setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
+        }
+    }
+
+    /**
+     * Sets the style of the ratingBar
+     * @param ratingBar - RatingBar to have its style set
+     */
     private void setRatingBarStyle(RatingBar ratingBar){
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
 
