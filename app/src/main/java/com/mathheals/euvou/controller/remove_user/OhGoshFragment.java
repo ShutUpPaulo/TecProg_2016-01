@@ -22,7 +22,7 @@ public class OhGoshFragment extends android.support.v4.app.Fragment{
 
 
     /**
-     * Required empty constructor
+     * Required empty public constructor
      */
     public OhGoshFragment(){
     }
