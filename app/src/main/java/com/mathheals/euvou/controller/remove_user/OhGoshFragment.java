@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 
 import com.mathheals.euvou.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class OhGoshFragment extends android.support.v4.app.Fragment {
 
 

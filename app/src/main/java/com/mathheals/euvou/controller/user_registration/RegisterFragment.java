@@ -26,6 +26,9 @@ import dao.UserDAO;
 import exception.UserException;
 import model.User;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class RegisterFragment extends Fragment implements View.OnClickListener{
 
     private static final String STRING_EMPTY = "";
