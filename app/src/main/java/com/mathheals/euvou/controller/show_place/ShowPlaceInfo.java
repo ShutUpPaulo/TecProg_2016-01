@@ -31,7 +31,7 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 import dao.EvaluatePlaceDAO;
 import model.Evaluation;
 
-public class ShowPlaceInfo extends FragmentActivity {
+public class ShowPlaceInfo extends FragmentActivity{
 
     private static final String STRING_EMPTY = "";
     private static final double DOUBLE_ZERO = 0.0;
@@ -61,8 +61,14 @@ public class ShowPlaceInfo extends FragmentActivity {
 
     private Evaluation ratingEvaluation = null;
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         assert  savedInstanceState != null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_place_info);
@@ -73,7 +79,7 @@ public class ShowPlaceInfo extends FragmentActivity {
         setUserId(new LoginUtility(this).getUserId());
         setIsUserLoggedIn(!userId.equals(LOGGED_OUT));
 
-        setPlaceInfo();
+        setPlaceInformation();
         setAllTextViews();
         setUpMapIfNeeded();
         placeMapFragment.getView().setVisibility(View.INVISIBLE);
@@ -82,22 +88,28 @@ public class ShowPlaceInfo extends FragmentActivity {
         setRatingBarIfNeeded();
     }
 
-    private void setRatingBarIfNeeded() {
-        if(isUserLoggedIn) {
+    /**
+     * Sets rating bar if user is logged in
+     */
+    private void setRatingBarIfNeeded(){
+        if(isUserLoggedIn){
             setRatingBar();
         }else{
             //nothing to do
         }
     }
 
-    private void setRatingBar() {
+    /**
+     * Sets rating bar on place view
+     */
+    private void setRatingBar(){
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         assert ratingBar != null;
 
         ratingBar.setVisibility(View.VISIBLE);
-        ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+        ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rateValue, boolean fromUser) {
+            public void onRatingChanged(RatingBar ratingBar, float rateValue, boolean fromUser){
                 setRatingEvaluation(idPlace, userId, rateValue);
                 EvaluatePlaceDAO evaluatePlaceDAO = new EvaluatePlaceDAO();
                 evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
@@ -106,7 +118,10 @@ public class ShowPlaceInfo extends FragmentActivity {
         setRatingBarStyle();
     }
 
-    private void setRatingBarStyle() {
+    /**
+     * Sets rating bar style
+     */
+    private void setRatingBarStyle(){
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         assert stars != null;
 
@@ -114,32 +129,40 @@ public class ShowPlaceInfo extends FragmentActivity {
                 R.color.turquesa_app), PorterDuff.Mode.SRC_ATOP);
     }
 
-    private void setUpMapIfNeeded() {
+    /**
+     * Sets up map if is not null
+     */
+    private void setUpMapIfNeeded(){
         // Do a null check to confirm that we have not already instantiated the map.
-        if (placeMap == null) {
+        if(placeMap != null){
+            //nothing to do
+        }else{
             // Try to obtain the map from the SupportMapFragment.
             placeMapFragment = ((SupportMapFragment)getSupportFragmentManager().
                     findFragmentById(R.id.fragment_show_place_info_map));
             placeMap = placeMapFragment.getMap();
             // Check if we were successful in obtaining the map.
-            if (placeMap != null) {
+            if (placeMap != null){
                 setUpMap();
             }else{
                 //nothing to do
             }
-        }else{
-            //nothing to do
         }
     }
 
-    private void setUpMap() {
+    /**
+     * Sets up map
+     */
+    private void setUpMap(){
         placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(getLatitude(),
                 getLongitude()), 9));
         markPlaceOnMap();
     }
 
-    private void markPlaceOnMap() {
-
+    /**
+     * Marks place on map
+     */
+    private void markPlaceOnMap(){
         placeMap.addMarker(
                 new MarkerOptions()
                         .title(getName())
@@ -148,10 +171,14 @@ public class ShowPlaceInfo extends FragmentActivity {
         );
     }
 
-    public void showPlaceInfoOnClick(View view) {
+    /**
+     * Show place info when the user clicks on this option
+     * @param view view where the place will be shown
+     */
+    public void showPlaceInfoOnClick(View view){
         assert view != null;
 
-        switch(view.getId()) {
+        switch(view.getId()){
             case R.id.button_show_map:
                 setUpMapIfNeeded();
                 hideMapButton.setVisibility(View.VISIBLE);
@@ -168,7 +195,11 @@ public class ShowPlaceInfo extends FragmentActivity {
                 break;
         }
     }
-    private void setPlaceInfo() {
+
+    /**
+     * Sets place information
+     */
+    private void setPlaceInformation(){
         Intent intent = getIntent();
         setName(intent.getStringExtra("name"));
         setPhone(intent.getStringExtra("phone"));
@@ -181,60 +212,112 @@ public class ShowPlaceInfo extends FragmentActivity {
         setIdPlace(intent.getIntExtra("idPlace", INT_ZERO));
     }
 
-    private void setGrade(float grade) {
+    /**
+     * Sets grade value
+     * @param grade New grade value
+     */
+    private void setGrade(float grade){
         this.grade = grade;
     }
 
-    private void setAddress(String address) {
+    /**
+     * Sets address value
+     * @param address New address value
+     */
+    private void setAddress(String address){
         assert address != null;
         this.address = address;
     }
 
-    private String getAddress() {
+    /**
+     * Returns the place address
+     * @return Current place address
+     */
+    private String getAddress(){
         return address;
     }
 
-    private double getLongitude() {
+    /**
+     * Returns the place longitude
+     * @return Current place longitude
+     */
+    private double getLongitude(){
         return longitude;
     }
 
-    private void setLongitude(double longitude) {
+    /**
+     * Sets longitude value
+     * @param longitude New longitude value
+     */
+    private void setLongitude(double longitude){
         this.longitude = longitude;
     }
 
-    private void setDescription(String description) {
+    /**
+     * Sets place description
+     * @param description New place description
+     */
+    private void setDescription(String description){
         assert description != null;
         this.description = description;
     }
 
-    private void setOperation(String operation) {
+    /**
+     * Sets operation value
+     * @param operation New operation value
+     */
+    private void setOperation(String operation){
         assert operation != null;
         this.operation = operation;
     }
 
-    private void setPhone(String phone) {
+    /**
+     * Sets place phone
+     * @param phone New place phone
+     */
+    private void setPhone(String phone){
         assert phone != null;
         this.phone = phone;
     }
 
-    private String getName() {
+    /**
+     * Returns the place name
+     * @return Current place name
+     */
+    private String getName(){
         return name;
     }
 
-    private void setName(String name) {
+    /**
+     * Sets place name
+     * @param name New place name
+     */
+    private void setName(String name){
         assert name != null;
         this.name = name;
     }
 
-    private double getLatitude() {
+    /**
+     * Returns place latitude
+     * @return Current place latitude
+     */
+    private double getLatitude(){
         return latitude;
     }
 
-    private void setLatitude(double latitude) {
+    /**
+     * Sets new latitude value
+     * @param latitude New latitude value
+     */
+    private void setLatitude(double latitude){
         this.latitude = latitude;
     }
 
-    private void setAddressText(String addressText) {
+    /**
+     * Sets address text on TextView
+     * @param addressText Address text to be put in view
+     */
+    private void setAddressText(String addressText){
         assert addressText != null;
 
         TextView addressTextView = (TextView) findViewById(R.id.address_text);
@@ -244,7 +327,11 @@ public class ShowPlaceInfo extends FragmentActivity {
         addressTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void setOperationText(String operationText) {
+    /**
+     * Sets operation text on TextView
+     * @param operationText Operation text to be put in view
+     */
+    private void setOperationText(String operationText){
         assert operationText != null;
 
         TextView operationTextView = (TextView) findViewById(R.id.operation_text);
@@ -254,7 +341,11 @@ public class ShowPlaceInfo extends FragmentActivity {
         operationTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void setPhoneText(String phoneText) {
+    /**
+     * Sets phone text on TextView
+     * @param phoneText Phone text to be put in view
+     */
+    private void setPhoneText(String phoneText){
         assert phoneText != null;
 
         TextView phoneTextView = (TextView) findViewById(R.id.phone_text);
@@ -263,7 +354,11 @@ public class ShowPlaceInfo extends FragmentActivity {
         phoneTextView.setText(phoneText);
     }
 
-    private void setGradeText(String gradeText) {
+    /**
+     * Sets grade text on TextView
+     * @param gradeText Grade text to be put in view
+     */
+    private void setGradeText(String gradeText){
         assert gradeText != null;
 
         TextView gradeTextView = (TextView) findViewById(R.id.grade_text);
@@ -272,7 +367,11 @@ public class ShowPlaceInfo extends FragmentActivity {
         gradeTextView.setText(gradeText);
     }
 
-    private void setDescriptionText(String descriptionText) {
+    /**
+     * Sets description text on TextView
+     * @param descriptionText Description text to be put in view
+     */
+    private void setDescriptionText(String descriptionText){
         assert descriptionText != null;
 
         TextView descriptionTextView = (TextView) findViewById(R.id.description_text);
@@ -282,7 +381,10 @@ public class ShowPlaceInfo extends FragmentActivity {
         descriptionTextView.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void setAllTextViews() {
+    /**
+     * Sets place text views
+     */
+    private void setAllTextViews(){
         setAddressText(address);
         setOperationText(operation);
         setPhoneText(phone);
@@ -290,22 +392,34 @@ public class ShowPlaceInfo extends FragmentActivity {
         setDescriptionText(description);
     }
 
-    private void setShowMapButton(Button showMapButton) {
+    /**
+     * Sets the showMapButton
+     * @param showMapButton Button that shows map on click
+     */
+    private void setShowMapButton(Button showMapButton){
         assert showMapButton != null;
         this.showMapButton = showMapButton;
     }
 
-    private void setHideMapButton(Button hideMapButton) {
+    /**
+     * Sets the hideMapButton
+     * @param hideMapButton Button that hides map on click
+     */
+    private void setHideMapButton(Button hideMapButton){
         assert hideMapButton != null;
         this.hideMapButton = hideMapButton;
     }
 
-    private void setRatingMessage(boolean isUserLoggedIn) {
+    /**
+     * Sets rating message according with the login status
+     * @param isUserLoggedIn Indicates if user is logged in or not
+     */
+    private void setRatingMessage(boolean isUserLoggedIn){
         String message = STRING_EMPTY;
 
-        if(isUserLoggedIn) {
+        if(isUserLoggedIn){
             message = "Sua avaliação:";
-        } else {
+        }else{
             message = "Faça login para avaliar!";
         }
         TextView ratingMessage = (TextView) findViewById(R.id.rate_it_text);
@@ -314,23 +428,45 @@ public class ShowPlaceInfo extends FragmentActivity {
         ratingMessage.setText(message);
     }
 
-    private void setUserId(int userId) {
+    /**
+     * Sets userId
+     * @param userId New userId
+     */
+    private void setUserId(int userId){
         this.userId = userId;
     }
 
-    private void setIsUserLoggedIn(boolean isUserLoggedIn) {
+    /**
+     * Sets isUserLoggedIn
+     * @param isUserLoggedIn Indicates if user is logged in or not
+     */
+    private void setIsUserLoggedIn(boolean isUserLoggedIn){
         this.isUserLoggedIn = isUserLoggedIn;
     }
 
-    public int getIdPlace() {
+    /**
+     * Return the place id
+     * @return Current place id
+     */
+    public int getIdPlace(){
         return idPlace;
     }
 
-    private void setIdPlace(int idPlace) {
+    /**
+     * Sets place id
+     * @param idPlace New place id
+     */
+    private void setIdPlace(int idPlace){
         this.idPlace = idPlace;
     }
 
-    private void setRatingEvaluation(int idPlace, int idUser, float grade) {
+    /**
+     * Sets rating evaluation of a place
+     * @param idPlace Id of place evaluated
+     * @param idUser Id of user who evaluated the place
+     * @param grade Current grade value
+     */
+    private void setRatingEvaluation(int idPlace, int idUser, float grade){
         this.ratingEvaluation = new Evaluation(idPlace, idUser, grade);
     }
 }
