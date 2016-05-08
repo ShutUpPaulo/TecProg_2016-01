@@ -5,15 +5,30 @@
 
 package dao;
 
+import android.support.v4.app.FragmentActivity;
 import org.json.JSONObject;
 import model.UserEvaluation;
 
 public class UserEvaluationDAO extends DAO{
 
+    /**
+     * Empty constructor required in DAO tests
+     */
     public UserEvaluationDAO(){
-
     }
 
+    /**
+     * UserEvaluationDAO constructor
+     * @param currentActivity - Current activity to show message of connection problem
+     */
+    public UserEvaluationDAO(FragmentActivity currentActivity){
+        super(currentActivity);
+    }
+
+    /**
+     * Saves an user evaluation at database
+     * @param evaluation - Evaluation given to the user (>=0 ... <=5)
+     */
     public void evaluateUser(UserEvaluation evaluation){
 
         assert evaluation.getIdUserEvaluated() >=1;
@@ -29,7 +44,7 @@ public class UserEvaluationDAO extends DAO{
         String query;
 
         //The main flow is the user doesn't have an evaluation
-        if(userEvaluationInDataBase==null){
+        if(userEvaluationInDataBase == null){
             query = "INSERT INTO evaluate_user(grade, idUser, idUserEvaluated) VALUES (" +
                     "\"" + evaluation.getUserRating() + "\"," +
                     "\"" + evaluation.getIdUserLoggedIn() + "\"," +
@@ -45,6 +60,12 @@ public class UserEvaluationDAO extends DAO{
         executeQuery(query);
     }
 
+    /**
+     * Searches the evaluation of an user, given by another user
+     * @param userEvaluatedtId - Identifier of the user to be evaluated
+     * @param userId - Identifier of the evaluator user
+     * @return JSONObject - Data of the user evaluation given by the evaluator user
+     */
     public JSONObject searchUserEvaluation(int userEvaluatedtId, int userId){
 
         assert userEvaluatedtId >= 1;
@@ -55,6 +76,8 @@ public class UserEvaluationDAO extends DAO{
         final String QUERY = "SELECT * FROM evaluate_user WHERE idUser = \"" + userId
                 + "\" AND idUserEvaluated = " + userEvaluatedtId;
 
-        return executeConsult(QUERY);
+        JSONObject userEvaluation = executeConsult(QUERY);
+
+        return userEvaluation;
     }
 }

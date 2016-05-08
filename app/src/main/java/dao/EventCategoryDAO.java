@@ -10,6 +10,10 @@ import org.json.JSONObject;
 
 public class EventCategoryDAO extends DAO{
 
+    /**
+     * EventCategoryDAO constructor
+     * @param currentActivity - Current activity to show message of connection problem
+     */
     public EventCategoryDAO(Activity currentActivity){
         super(currentActivity);
     }

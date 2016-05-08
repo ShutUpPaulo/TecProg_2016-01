@@ -124,7 +124,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
         ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
         ratingBar.setVisibility(View.VISIBLE);
 
-        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO();
+        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
 
         JSONObject evaluationJSON = userEvaluationDAO.searchUserEvaluation(
                 Integer.parseInt(userEvaluatedId), currentUserId);
@@ -187,7 +187,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements RatingB
 
         setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
 
-        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO();
+        UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
 
         userEvaluationDAO.evaluateUser(getUserEvaluation());
     }
