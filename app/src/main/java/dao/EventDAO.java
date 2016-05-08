@@ -1,3 +1,8 @@
+/**
+ * File: EventDAO.java
+ * Purpose: Manage the events data at database, searching, updating and deleting when is needed.
+ */
+
 package dao;
 
 import android.app.Activity;
