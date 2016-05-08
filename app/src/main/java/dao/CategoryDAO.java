@@ -1,12 +1,14 @@
+/**
+ * File: RegisterFragment.java
+ * Purpose: Search category in database
+ */
+
 package dao;
 
 import android.app.Activity;
 
 import org.json.JSONObject;
 
-/**
- * Created by julliana on 28/10/15.
- */
 public class CategoryDAO extends DAO {
 
     public CategoryDAO(Activity currentActivity){
