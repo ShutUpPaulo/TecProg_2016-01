@@ -41,21 +41,28 @@ public class RecommendEvent extends android.support.v4.app.Fragment
     private JSONObject eventDATA;
     private int idUser;
 
-
-    public RecommendEvent() {
-        // Required empty public constructor
+    /**
+     * Empty constructor required in RecommendEvent tests
+     */
+    public RecommendEvent(){
     }
 
-
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater Object used to inflate any views in the fragment
+     * @param container If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a
+     *                             previous saved state as given here
+     * @return View of the Recommended Event
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         assert inflater != null;
         assert container != null;
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
-        // Inflate the layout for this fragment
+
         listViewEventRecomendations =
                 (ListView) view.findViewById(R.id.list_view_event_recomendations);
         assert listViewEventRecomendations != null;
@@ -65,16 +72,19 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         LoginUtility loginUtility = new LoginUtility(getActivity());
         idUser = loginUtility.getUserId();
 
-        if (idUser != USER_NOT_LOGGED_IN) {
+        if (idUser != USER_NOT_LOGGED_IN){
             fillEventsList();
-        } else {
+        }else{
             Toast.makeText(getActivity().getBaseContext(),
                     "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }
         return view;
     }
 
-    private void fillEventsList() {
+    /**
+     * Fill list of recommended events
+     */
+    private void fillEventsList(){
         EventRecommendationDAO eventRecommendationDAO = new EventRecommendationDAO();
 
         events = new ArrayList<>();
@@ -94,13 +104,13 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
                     events.add(event);
             }
-        } catch (JSONException e) {
+        }catch (JSONException e){
             e.printStackTrace();
-        } catch (ParseException e) {
+        }catch (ParseException e){
             e.printStackTrace();
-        } catch (EventException e) {
+        }catch (EventException e){
             e.printStackTrace();
-        } catch (NullPointerException e){
+        }catch (NullPointerException e){
             Toast.makeText(getActivity().getBaseContext(),
                     "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
         }
@@ -110,8 +120,15 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         listViewEventRecomendations.setAdapter(eventAdapter);
     }
 
+    /**
+     * Invoked when an item in the AdapterView was clicked
+     * @param parent AdapterView where click happened
+     * @param view View within the AdapterView that was clicked
+     * @param position Position of view in the adapter
+     * @param id Id of the clicked item
+     */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         assert parent != null;
         assert view != null;
         assert id >= 0;
@@ -122,7 +139,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         final Bundle bundle = new Bundle();
         final ShowEvent event = new ShowEvent();
 
-        try {
+        try{
             final android.support.v4.app.FragmentTransaction fragmentTransaction
                     = getActivity().getSupportFragmentManager().beginTransaction();
 
@@ -135,9 +152,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment
             fragmentTransaction.add(R.id.content_frame, event);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
-        } catch (JSONException e) {
+        }catch (JSONException e){
             e.printStackTrace();
         }
-
     }
 }

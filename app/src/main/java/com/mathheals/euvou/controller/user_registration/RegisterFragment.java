@@ -61,7 +61,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
      * @param container If non-null, is the parent view that the fragment should be attached to
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a
      *                             previous saved state as given here
-     * @return View View of the Register fragment
+     * @return View of the Register fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater,
