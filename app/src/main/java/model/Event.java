@@ -1,3 +1,7 @@
+/*
+ * File: Event.java
+ * Purpose: creates an instance to receive the information of events.
+ */
 package model;
 
 import java.text.ParseException;
@@ -156,7 +160,7 @@ public class Event{
                 throw new EventException(INVALID_EVENT_HOUR);
             }
         }else{
-            if(date.isEmpty() || date==null) {
+            if(date.isEmpty() || date==null){
                 throw new EventException(EVENT_DATE_IS_EMPTY);
             }
 
