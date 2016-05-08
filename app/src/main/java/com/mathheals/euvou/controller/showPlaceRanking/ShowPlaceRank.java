@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 import org.json.JSONException;
@@ -20,61 +19,87 @@ import model.Place;
 
 public class ShowPlaceRank extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener{
 
-    private ListView listView;
     private ArrayList<Place> places;
 
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public ShowPlaceRank(){
-        // Required empty public constructor
+
     }
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the ShowPlaceRank fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        View vw = inflater.inflate(R.layout.fragment_show_place_rank, container, false);
+        View rankingView = inflater.inflate(R.layout.fragment_show_place_rank, container, false);
 
-        listView = (ListView) vw.findViewById(R.id.listViewPlacesTotall);
-        listView.setOnItemClickListener(this);
+        //Sets the listener that allows to get when the user click in a list item
+        ListView listToBeFilled = (ListView) rankingView.findViewById(R.id.listViewPlacesTotall);
+        listToBeFilled.setOnItemClickListener(this);
 
-        fillList();
+        fillList(listToBeFilled);
 
-        return  vw;
+        return rankingView;
     }
 
-    private void fillList(){
+    /**
+     * Fills the list of places
+     * @param listToBeFilled - List to be filled with places
+     */
+    private void fillList(ListView listToBeFilled){
 
-            JSONObject result = new PlaceDAO(getActivity()).searchAllPlaces();
-            places = new ArrayList<>();
-            populateArrayOfPlaces(result,places);
+        JSONObject placesData = new PlaceDAO(getActivity()).searchAllPlaces();
+        places = new ArrayList<Place>();
+        populateArrayOfPlaces(placesData,places);
 
-            PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);
-            listView.setAdapter(placeAdapter);
+        //Sets the required adapter to adapt items of the places array in items of the places list
+        PlaceAdapter placeAdapter = new PlaceAdapter(getActivity(),places);
+        listToBeFilled.setAdapter(placeAdapter);
     }
 
-    private void populateArrayOfPlaces(JSONObject result, ArrayList<Place> places){
+    /**
+     * Populates the array of places with place data
+     * @param placesData - Places data obtained through database
+     * @param places - Array to be populated
+     */
+    private void populateArrayOfPlaces(JSONObject placesData, ArrayList<Place> places){
 
         try{
-            for(int i = 0; i < result.length(); i++){
-                int idPlace = result.getJSONObject("" + i).getInt("idPlace");
-                String namePlace = result.getJSONObject("" + i).getString("namePlace");
+            for(int i = 0; i < placesData.length(); i++){
+                int idPlace = placesData.getJSONObject("" + i).getInt("idPlace");
+                String namePlace = placesData.getJSONObject("" + i).getString("namePlace");
                 Place aux = new Place(idPlace,namePlace,
-                        result.getJSONObject("" + i).getString("evaluate"),
-                        result.getJSONObject("" + i).getString("longitude"),
-                        result.getJSONObject("" + i).getString("latitude"),
-                        result.getJSONObject("" + i).getString("operation"),
-                        result.getJSONObject("" + i).getString("description"),
-                        result.getJSONObject("" + i).getString("address"),
-                        result.getJSONObject("" + i).getString("phonePlace")
+                        placesData.getJSONObject("" + i).getString("evaluate"),
+                        placesData.getJSONObject("" + i).getString("longitude"),
+                        placesData.getJSONObject("" + i).getString("latitude"),
+                        placesData.getJSONObject("" + i).getString("operation"),
+                        placesData.getJSONObject("" + i).getString("description"),
+                        placesData.getJSONObject("" + i).getString("address"),
+                        placesData.getJSONObject("" + i).getString("phonePlace")
                 );
 
                 places.add(aux);
             }
-
         }catch(JSONException e){
             e.printStackTrace();
 
@@ -86,30 +111,44 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
         }
     }
 
+    /**
+     * Callback method to be invoked when an item in AdapterView has been clicked
+     * @param parent - The AdapterView where the click happened
+     * @param view - The view within the AdapterView that was clicked
+     * @param position - The position of the view in the adapter
+     * @param id - The row identifier of the item that was clicked
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        startShowInfoActivity(position);
+        startShowPlaceInfoActivity(position);
     }
 
-    private void startShowInfoActivity(int id){
+    /**
+     * Starts the activity with the information of a place
+     * @param position - Position of the place at places array
+     */
+    private void startShowPlaceInfoActivity(int position){
         Intent intent = new Intent(getActivity(), ShowPlaceInfo.class);
-        intent.putExtras(getPlaceInfoAsBundle(id));
+        intent.putExtras(getPlaceInfoAsBundle(position));
         startActivity(intent);
     }
 
-    private Bundle getPlaceInfoAsBundle(int id){
+    /**
+     * Sets the bundle with place information to allow send this information to an activity
+     * @param position - Position of the place at places array
+     * @return Bundle - Bundle with the place information to be sent to an activity
+     */
+    private Bundle getPlaceInfoAsBundle(int position){
         Bundle placeInfo = new Bundle();
 
-        Toast.makeText(getActivity(),"" + id,Toast.LENGTH_LONG);
-
-        placeInfo.putString("name", places.get(id).getPlaceName());
-        placeInfo.putString("phone", places.get(id).getPlacePhone());
-        placeInfo.putString("address", places.get(id).getPlaceAddress());
-        placeInfo.putString("description", places.get(id).getPlaceDescription());
-        placeInfo.putDouble("latitude", places.get(id).getPlacetLatitude());
-        placeInfo.putDouble("longitude", places.get(id).getPlaceLongitude());
-        placeInfo.putString("operation", places.get(id).getOperation());
-        placeInfo.putInt("idPlace", places.get(id).getId());
+        placeInfo.putString("name", places.get(position).getPlaceName());
+        placeInfo.putString("phone", places.get(position).getPlacePhone());
+        placeInfo.putString("address", places.get(position).getPlaceAddress());
+        placeInfo.putString("description", places.get(position).getPlaceDescription());
+        placeInfo.putDouble("latitude", places.get(position).getPlacetLatitude());
+        placeInfo.putDouble("longitude", places.get(position).getPlaceLongitude());
+        placeInfo.putString("operation", places.get(position).getOperation());
+        placeInfo.putInt("idPlace", places.get(position).getId());
 
         return placeInfo;
     }
