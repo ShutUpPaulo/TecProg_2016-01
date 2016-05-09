@@ -16,10 +16,18 @@ public class LoginValidation {
     private final String JSON_FORMAT = "0";
     private Activity activity;
 
+    /**
+     * Required constructor to instantiate the class passing the current activity
+     */
     public LoginValidation(Activity activity){
         this.activity = activity;
     }
 
+    /**
+     * Checks if the username characters are valid
+     * @param username - Username typed by the user
+     * @return boolean - If the username is valid, returns true, else returns false
+     */
     private boolean checkUsernameCharacters(String username){
         assert username != null;
 
@@ -31,6 +39,11 @@ public class LoginValidation {
         }
     }
 
+    /**
+     * Checks if the user is active in the database
+     * @param username - Username of the user
+     * @return boolean - If the user is active, returns true, else returns false
+     */
     public boolean isActivity(String username){
         assert username != null;
 
@@ -55,6 +68,11 @@ public class LoginValidation {
         }
     }
 
+    /**
+     * Checks if the user is registered in the database
+     * @param username - Username of the user
+     * @return boolean - If the user is registered, returns true, else returns false
+     */
     private boolean isUsernameRegistered(String username){
         assert username != null;
 
@@ -70,12 +88,23 @@ public class LoginValidation {
 
     }
 
+    /**
+     * Checks if the username is valid
+     * @param username - Username typed by the user
+     * @return boolean - If the username is valid, returns true, else returns false
+     */
     public boolean isUsernameValid(String username){
         assert username != null;
 
         return checkUsernameCharacters(username) && isUsernameRegistered(username);
     }
 
+    /**
+     * Checks if the password is correct
+     * @param validUsername - Username of the user already validated
+     * @param passwordTyped - Password typed by the user
+     * @return boolean - If the password is correct, returns true,else returns false
+     */
     public boolean checkPassword(String validUsername, String passwordTyped){
         assert validUsername != null;
         assert passwordTyped != null;
@@ -100,12 +129,20 @@ public class LoginValidation {
 
     }
 
+    /**
+     * Gets the message of invalid username
+     * @return String - A message informing that username typed is invalid
+     */
     public String getInvalidUsernameMessage(){
         final String INVALID_USERNAME_MESSAGE = "Ops, acho que você digitou o login errado";
 
         return INVALID_USERNAME_MESSAGE;
     }
 
+    /**
+     * Gets the message of invalid password
+     * @return String - A message informing that password typed is invalid
+     */
     public String getInvalidPasswordMessage(){
         final String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
 
