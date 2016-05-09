@@ -12,24 +12,19 @@ import org.json.JSONObject;
 
 import dao.UserDAO;
 
-/**
- * Created by igor on 29/09/15.
- */
 public class LoginValidation {
     private final String JSON_FORMAT = "0";
-    private static final String COLUMN_USER_STATE = "isActivity";
     private Activity activity;
 
     public LoginValidation(Activity activity){
-        this.activity=activity;
+        this.activity = activity;
     }
-
-    public LoginValidation(){}
 
     private boolean checkUsernameCharacters(String username){
         assert username != null;
 
-        if(username.isEmpty()==false && username.contains(" ")==false){
+        final String STRING_EMPTY = " ";
+        if(username.isEmpty() == false && username.contains(STRING_EMPTY) == false){
             return true;
         }else{
             return false;
@@ -45,26 +40,29 @@ public class LoginValidation {
         String isActivity = null;
         try {
             json = userDAO.searchUserByUsername(username);
+
+            final String COLUMN_USER_STATE = "isActivity";
             isActivity = json.getJSONObject(JSON_FORMAT).getString(COLUMN_USER_STATE);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        if(json!=null && isActivity.equals("Y")){
+        final String YES_OPTION = "Y";
+        if(json != null && isActivity.equals(YES_OPTION)){
             return true;
         }else{
             return false;
         }
     }
 
-    private boolean isUsernameRegistred(String username){
+    private boolean isUsernameRegistered(String username){
         assert username != null;
 
         UserDAO userDAO = new UserDAO(this.activity);
 
         JSONObject json = userDAO.searchUserByUsername(username);
 
-        if(json!=null){
+        if(json != null){
             return true;
         }else{
             return false;
@@ -75,7 +73,7 @@ public class LoginValidation {
     public boolean isUsernameValid(String username){
         assert username != null;
 
-        return checkUsernameCharacters(username) && isUsernameRegistred(username);
+        return checkUsernameCharacters(username) && isUsernameRegistered(username);
     }
 
     public boolean checkPassword(String validUsername, String passwordTyped){
@@ -87,7 +85,7 @@ public class LoginValidation {
         JSONObject json = userDAO.searchUserByUsername(validUsername);
 
         try {
-            String PASSWORD_USER = "passwordUser";
+            final String PASSWORD_USER = "passwordUser";
             String password = json.getJSONObject(JSON_FORMAT).getString(PASSWORD_USER);
 
             if(password.equals(passwordTyped)){
@@ -102,14 +100,15 @@ public class LoginValidation {
 
     }
 
-    public String getInvalidUsernameMessage() {
-        String INVALID_USERNAME_MESSAGE = "Ops, acho que você digitou o login errado";
+    public String getInvalidUsernameMessage(){
+        final String INVALID_USERNAME_MESSAGE = "Ops, acho que você digitou o login errado";
+
         return INVALID_USERNAME_MESSAGE;
     }
 
-    public String getInvalidPasswordMessage() {
-        String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
+    public String getInvalidPasswordMessage(){
+        final String INVALID_PASSWORD_MESSAGE = "Ops, acho que você digitou a senha errada";
+
         return INVALID_PASSWORD_MESSAGE;
     }
-
 }
