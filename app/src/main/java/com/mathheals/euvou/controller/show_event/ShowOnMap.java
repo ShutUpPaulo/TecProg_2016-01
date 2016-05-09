@@ -16,18 +16,11 @@ import com.mathheals.euvou.R;
 
 
 public class ShowOnMap extends FragmentActivity{
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private Double latitude;
-    private Double longitude;
-    private String filter;
-
-    public String getFilter(){
-        return filter;
-    }
-
-    private void setFilter(String filter){
-        this.filter = filter;
-    }
+    private final Double INVALID_LATITUDE = Double.valueOf(91);
+    private final Double INVALID_LONGITUDE = Double.valueOf(181);
+    private GoogleMap mMap = null; // Might be null if Google Play services APK is not available.
+    private Double latitude = INVALID_LATITUDE;
+    private Double longitude = INVALID_LONGITUDE;
 
 
     @Override
@@ -37,19 +30,19 @@ public class ShowOnMap extends FragmentActivity{
         setContentView(R.layout.activity_maps);
 
         Bundle bundle = this.getIntent().getExtras();
-        String[] array = bundle.getStringArray("LatitudeAndLongitude");
+        String[] localizationValues = bundle.getStringArray("LatitudeAndLongitude");
 
-        latitude = Double.parseDouble(array[0]);
-        longitude = Double.parseDouble(array[1]);
+        latitude = Double.parseDouble(localizationValues[0]);
+        longitude = Double.parseDouble(localizationValues[1]);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        setUpMapIfNeeded();
+        checkIfMapIsInstantiated();
     }
 
-    private void setUpMapIfNeeded(){
+    private void checkIfMapIsInstantiated(){
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null){
             // Try to obtain the map from the SupportMapFragment.
@@ -65,8 +58,6 @@ public class ShowOnMap extends FragmentActivity{
     private void setUpMap(){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(latitude, longitude), 9));
-
-        setFilter(getIntent().getStringExtra("query"));
 
         addMarkerPlace(latitude,longitude);
     }

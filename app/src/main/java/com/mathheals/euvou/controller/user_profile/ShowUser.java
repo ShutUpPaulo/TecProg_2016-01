@@ -22,8 +22,9 @@ import model.UserEvaluation;
 public class ShowUser extends android.support.v4.app.Fragment implements
         RatingBar.OnRatingBarChangeListener{
 
-    private String userEvaluatedId;
-    private int currentUserId;
+    private final int INVALID_IDENTIFIER = -2;
+    private String userEvaluatedId = null;
+    private int currentUserId = INVALID_IDENTIFIER;
 
     /**
      * Required constructor to instantiate a fragment object
@@ -92,7 +93,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
         try{
             userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
 
-            String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
+            final String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
 
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFUL_EVALUATION_MESSAGE,
                     Toast.LENGTH_LONG).show();
@@ -185,7 +186,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @return boolean - True if user is logged in and False if user is logged out
      */
     private boolean getUserLoginStatus(){
-        boolean isUserLoggedIn;
+        boolean isUserLoggedIn = false;
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
 
         if(loginUtility.hasUserLoggedIn()){
@@ -204,8 +205,8 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param message - Message to be displayed at the label
      */
     private void setRatingMessage(View showUserView, String message){
-        TextView ratingMessage = (TextView) showUserView.findViewById(R.id.rate_user_text);
-        ratingMessage.setText(message);
+        TextView ratingMessageTextView = (TextView) showUserView.findViewById(R.id.rate_user_text);
+        ratingMessageTextView.setText(message);
     }
 
     /**
@@ -215,7 +216,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      */
     private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
         if(isUserLoggedIn){
-            String LOGGED_IN_MESSAGE = "Sua avaliação:";
+            final String LOGGED_IN_MESSAGE = "Sua avaliação:";
             setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
 
             RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
