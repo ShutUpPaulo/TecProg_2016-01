@@ -40,9 +40,21 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
     private String longitude;
     private Vector<String> categories= new Vector<>();
 
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public RegisterEventFragment(){
+
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the fragment
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         assert inflater != null;
@@ -70,6 +82,10 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         return view;
     }
 
+    /**
+     * Adds the names of the categories which were clicked in a vector of strings
+     * @param v - Current view being used in the fragment
+     */
     private void addEventCategories(View v){
         assert v != null;
 
@@ -150,6 +166,10 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         }
     }
 
+    /**
+     * Saves the new event in case of success, or throws an exception in case of failure
+     * @param v Current view being used in the fragment
+     */
     @Override
     public void onClick(View v) {
         assert v != null;
@@ -280,6 +300,12 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
     }
 
+    /**
+     * Called when an activity which was launched exits
+     * @param requestCode - Request code which the activity started with
+     * @param resultCode - Result code which was returned
+     * @param data - Additional data which the activity may contain
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         assert data != null;
@@ -301,6 +327,10 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         }
     }
 
+    /**
+     * Saves an event on the DataBase
+     * @param event - Object with event data
+     */
     private void registerEvent(Event event){
         assert event != null;
 
@@ -308,6 +338,10 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
         eventDAO.saveEvent(event);
     }
 
+    /**
+     * Adds listeners of the checkboxes
+     * @param v - Current view being used in the fragment
+     */
     private void addCheckBoxListeners(View v){
         assert v != null;
 
