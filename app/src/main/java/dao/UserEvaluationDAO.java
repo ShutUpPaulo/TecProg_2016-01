@@ -5,14 +5,14 @@
 
 package dao;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import org.json.JSONObject;
 import model.UserEvaluation;
 
 public class UserEvaluationDAO extends DAO{
 
     /**
-     * Empty constructor required in DAO tests
+     * Constructor required to instantiate an UserEvaluationDAO object
      */
     public UserEvaluationDAO(){
     }
@@ -21,7 +21,7 @@ public class UserEvaluationDAO extends DAO{
      * UserEvaluationDAO constructor
      * @param currentActivity - Current activity to show message of connection problem
      */
-    public UserEvaluationDAO(FragmentActivity currentActivity){
+    public UserEvaluationDAO(Activity currentActivity){
         super(currentActivity);
     }
 
