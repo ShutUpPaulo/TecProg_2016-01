@@ -9,14 +9,9 @@ package com.mathheals.euvou.controller.utility;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-
 import dao.UserDAO;
-import exception.UserException;
-import model.User;
 
 public class LoginUtility {
     private static final int LOGGED_OUT = -1;
@@ -32,6 +27,9 @@ public class LoginUtility {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
+    /**
+     * Required constructor to instantiate the class passing the current activity
+     */
     public LoginUtility(Activity activity) {
         assert activity != null;
 
@@ -40,12 +38,27 @@ public class LoginUtility {
         editor = sharedPreferences.edit();
     }
 
-    public LoginUtility(){}
+    /**
+     * Required constructor to instantiate the class
+     */
+    public LoginUtility(){
 
+    }
+
+    /**
+     * Verifies if has some user logged in
+     * @return boolean - Returns true if has some user logged in, or false if has not
+     */
     public boolean hasUserLoggedIn() {
         return getUserId() != LOGGED_OUT;
     }
-    // gets user's ID by username. OBS: IT'S ASSUMED THAT USERNAME DOES EXIST
+
+    /**
+     * Gets user's ID by username, assuming that username dos exist
+     * @param username - Username of the user
+     * @return int - Returns the id of the username passed
+     * @throws org.json.JSONException
+     */
     public int getUserId(String username) throws org.json.JSONException{
         assert username != null;
 
@@ -54,38 +67,19 @@ public class LoginUtility {
         return Integer.parseInt(jsonObject.getJSONObject("0").getString(COLUMN_USER_ID));
     }
 
-    public User getUser(String username){
-        assert username != null;
-
-        User user=null;
-        try {
-            UserDAO userDAO = new UserDAO(this.activity);
-            JSONObject jsonObject = userDAO.searchUserByUsername(username);
-
-            user = new User(jsonObject.getJSONObject("0").getString(COLUMN_USER_NAME),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_LOGIN),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_EMAIL),
-                    jsonObject.getJSONObject("0").getString(COLUMN_USER_PASSWORD),
-                    formatDateToBr(jsonObject.getJSONObject("0").getString(COLUMN_USER_BIRTHDATE)));
-            return user;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (UserException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return user;
-    }
-
-    // gets current user's ID
+    /**
+     * Gets current user's ID
+     * @return int - Returns the id of the user logged in
+     */
     public int getUserId() {
         SharedPreferences sharedId = activity.getSharedPreferences(ID_FIELD, activity.MODE_PRIVATE);
         return sharedId.getInt(ID_FIELD, LOGGED_OUT);
     }
 
+    /**
+     * Sets a new user logged in
+     * @param userId - ID of the user who is logging in
+     */
     public void setUserLogIn(int userId) {
         assert userId >= 1;
 
@@ -93,30 +87,11 @@ public class LoginUtility {
         editor.commit();
     }
 
+    /**
+     * Logs off the current user
+     */
     public void setUserLogOff() {
         editor.putInt(ID_FIELD, LOGGED_OUT);
         editor.commit();
-    }
-
-    public boolean isUserActive(String username) {
-        assert username != null;
-
-        UserDAO userDAO = new UserDAO(this.activity);
-        JSONObject jsonObject = userDAO.searchUserByUsername(username);
-        String userState = null;
-        try {
-            userState = jsonObject.getJSONObject("0").getString(COLUMN_USER_STATE);
-            return userState == "Y";
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    private String formatDateToBr(String birthDate){
-        assert birthDate != null;
-
-        String[] birthDateSplit = birthDate.split("-");
-        return birthDateSplit[2]+"/"+birthDateSplit[1]+"/"+birthDateSplit[0];
     }
 }
