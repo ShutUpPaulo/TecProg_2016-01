@@ -31,6 +31,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean isPasswordValid;
     private ActionBar actionBar;
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment and
+     * loads the XML layouts used in the activity
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         assert savedInstanceState != null;
@@ -44,11 +51,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         onConfigActionBar();
     }
 
+    /**
+     * Initialize the ActionBar used in the activity
+     */
     private void initViews(){
         actionBar = getSupportActionBar();
     }
 
 
+    /**
+     * Initialize the contents of the Activity's standard options menu
+     * @param menu - The options menu in which the items will be placed
+     * @return boolean - You must return true for the menu to be displayed;
+     * if you return false it will not be shown
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -59,6 +75,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
+    /**
+     * This method is called whenever an item in the options menu is selected
+     * @param menuItem - The menu item that was selected
+     * @return boolean - Return false to allow normal menu processing to proceed, true to consume it here
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         // Handle action bar menuItem clicks here. The action bar will
@@ -79,6 +100,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return super.onOptionsItemSelected(menuItem);
     }
 
+    /**
+     * Set resources of the Action Bar
+     */
     private void onConfigActionBar(){
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -86,6 +110,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#008B8B")));
     }
 
+    /**
+     * Do the login of the user when the login button has been clicked
+     * @param v - The view of the button that was clicked
+     */
     @Override
     public void onClick(View v) {
         assert v != null;
