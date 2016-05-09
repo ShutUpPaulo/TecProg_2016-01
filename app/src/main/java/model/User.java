@@ -5,11 +5,7 @@
 
 package model;
 
-import android.app.Activity;
 import android.util.Patterns;
-import android.widget.Toast;
-
-import com.mathheals.euvou.controller.login_user.LoginValidation;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +45,11 @@ public class User {
     private String password;
     private String birthDate;
 
+    /**
+     * Verifies if two user's are the same
+     * @param user
+     * @return boolean - If the users are the same, return true, else return false
+     */
     public boolean equals(User user){
         return this.name.equals(user.getName()) &&
                 this.username.equals(user.getUsername()) &&
@@ -57,6 +58,19 @@ public class User {
                 this.birthDate.equals(user.getBirthDate());
     }
 
+    /**
+     * Constructs user with given information
+     * @param idUser - User ID
+     * @param name - User name
+     * @param username - Username of the user
+     * @param birthDate - Birth date of the user
+     * @param email - User email
+     * @param mailConfirmation - User confirmation email
+     * @param password - User password
+     * @param passwordConfirmation - User password confirmation
+     * @throws UserException
+     * @throws ParseException
+     */
     public User(int idUser, String name, String username, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
         setIdUser(idUser);
         setName(name);
@@ -69,13 +83,34 @@ public class User {
 
     }
 
-    public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException {
+    /**
+     * Constructs user with given information
+     * @param idUser - User ID
+     * @param name - User name
+     * @param birthDate - Birth date of the user
+     * @param email - User email
+     * @throws UserException
+     * @throws ParseException
+     */
+    public User(int idUser, String name, String birthDate, String email) throws UserException, ParseException{
         setName(name);
         setBirthDate(birthDate);
         setIdUser(idUser);
         setEmail(email);
     }
 
+    /**
+     * Constructs user with given information
+     * @param idUser - User ID
+     * @param name - User name
+     * @param birthDate - Birth date of the user
+     * @param email - User email
+     * @param mailConfirmation - User confirmation email
+     * @param password - User password
+     * @param passwordConfirmation - User password confirmation
+     * @throws UserException
+     * @throws ParseException
+     */
     public User(int idUser, String name, String birthDate, String email, String mailConfirmation, String password, String passwordConfirmation) throws UserException, ParseException{
         setIdUser(idUser);
         setName(name);
@@ -87,7 +122,17 @@ public class User {
 
     }
 
-    public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException {
+    /**
+     * Constructs user with given information
+     * @param name - User name
+     * @param username - Username of the user
+     * @param email - User email
+     * @param password - User password
+     * @param birthDate - Birth date of the user
+     * @throws UserException
+     * @throws ParseException
+     */
+    public User(String name, String username, String email, String password,String birthDate) throws UserException, ParseException{
 
         setName(name);
         setUsername(username);
@@ -96,7 +141,19 @@ public class User {
         setBirthDate(birthDate);
     }
 
-    public User(String name, String username, String email, String mailConfirmation, String password, String passwordConfirmation, String birthDate) throws UserException, ParseException {
+    /**
+     * Constructs user with given information
+     * @param name - User name
+     * @param username - Username of the user
+     * @param email - User email
+     * @param mailConfirmation - User confirmation email
+     * @param password - User password
+     * @param passwordConfirmation - User password confirmation
+     * @param birthDate - Birth date of the user
+     * @throws UserException
+     * @throws ParseException
+     */
+    public User(String name, String username, String email, String mailConfirmation, String password, String passwordConfirmation, String birthDate) throws UserException, ParseException{
         setName(name);
         setBirthDate(birthDate);
         setEmail(email);
@@ -106,18 +163,26 @@ public class User {
         verifyPasswordConfirmation(passwordConfirmation);
     }
 
-
-    private void setIdUser(int idUser) throws UserException {
+    /**
+     * Sets the ID of the user
+     * @param idUser - User ID
+     * @throws UserException
+     */
+    private void setIdUser(int idUser) throws UserException{
 
         if(idUser <= Integer.MAX_VALUE && idUser >= 1){
             this.idUser =idUser;
-        }
-        else {
+        }else{
             throw new UserException(ID_IS_INVALID);
         }
     }
 
-    private void setName(String name) throws UserException {
+    /**
+     * Sets the name of the user
+     * @param name - User name
+     * @throws UserException
+     */
+    private void setName(String name) throws UserException{
 
         if(!name.isEmpty() && name!=null){
             if(name.length() <= MAX_LENGTH_NAME){
@@ -130,6 +195,11 @@ public class User {
         }
     }
 
+    /**
+     * Sets the email of the user
+     * @param email - User email
+     * @throws UserException
+     */
     private  void  setEmail(String email) throws UserException{
 
         if (!email.isEmpty() && email!=null) {
@@ -137,20 +207,22 @@ public class User {
                 CharSequence emailCharSequence = email;
                 if(Patterns.EMAIL_ADDRESS.matcher(emailCharSequence).matches()) {
                     this.email = email;
-                }
-                else{
+                }else{
                     throw new UserException(INVALID_EMAIL);
                 }
-            }
-            else{
+            }else{
                 throw  new UserException(EMAIL_CANT_BE_HIGHER_THAN_150);
             }
-        }
-        else {
+        }else{
             throw  new UserException(EMAIL_CANT_BE_EMPTY_EMAIL);
         }
     }
 
+    /**
+     * Verify email confirmation
+     * @param confirmationMail - User confirmation email
+     * @throws UserException
+     */
     private void verifyEmailConfirmation(String confirmationMail) throws UserException{
         if(confirmationMail!=null && !confirmationMail.isEmpty()) {
             if (!email.equals(confirmationMail)) {
@@ -164,6 +236,11 @@ public class User {
         }
     }
 
+    /**
+     * Sets the username of the user
+     * @param username - Username of the user
+     * @throws UserException
+     */
     private  void  setUsername (String username) throws UserException{
 
         if (username!=null && !username.isEmpty()) {
@@ -175,36 +252,42 @@ public class User {
 
             if(username.length() <= MAX_LENGTH_USERNAME){
                 this.username = username;
-            }
-            else{
+            }else{
                 throw  new UserException(USERNAME_CANT_BE_HIGHER_THAN_100);
             }
-        }
-        else{
+        }else{
             throw  new UserException(USERNAME_CANT_BE_EMPTY_USERNAME);
         }
 
     }
 
+    /**
+     * Sets the password of the user
+     * @param password - User password
+     * @throws UserException
+     */
     private  void  setPassword (String password) throws UserException{
 
-        if (!password.isEmpty() && password!=null) {
-            if(password.length() >= MIN_LENGTH_PASSWORD) {
+        if (!password.isEmpty() && password!=null){
+            if(password.length() >= MIN_LENGTH_PASSWORD){
                 this.password = password;
-            }
-            else{
+            }else{
                 throw  new UserException(PASSWORD_CANT_BE_LESS_THAN_6);
             }
-        }
-        else{
+        }else{
             throw  new UserException(PASSWORD_CANT_BE_EMPTY_PASSWORD);
         }
 
     }
 
-    private void verifyPasswordConfirmation(String confirmationPassword) throws UserException {
-        if(confirmationPassword!=null && !confirmationPassword.isEmpty()) {
-            if (!password.equals(confirmationPassword)) {
+    /**
+     * Verify password confirmation
+     * @param confirmationPassword - User password confirmation
+     * @throws UserException
+     */
+    private void verifyPasswordConfirmation(String confirmationPassword) throws UserException{
+        if(confirmationPassword!=null && !confirmationPassword.isEmpty()){
+            if (!password.equals(confirmationPassword)){
                 throw new UserException(PASSWORD_ARE_NOT_EQUALS);
             }else{
                 // Nothing to do
@@ -215,14 +298,20 @@ public class User {
         }
     }
 
-    private void setBirthDate (String birthDate) throws UserException, ParseException {
+    /**
+     * Sets the birth date of the user
+     * @param birthDate - Birth date of the user
+     * @throws UserException
+     * @throws ParseException
+     */
+    private void setBirthDate (String birthDate) throws UserException, ParseException{
         if(!birthDate.isEmpty() && birthDate!=null){
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                 format.setLenient(false);
                 Date userDate = format.parse(birthDate);
 
-                if (userDate.before(new Date())) {
+                if (userDate.before(new Date())){
                     this.birthDate = birthDate;
                 }
 
@@ -239,26 +328,50 @@ public class User {
         }
     }
 
+    /**
+     * Gets the ID of the user
+     * @return int - User ID
+     */
     public int getIdUser(){
         return idUser;
     }
 
+    /**
+     * Gets the name of the user
+     * @return String - User name
+     */
     public String getName(){
         return name;
     }
 
-    public String getUsername() {
+    /**
+     * Gets the username of the user
+     * @return String - Username of the user
+     */
+    public String getUsername(){
         return username;
     }
 
+    /**
+     * Gets the email of the user
+     * @return String - User email
+     */
     public String getEmail(){
         return email;
     }
 
+    /**
+     * Gets the password of the user
+     * @return String - User password
+     */
     public String getPassword(){
         return password;
     }
 
+    /**
+     * Gets the birth date of the user
+     * @return String - Birth date of the user
+     */
     public String getBirthDate(){
         return birthDate;
     }
