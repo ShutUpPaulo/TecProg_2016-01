@@ -20,6 +20,13 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment and loads
+     * the XML layouts used in the activity
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         assert savedInstanceState != null;
@@ -30,6 +37,9 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
         mMap.setOnMapClickListener(this);
     }
 
+    /**
+     * Called when the activity will start interacting with the user
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -77,6 +87,10 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
     private void setUpMap() {
     }
 
+    /**
+     * Save the latitude and the longitude in a bundle to be used in the map
+     * @param latLng - A pair with latitude and longitude coordinates
+     */
     @Override
     public void onMapClick(LatLng latLng) {
         assert latLng != null;
