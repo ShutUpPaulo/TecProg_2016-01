@@ -22,12 +22,24 @@ import model.Event;
  */
 public class EventDAO extends DAO {
 
-    public EventDAO(Activity currentActivity) {
+    /**
+     * Required constructor to instantiate the class passing the current activity
+     */
+    public EventDAO(Activity currentActivity){
         super(currentActivity);
     }
-    
-    public EventDAO(){}
 
+    /**
+     * Required constructor to instantiate the class
+     */
+    public EventDAO(){
+
+    }
+
+    /**
+     * Saves an event on the DataBase
+     * @param event - Object with event data
+     */
     public void saveEvent(Event event){
         assert event != null;
 
@@ -53,13 +65,21 @@ public class EventDAO extends DAO {
 
     }
 
-    public  String deleteEvent(int idEvent)
-    {
+    /**
+     * Deletes an event from the DataBase
+     * @param idEvent - ID of the event to be deleted
+     * @return String - A text confirming if the query was executed with success
+     */
+    public  String deleteEvent(int idEvent){
         assert idEvent >= 1;
 
         return this.executeQuery("DELETE FROM tb_event WHERE idEvent ="+idEvent);
     }
 
+    /**
+     * Updates an event on the DataBase
+     * @param event - Object with event data
+     */
     public void updateEvent(Event event)
     {
         assert event != null;
@@ -80,12 +100,22 @@ public class EventDAO extends DAO {
 
     }
 
+    /**
+     * Searches events by name
+     * @param eventName - Name of the event to be searched
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject searchEventByName(String eventName){
         assert eventName != null;
 
         return this.executeConsult("SELECT * FROM vw_event WHERE nameEvent LIKE'%"+eventName+"%'");
     }
 
+    /**
+     * Searches events regrouping them by name
+     * @param eventName - Name of the event to be searched
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject searchEventByNameGroup(String eventName)
     {
         assert eventName != null;
@@ -93,12 +123,25 @@ public class EventDAO extends DAO {
         return this.executeConsult("SELECT * FROM tb_event WHERE nameEvent LIKE'%"+eventName+"%' GROUP BY idEvent");
     }
 
+    /**
+     * Searches events by ID
+     * @param idEvent - ID of the event to be searched
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject searchEventById(int idEvent){
         assert idEvent >= 1;
 
         return this.executeConsult("SELECT * FROM tb_event WHERE idEvent = " + idEvent);
     }
 
+    /**
+     * Searches events by owner
+     * @param owner - ID of the owner of the events to be searched
+     * @return Vector <Event> - Returns a vector of events with the events found
+     * @throws JSONException
+     * @throws ParseException
+     * @throws EventException
+     */
     public Vector<Event> searchEventByOwner(int owner) throws JSONException, ParseException, EventException {
         assert owner >= 1;
 
@@ -131,6 +174,12 @@ public class EventDAO extends DAO {
         return events;
     }
 
+    /**
+     * Marks the user's participation in the event
+     * @param idUser - ID of the user who will participate of the event
+     * @param idEvent - ID of the event
+     * @return String - A text confirming if the query was executed with success
+     */
     public String markParticipate(int idUser, int idEvent) {
         assert idUser >= 1;
         assert idEvent >= 1;
@@ -138,6 +187,12 @@ public class EventDAO extends DAO {
         return this.executeQuery("INSERT INTO participate(idEvent, idUser) VALUES(" + idEvent + "," + idUser + ");");
     }
 
+    /**
+     * Checks if the user passed already marked participation in the event
+     * @param idUser - ID of the user
+     * @param idEvent - ID of the event
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject verifyParticipate(int idUser, int idEvent) {
         assert idUser >= 1;
         assert idEvent >= 1;
@@ -145,10 +200,20 @@ public class EventDAO extends DAO {
         return this.executeConsult("SELECT * FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
+    /**
+     * Marks off the participation of the user in the event
+     * @param idUser - ID of the user
+     * @param idEvent - ID of the event
+     * @return String - A text confirming if the query was executed with success
+     */
     public String markOffParticipate(int idUser, int idEvent) {
         return this.executeQuery("DELETE FROM participate WHERE idEvent=" + idEvent + " AND idUser=" + idUser);
     }
 
+    /**
+     * Saves an event on the DataBase
+     * @param event - Object with event data
+     */
     public void saveEventWithId(Event event)
     {
         assert event != null;
