@@ -46,11 +46,18 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
     private final Vector<String> CATEGORIES = new Vector<>();
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
-
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public EditEventFragment() {
-        // Required empty public constructor
+
     }
 
+    /**
+     * Formats a date
+     * @param jsonEvent - JSONObject with the event data
+     * @throws JSONException
+     */
     private void formatDate(JSONObject jsonEvent) throws JSONException {
         assert jsonEvent != null;
 
@@ -68,6 +75,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    /**
+     * Format a price
+     * @param jsonEvent - JSONObject with the event data
+     * @throws JSONException
+     */
     private void formatPrice(JSONObject jsonEvent) throws JSONException {
         assert jsonEvent != null;
 
@@ -76,6 +88,14 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         this.priceDecimalField.setText(Integer.toString(priceEvent - priceEvent / 100 * 100));
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,9 +107,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
-        setingEditText(view);
+        settingEditText(view);
         dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
-        setingCheckBoxs(view);
+        settingCheckBoxes(view);
 
         EventDAO eventDAO = new EventDAO(getActivity());
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
@@ -185,7 +205,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-    private void setingEditText(View view){
+    /**
+     * Sets the EditTexts of the EditEventFragment view
+     * @param view - Current view being used in the fragment
+     */
+    private void settingEditText(View view){
         assert view != null;
 
         this.nameField = (EditText) view.findViewById(R.id.eventName);
@@ -197,7 +221,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         this.addressField = (EditText) view.findViewById(R.id.eventAddress);
     }
 
-    private void setingCheckBoxs(View view){
+    /**
+     * Sets the CheckBoxes of
+     * @param view - Current view being used in the fragment
+     */
+    private void settingCheckBoxes(View view){
         assert view != null;
 
         this.showCheckBox = (CheckBox) view.findViewById(R.id.optionShow);
@@ -211,6 +239,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         this.othersCheckBox = (CheckBox) view.findViewById(R.id.optionOthers);
     }
 
+    /**
+     * Updates an event on the DataBase
+     * @param event - Object with event data
+     */
     private void updateEventOnDataBase(Event event){
         assert event != null;
 
@@ -218,6 +250,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         eventDAO.updateEvent(event);
     }
 
+    /**
+     * Creates a object with event data and, in case of success, calls the method which updates the
+     * event on the DataBase. In case of failure,throws an EventException
+     */
     private void updateEvent(){
         String nameEvent = nameField.getText().toString();
         String dateEvent = dateField.getText().toString();
@@ -231,14 +267,14 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         String descriptionEvent = descriptionField.getText().toString();
 
-        String addresEvent = addressField.getText().toString();
+        String addressEvent = addressField.getText().toString();
 
         Integer eventPriceReal = Integer.parseInt(priceRealField.getText().toString());
         Integer eventPriceDecimal = Integer.parseInt(priceDecimalField.getText().toString());
         Integer priceEvent = eventPriceReal * 100 + eventPriceDecimal;
 
         try {
-            Event event = new Event(idEvent, nameEvent, priceEvent, addresEvent, dateHourEvent, descriptionEvent,
+            Event event = new Event(idEvent, nameEvent, priceEvent, addressEvent, dateHourEvent, descriptionEvent,
                     latitude, longitude, CATEGORIES);
 
             updateEventOnDataBase(event);
@@ -295,6 +331,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Adds the names of the categories which were clicked in a vector of strings
+     * @param v - Current view being used in the fragment
+     */
     private void addEventCategories(View v){
         assert v != null;
 
@@ -375,6 +415,12 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Updates the event data when the user clicks on the update button, deletes the event when
+     * the user clicks on the remove button or calls addEventCategories when the user clicks on
+     * a new category
+     * @param v Current view being used in the fragment
+     */
     @Override
     public void onClick(View v) {
         assert v != null;
@@ -393,6 +439,12 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Called when an activity which was launched exits
+     * @param requestCode - Request code which the activity started with
+     * @param resultCode - Result code which was returned
+     * @param data - Additional data which the activity may contain
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         assert data != null;
@@ -414,6 +466,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Adds listeners of the checkboxes
+     * @param v - Current view being used in the fragment
+     */
     private void addCheckBoxListeners(View v){
         assert v != null;
 
@@ -446,8 +502,11 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    private void removeEvent(int eventId)
-    {
+    /**
+     * Removes the event selected by the user
+     * @param eventId - ID of the event selected by the user
+     */
+    private void removeEvent(int eventId){
         assert eventId >= 0;
 
         EventDAO eventDAO = new EventDAO(getActivity());
@@ -457,8 +516,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
             fragmentTransaction.replace(R.id.content_frame, new ShowTop5Ranking());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+        }else{
+            Toast.makeText(getActivity(), "Houve um erro", Toast.LENGTH_LONG).show();
         }
-        else
-            Toast.makeText(getActivity(),"Houve um erro",Toast.LENGTH_LONG).show();
     }
 }

@@ -37,7 +37,7 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment impl
      * @param container - If non-null, is the parent view that the fragment should be attached to
      * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
      *                           previous saved state as given here
-     * @return View - View of the ShowPlaceRank fragment
+     * @return View - View of the fragment
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
