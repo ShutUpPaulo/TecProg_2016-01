@@ -22,7 +22,6 @@ import model.UserEvaluation;
 public class ShowUser extends android.support.v4.app.Fragment implements
         RatingBar.OnRatingBarChangeListener{
 
-    private UserEvaluation userEvaluation;
     private String userEvaluatedId;
     private int currentUserId;
 
@@ -75,8 +74,8 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      */
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
-
-        setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
+        UserEvaluation userEvaluation = null;
+        setUserEvaluation(userEvaluation, rating, currentUserId, Integer.valueOf(userEvaluatedId));
 
         //Saves the user evaluation set at database
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
@@ -89,9 +88,9 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param userId - Identifier of the evaluator user
      * @param userEvaluatedId - Identifier of the user evaluated
      */
-    private void setUserEvaluation(Float rating, Integer userId, Integer userEvaluatedId){
+    private void setUserEvaluation(UserEvaluation userEvaluation, Float rating, Integer userId, Integer userEvaluatedId){
         try{
-            this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
+            userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
 
             String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
 

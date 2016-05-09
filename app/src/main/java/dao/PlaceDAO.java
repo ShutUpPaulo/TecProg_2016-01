@@ -5,16 +5,16 @@
 
 package dao;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import org.json.JSONObject;
 
 public class PlaceDAO extends DAO{
 
     /**
-     * PlaceDAO constructor
+     * Constructor to instantiate a PlaceDAO object
      * @param currentActivity - Current activity to show message of connection problem
      */
-    public PlaceDAO(FragmentActivity currentActivity){
+    public PlaceDAO(Activity currentActivity){
         super(currentActivity);
     }
 

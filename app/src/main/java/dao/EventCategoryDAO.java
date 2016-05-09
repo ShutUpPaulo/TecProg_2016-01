@@ -11,7 +11,7 @@ import org.json.JSONObject;
 public class EventCategoryDAO extends DAO{
 
     /**
-     * EventCategoryDAO constructor
+     * Constructor to instantiate an EventCategoryDAO object
      * @param currentActivity - Current activity to show message of connection problem
      */
     public EventCategoryDAO(Activity currentActivity){
@@ -21,7 +21,7 @@ public class EventCategoryDAO extends DAO{
     /**
      * Searches the categories of an event with a given identifier
      * @param idEvent - Identifier of the event
-     * @return JSONObject - Names of the categories of the event
+     * @return JSONObject - Data of the categories of the event
      */
     public JSONObject searchCategoriesByEventId(int idEvent){
 
