@@ -1,3 +1,8 @@
+/**
+ * File: ShowTop5Ranking.java
+ * Purpose: Show the five places with better evaluation
+ */
+
 package com.mathheals.euvou.controller.showPlaceRanking;
 
 import android.content.Intent;
@@ -12,18 +17,14 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.event_recommendation.RecommendEvent;
 import com.mathheals.euvou.controller.show_place.ShowPlaceInfo;
 import com.mathheals.euvou.controller.utility.LoginUtility;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.util.ArrayList;
-
 import dao.PlaceDAO;
 import exception.PlaceException;
 import model.Place;

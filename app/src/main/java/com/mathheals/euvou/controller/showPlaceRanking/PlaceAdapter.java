@@ -1,3 +1,8 @@
+/**
+ * File: PlaceAdapter.java
+ * Purpose: Set up the adapter to manage data of places in a ListView
+ */
+
 package com.mathheals.euvou.controller.showPlaceRanking;
 
 import android.content.Context;

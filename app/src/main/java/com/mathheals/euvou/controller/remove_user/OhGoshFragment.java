@@ -18,17 +18,26 @@ import com.mathheals.euvou.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OhGoshFragment extends android.support.v4.app.Fragment {
+public class OhGoshFragment extends android.support.v4.app.Fragment{
 
 
-    public OhGoshFragment() {
-        // Required empty public constructor
+    /**
+     * Required empty public constructor
+     */
+    public OhGoshFragment(){
     }
 
-
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater Object used to inflate any views in the fragment
+     * @param container If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a
+     *                             previous saved state as given here
+     * @return View of Disable Account Login Confirmation
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         // Inflate the layout for this fragment
         assert inflater != null;
 
@@ -36,6 +45,4 @@ public class OhGoshFragment extends android.support.v4.app.Fragment {
 
         return ohGoshFragmentView;
     }
-
-
 }

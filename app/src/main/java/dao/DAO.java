@@ -12,8 +12,7 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
-public abstract class DAO {
-
+public abstract class DAO{
     private static final int LIMIT_CONNECTION_TIME = 15000;
     private static final String STRING_EMPTY = "";
     private static final String URL_QUERY = "http://euvou.esy.es/query.php";
@@ -23,15 +22,27 @@ public abstract class DAO {
 
     private Activity currentActivity;
 
+    /**
+     * Constructs DAO with a given activity
+     * @param currentActivity Current activity in new DAO
+     */
     public DAO(Activity currentActivity){
         this.currentActivity = currentActivity;
     }
 
+    /**
+     * Required empty public constructor
+     */
     public DAO(){
-
     }
 
-    private String processQuery(String query,String urlQuery) {
+    /**
+     * Process a query in the database
+     * @param query Query text to be used in the database
+     * @param urlQuery URL of the database
+     * @return Answer of the query
+     */
+    private String processQuery(String query,String urlQuery){
         assert query != null;
         assert urlQuery != null;
 
@@ -49,21 +60,33 @@ public abstract class DAO {
 
         return consultAnswer;
     }
+
+    /**
+     * Checks if query time exceeded the time limit
+     * @param timeLimit Time limit to consult database
+     * @param currentTime Current time of the consult
+     * @return True if the limit was exceeded, false otherwise
+     */
     public static boolean limitExceeded(long timeLimit, long currentTime){
         assert timeLimit >= 0;
         assert currentTime >= 0;
 
         boolean isLimitExceeded;
 
-        if (currentTime < timeLimit) {
+        if(currentTime < timeLimit){
             isLimitExceeded = false;
-        } else {
+        }else{
             isLimitExceeded = true;
         }
 
         return isLimitExceeded;
     }
 
+    /**
+     * Executes a query in the database
+     * @param query Query text to be executed in the database
+     * @return Executed query answer
+     */
     protected String executeQuery(String query){
         assert query != null;
 
@@ -73,25 +96,35 @@ public abstract class DAO {
         return executedQuery;
     }
 
-    protected JSONObject executeConsult(String query) {
+    /**
+     * Executes database consult and creates a JSONObject from it
+     * @param query Query text to be executed in the database
+     * @return JSONObject generated based on the consult
+     */
+    protected JSONObject executeConsult(String query){
         assert query != null;
 
         String consultJson = STRING_EMPTY;
 
         JSONObject jsonObject = null;
 
-        try {
+        try{
             consultJson = processQuery(query, URL_CONSULT);
             assert consultJson != null;
 
             jsonObject  = new JSONObject(consultJson);
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
         }
 
         return jsonObject;
     }
 
+    /**
+     * Tests connection time of a given consult
+     * @param consult Consult to be made in database
+     * @return True if the connection had timed out, false otherwise
+     */
     private boolean testConnectionTime(Consult consult){
         long currentTime = Calendar.getInstance().getTime().getTime();
         assert currentTime >= 0;
@@ -99,12 +132,12 @@ public abstract class DAO {
         long timeLimit = currentTime + LIMIT_CONNECTION_TIME;
         assert timeLimit >= 0;
 
-        while(!consult.getIsDoing() && currentTime < timeLimit) {
+        while(!consult.getIsDoing() && currentTime < timeLimit){
             currentTime = Calendar.getInstance().getTime().getTime();
         }
 
         boolean isConnectionTimedOut = false;
-        if(limitExceeded(timeLimit,currentTime)) {
+        if(limitExceeded(timeLimit,currentTime)){
             Toast.makeText(currentActivity,CONNECTION_PROBLEM_MESSAGE, Toast.LENGTH_LONG).show();
             isConnectionTimedOut = true;
         }else{
@@ -113,5 +146,4 @@ public abstract class DAO {
 
         return isConnectionTimedOut;
     }
-
 }

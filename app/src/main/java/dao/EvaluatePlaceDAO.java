@@ -15,15 +15,25 @@ public class EvaluatePlaceDAO extends DAO{
 
     private static final String STRING_EMPTY = "";
 
-    public EvaluatePlaceDAO() {
-
+    /**
+     * Required empty public constructor
+     */
+    public EvaluatePlaceDAO(){
     }
 
-    public EvaluatePlaceDAO(Activity currentActivity) {
+    /**
+     * Constructs based on current Activity
+     * @param currentActivity Activity used on construction
+     */
+    public EvaluatePlaceDAO(Activity currentActivity){
         super(currentActivity);
     }
 
-    public void evaluatePlace(Evaluation evaluation) {
+    /**
+     * Evaluates a place
+     * @param evaluation Evaluation of the place made by user
+     */
+    public void evaluatePlace(Evaluation evaluation){
         assert evaluation != null;
 
         String evaluationQuery = STRING_EMPTY;
@@ -34,11 +44,11 @@ public class EvaluatePlaceDAO extends DAO{
 
         JSONObject findEvaluation = executeConsult(consultEvaluation);
 
-        if (findEvaluation != null) {
+        if(findEvaluation != null){
             evaluationQuery = "UPDATE evaluate_place SET grade = \"" +
                     evaluation.getGrid() + "\" " + "WHERE idPlace = \"" + evaluation.getIdPlace() +
                     "\" AND idUser = \"" + evaluation.getIdUser() + "\"";
-        } else {
+        }else{
             evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
                     evaluation.getGrid() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
                     "\"" + evaluation.getIdPlace() + "\")";
@@ -47,13 +57,20 @@ public class EvaluatePlaceDAO extends DAO{
         executeQuery(evaluationQuery);
     }
 
-
-    public JSONObject searchPlaceEvaluation(int placeId, int userId) {
+    /**
+     * Search place evaluation of an user
+     * @param placeId Id of place evaluated
+     * @param userId Id of user who evaluated the place
+     * @return JSONObject based on the database consult
+     */
+    public JSONObject searchPlaceEvaluation(int placeId, int userId){
         assert placeId >= 0;
         assert userId >= 0;
 
         String searchPlaceEvaluationQuery = "SELECT * FROM evaluate_place WHERE idUser = \"" +
                 userId + "\" AND idPlace = " + placeId;
-        return executeConsult(searchPlaceEvaluationQuery);
+
+        JSONObject consultJsonObject = executeConsult(searchPlaceEvaluationQuery);
+        return consultJsonObject;
     }
 }
