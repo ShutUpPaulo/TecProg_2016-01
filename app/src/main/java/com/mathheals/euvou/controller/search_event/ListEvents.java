@@ -39,15 +39,32 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
     private ListView listView;
     private Vector<Event> events;
 
+    /**
+     * Required constructor to instantiate a fragment object
+     */
     public ListEvents() {
-        // Required empty public constructor
+
     }
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the ShowPlaceRank fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +80,9 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         return view;
     }
 
+    /**
+     * Populates a ArrayList with the events created by the user logged in
+     */
     private void populateList() {
         try {
             int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
@@ -104,6 +124,13 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
 
         }
     }
+
+    /**
+     * Creates a event
+     * @param name - Key value of the event which will be inserted on the map
+     * @param number - Name of the event which will be inserted on the map
+     * @return HashMap - HashMap where the event was stored
+     */
     private HashMap<String, String> createEvent(String name, String number) {
         assert name != null;
         assert number != null;
@@ -113,6 +140,13 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
         return eventName;
     }
 
+    /**
+     * Invoked when an item in the AdapterView was clicked
+     * @param parent AdapterView where click happened
+     * @param view View within the AdapterView that was clicked
+     * @param positionEvent Position of view in the adapter
+     * @param id Id of the clicked item
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int positionEvent, long id) {
         assert view != null;
