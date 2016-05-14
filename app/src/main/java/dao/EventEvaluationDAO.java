@@ -15,12 +15,22 @@ import model.EventEvaluation;
 
 public class EventEvaluationDAO extends DAO{
 
+    /**
+     * Required constructor to instantiate the class
+     */
     public EventEvaluationDAO(){}
 
+    /**
+     * Required constructor to instantiate the class passing the current activity
+     */
     public EventEvaluationDAO(Activity activity){
         super(activity);
     }
 
+    /**
+     * Saves an evaluation made in an Event at database
+     * @param evaluation - The evaluation given to an Event
+     */
     public void evaluateEvent(EventEvaluation evaluation){
         final String QUERY;
 
@@ -41,6 +51,12 @@ public class EventEvaluationDAO extends DAO{
         executeQuery(QUERY);
     }
 
+    /**
+     * Searches for an Event evaluated
+     * @param eventId - The ID number of an Event
+     * @param userId -  The ID number of an user
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject searchEventEvaluation(int eventId, int userId){
         final String QUERY = "SELECT * FROM participate WHERE idUser = \"" + userId
                             + "\" AND idEvent = " + eventId;

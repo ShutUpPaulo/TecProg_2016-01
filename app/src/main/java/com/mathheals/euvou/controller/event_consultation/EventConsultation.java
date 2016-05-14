@@ -59,7 +59,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     private GoogleApiClient client;
 
 
-    /*
+    /**
      * Creates the data that should be printed in the screem.
      * @param savedInstanceState - Saved instance state from the last time the app was executed.
      */
@@ -73,7 +73,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    /*
+    /**
      * Creates the options menu and calls the method that set the search bar in the menu.
      * @param menu - menu of the application.
      * @return boolean  - ensure that the options menu will be created.
@@ -91,8 +91,8 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         return true;
     }
 
-    /*
-     * initiates the search bar, receiving the data to be find and making the search.
+    /**
+     * Initiates the search bar, receiving the data to be find and making the search.
      * @param menu - menu of the application
      * MUST BE REFACTORED!
      */
@@ -107,8 +107,9 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
 
-            /*
-             * analyze the option selected by the user, to see if heś looking for event or person.
+            /**
+             * Analyze the option selected by the user, to see if heś looking for event or person.
+             * @param query
              * @return boolean - must show the results for the search - MUST BE REFACTORED
              */
             @Override
@@ -183,7 +184,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         });
     }
 
-    /*
+    /**
      * Makes a list with the results to the search for events
      * @param eventNames - the names of the events found in database
      */
@@ -195,7 +196,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
 
     }
 
-    /*
+    /**
      * Makes a list with the results to the search for people
      * @param peopleNames - the names of the people found in database
      */
@@ -206,8 +207,8 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         listView.setAdapter(adapter);
     }
 
-    /*
-     * starts a listener to see where the user will click in the list of results to the search made.
+    /**
+     * Starts a listener to see where the user will click in the list of results to the search made.
      */
     private void setListViewListener(){
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -215,7 +216,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
             final ShowEvent event = new ShowEvent();
             final ShowUser user = new ShowUser();
 
-            /*
+            /**
              * analyze the choosen item by the user and show details of the item searched.
              * @param parent
              * @param clickView
@@ -248,16 +249,16 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         });
     }
 
-    /*
-     * configures the action bar to be drawable and show the option Home enabled
+    /**
+     * Configures the action bar to be drawable and show the option Home enabled
      */
     private void configActionBar(){
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00C0C3")));
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    /*
-     * send the application to the home page, if the home option is choosen in the option menu.
+    /**
+     * Send the application to the home page, if the home option is choosen in the option menu.
      * @param item - item selected by the user
      */
     @Override
@@ -272,8 +273,8 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * sees if the user has selected the radio button for events or people
+    /**
+     * Sees if the user has selected the radio button for events or people
      * @param group
      * @param checkedId - Id of the choosen item
      */
