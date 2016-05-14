@@ -15,6 +15,7 @@ public abstract class Mask{
         return new TextWatcher(){
             boolean isUpdating;
             String old = "";
+
             public void onTextChanged(CharSequence s, int start, int before,int count){
                 String str = Mask.unmask(s.toString());
                 String mascara = "";

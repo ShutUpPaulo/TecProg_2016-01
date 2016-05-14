@@ -133,7 +133,7 @@ public class Event{
     }
 
     private void setDateTimeEvent(String date, String hour) throws ParseException, EventException{
-        if (!date.isEmpty() && date != null && !hour.isEmpty() && hour != null){
+        if(!date.isEmpty() && date != null && !hour.isEmpty() && hour != null){
             try{
                 SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
                 formatDate.setLenient(false);
@@ -159,9 +159,9 @@ public class Event{
                 throw new EventException(INVALID_EVENT_HOUR);
             }
         }else{
-            if (date.isEmpty() || date == null) {
+            if(date.isEmpty() || date == null){
                 throw new EventException(EVENT_DATE_IS_EMPTY);
-            } else if(hour.isEmpty() || hour == null){
+            }else if(hour.isEmpty() || hour == null){
                 throw new EventException(EVENT_HOUR_IS_EMPTY);
             }
         }
@@ -307,7 +307,6 @@ public class Event{
     public Vector<String> getCategory(){
         return category;
     }
-
 
     public int getIdOwner(){
         return idOwner;
