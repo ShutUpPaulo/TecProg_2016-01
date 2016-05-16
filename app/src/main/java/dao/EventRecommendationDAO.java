@@ -10,12 +10,23 @@ import org.json.JSONObject;
 
 public class EventRecommendationDAO extends DAO{
 
+    /**
+     * Required constructor to instantiate the class
+     */
     public EventRecommendationDAO(){}
 
+    /**
+     * Required constructor to instantiate the class passing the current activity
+     */
     public EventRecommendationDAO(Activity activity){
         super(activity);
     }
 
+    /**
+     * Recommends events to an user based on his last events participations.
+     * @param idUser - The ID of an user
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     public JSONObject recommendEvents(int idUser){
         String QUERY =
                 "SELECT DISTINCT V.idEvent, V.nameEvent,\n" +
