@@ -15,6 +15,10 @@ public class ActivityUtility{
 
     private static final String TAG = "ActivityLog";
 
+    /**
+     * Restarts the activity
+     * @param activity
+     */
     public static void restartActivity(Activity activity){
 
         Log.d(TAG, "restartActivity: beggining the restart of the activity");
@@ -24,6 +28,10 @@ public class ActivityUtility{
         activity.startActivity(intent);
     }
 
+    /**
+     * Clears the back stack of an application
+     * @param fragmentActivity
+     */
     public static void clearBackStack(FragmentActivity fragmentActivity){
         FragmentManager manager = fragmentActivity.getSupportFragmentManager();
         if (manager.getBackStackEntryCount() > 0){
