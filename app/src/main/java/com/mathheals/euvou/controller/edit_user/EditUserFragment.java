@@ -36,9 +36,20 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
             passwordConfirmField;
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
 
+    /**
+     * Required constructor to instantiate the class
+     */
     public EditUserFragment(){
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -83,11 +94,19 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
+    /**
+     * Updates the information of the user
+     * @param user
+     */
     private void updateUser(User user){
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.updateUser(user);
     }
 
+    /**
+     * Makes the text fields editable of the EditUserFragment view
+     * @param view - Current view being used in the fragment
+     */
     private void setingEditText(View view){
         this.nameField = (EditText) view.findViewById(R.id.nameField);
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
@@ -98,6 +117,9 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
     }
 
+    /**
+     * Converts the text typed by the user to string format
+     */
     private void setingTextTyped(){
         this.name = nameField.getText().toString();
         this.mail = mailField.getText().toString();
@@ -107,6 +129,11 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
         this.birthDate = birthDateField.getText().toString();
     }
 
+    /**
+     * Updates the user data when the user clicks on the update button, verifies if the user has
+     * typed everything correct
+     * @param v Current view being used in the fragment
+     */
     @Override
     public void onClick(View v){
 
