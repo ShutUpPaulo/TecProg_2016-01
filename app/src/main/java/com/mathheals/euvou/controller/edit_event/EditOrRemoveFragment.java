@@ -19,6 +19,9 @@ import model.Event;
 
 public class EditOrRemoveFragment extends android.support.v4.app.Fragment  implements View.OnClickListener{
 
+    /**
+     * Required constructor to instantiate the class
+     */
     public EditOrRemoveFragment(){
         // Required empty public constructor
     }
@@ -26,6 +29,14 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     public Event evento;
     private ShowEvent showEvent = new ShowEvent();
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -56,6 +67,10 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         return view;
     }
 
+    /**
+     * Updates the Event data when the user clicks on the update button
+     * @param v Current view being used in the fragment
+     */
     @Override
     public void onClick(View v){
         if(v.getId()==R.id.editRemoveButton){
@@ -72,6 +87,5 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
 
             fragmentTransaction.commit();
         }
-
     }
 }
