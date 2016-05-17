@@ -9,8 +9,16 @@ import android.widget.EditText;
 
 public class EditAndRegisterUtility{
 
+    /**
+     * Required constructor to instantiate the class
+     */
     public EditAndRegisterUtility(){}
 
+    /**
+     * Sets an error message with focus on the textfield
+     * @param editText
+     * @param message
+     */
     public void setMessageError(EditText editText, String message){
         editText.requestFocus();
         editText.setError(message);

@@ -5,19 +5,39 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 public abstract class Mask{
-    private static String unmask(String s){
-        return s.replaceAll("[.]", "").replaceAll("[-]", "")
+
+    /**
+     * Method used to format date
+     * @param stringToBeMasked - Defines the string to be formatted
+     * @return
+     */
+    private static String unmask(String stringToBeMasked){
+        return stringToBeMasked.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "");
     }
 
+    /**
+     * Inserts an TextWatcher to format the data received when is required
+     * @param mask - The format of the data
+     * @param ediTxt - The field to be edited
+     * @return
+     */
     public static TextWatcher insert(final String mask, final EditText ediTxt){
         return new TextWatcher(){
             boolean isUpdating;
             String old = "";
 
-            public void onTextChanged(CharSequence s, int start, int before,int count){
-                String str = Mask.unmask(s.toString());
+            /**
+             * Changes the style of the data received
+             * @param stringToBeMasked - Defines the string to be formatted
+             * @param start
+             * @param before
+             * @param count
+             */
+            public void onTextChanged(CharSequence stringToBeMasked, int start, int before,
+                                      int count){
+                String str = Mask.unmask(stringToBeMasked.toString());
                 String mascara = "";
                 if (isUpdating){
                     old = str;
@@ -41,11 +61,36 @@ public abstract class Mask{
                 ediTxt.setText(mascara);
                 ediTxt.setSelection(mascara.length());
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void afterTextChanged(Editable s) {}
+
+            /**
+             * Required method by the Mask class
+             * @param stringToBeMasked
+             * @param start
+             * @param count
+             * @param after
+             */
+            @Override
+            public void beforeTextChanged(CharSequence stringToBeMasked, int start, int count,
+                                          int after){
+                //Nothing to do
+            }
+
+            /**
+             * Required method by the Mask class
+             * @param stringToBeMasked
+             */
+            @Override
+            public void afterTextChanged(Editable stringToBeMasked){
+                //Nothing to do
+            }
         };
     }
 
+    /**
+     * Receive the date and time and change to brazilian format
+     * @param dateTime
+     * @return
+     */
     public static String getDateTimeInBrazilianFormat(String dateTime){
         String[] dateAndTime = dateTime.split(" ");
         String date = dateAndTime[0];
