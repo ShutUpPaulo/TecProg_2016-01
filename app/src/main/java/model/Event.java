@@ -61,6 +61,22 @@ public class Event{
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private int idOwner;
 
+    /**
+     * Constructs the event with the given informations
+     * @param idOwner - The ID of the user that created the event
+     * @param nameEvent - Name of the event
+     * @param date - Date of the event
+     * @param hour - THe hour when the event starts
+     * @param priceReal - The price that need to be paid to go to the event
+     * @param priceDecimal - The cents that complements the price of the event
+     * @param address - The location of the event
+     * @param description - Information about what the event is
+     * @param latitude - Latitude of the location, used to set position on a map
+     * @param longitude - Longitude  of the location, used to set position on a map
+     * @param category - Type of the event, ex.: movies, party, exihibition
+     * @throws EventException
+     * @throws ParseException
+     */
     public Event(int idOwner, String nameEvent, String date, String hour, String priceReal,
                  String priceDecimal, String address, String description, String latitude,
                  String longitude, Vector<String> category) throws EventException, ParseException{
@@ -75,6 +91,20 @@ public class Event{
         setCategory(category);
     }
 
+    /**
+     * Constructs the event with the given informations
+     * @param idOwner - The ID of the user that created the event
+     * @param nameEvent - Name of the event
+     * @param dateTimeEvent - The time (day and hour) of the event
+     * @param price - The price of the event
+     * @param address - The location of the event
+     * @param description - Information about what the event is
+     * @param latitude - Latitude of the location, used to set position on a map
+     * @param longitude - Longitude  of the location, used to set position on a map
+     * @param category - Type of the event, ex.: movies, party, exihibition
+     * @throws EventException
+     * @throws ParseException
+     */
     public Event(int idOwner, String nameEvent, String dateTimeEvent, Integer price,
                  String address, String description, String latitude, String longitude,
                  Vector<String> category) throws EventException, ParseException{
@@ -89,6 +119,14 @@ public class Event{
         setCategory(category);
     }
 
+    /**
+     * Constructs the event with the given informations
+     * @param idOwner - The ID of the user that created the event
+     * @param nameEvent - Name of the event
+     * @param eventEvaluation - The evaluation given to an event
+     * @throws EventException
+     * @throws ParseException
+     */
     public Event(int idOwner, String nameEvent, int eventEvaluation)
             throws EventException, ParseException{
         setIdOwner(idOwner);
@@ -96,6 +134,20 @@ public class Event{
         setEvaluation(eventEvaluation);
     }
 
+    /**
+     * Constructs the event with the given informations
+     * @param idEvent - The ID of the event
+     * @param idOwner - The ID of the user that created the event
+     * @param nameEvent - Name of the event
+     * @param dateTimeEvent - The time (day and hour) of the event
+     * @param price - The price of the event
+     * @param address - The location of the event
+     * @param description - Information about what the event is
+     * @param latitude - Latitude of the location, used to set position on a map
+     * @param longitude - Longitude  of the location, used to set position on a map
+     * @throws EventException
+     * @throws ParseException
+     */
     public Event(int idEvent, int idOwner, String nameEvent, String dateTimeEvent,
                  Integer price, String address, String description, String latitude,
                  String longitude) throws EventException, ParseException{
@@ -110,6 +162,20 @@ public class Event{
         setLongitude(longitude);
     }
 
+    /**
+     * Constructs the event with the given informations
+     * @param idEvent - The ID of the event
+     * @param nameEvent - Name of the event
+     * @param address - The location of the event
+     * @param price - The price of the event
+     * @param dateTimeEvent - The time (day and hour) of the event
+     * @param description - Information about what the event is
+     * @param latitude - Latitude of the location, used to set position on a map
+     * @param longitude - Longitude  of the location, used to set position on a map
+     * @param category - Type of the event, ex.: movies, party, exihibition
+     * @throws EventException
+     * @throws ParseException
+     */
     public Event(int idEvent, String nameEvent, Integer price, String address, String dateTimeEvent,
                  String description,String latitude, String longitude, Vector<String> category)
             throws EventException, ParseException{
@@ -124,14 +190,29 @@ public class Event{
         setCategory(category);
     }
 
+    /**
+     * Gets the date and time of the event
+     * @return String - The date and time of the event
+     */
     public String getDateTimeEvent(){
         return dateTimeEvent;
     }
 
+    /**
+     * Sets the date and time of the event
+     * @param dateTimeEvent - The date (day and hour) of the event
+     */
     private void setDateTimeEvent(String dateTimeEvent){
         this.dateTimeEvent=dateTimeEvent;
     }
 
+    /**
+     * Sets the date and time of the event, validating and formating then
+     * @param date - The date (day, month and year) of the event
+     * @param hour - The hour of the event
+     * @throws ParseException
+     * @throws EventException
+     */
     private void setDateTimeEvent(String date, String hour) throws ParseException, EventException{
         if(!date.isEmpty() && date != null && !hour.isEmpty() && hour != null){
             try{
@@ -167,10 +248,19 @@ public class Event{
         }
     }
 
+    /**
+     * Gets the evaluation given to an event
+     * @return int - evaluation of the event
+     */
     public Integer getEvaluation(){
         return evaluation;
     }
 
+    /**
+     * Sets the evaluation to an event
+     * @param evaluation
+     * @throws EventException
+     */
     private void setEvaluation(Integer evaluation) throws  EventException{
         if(evaluation >=1 && evaluation<=5){
             this.evaluation = evaluation;
@@ -180,6 +270,12 @@ public class Event{
 
     }
 
+    /**
+     * Sets the price of the event, validanting and formating then
+     * @param priceReal
+     * @param priceDecimal
+     * @throws EventException
+     */
     private void setPrice(String priceReal, String priceDecimal) throws EventException{
         if(priceReal!=null && priceDecimal!=null && !priceReal.isEmpty() && !priceDecimal.isEmpty()){
             Integer priceEventReal = Integer.parseInt(priceReal);
@@ -197,18 +293,35 @@ public class Event{
         }
     }
 
+    /**
+     * Sets the total price of the event
+     * @param price
+     */
     private void setPrice(Integer price){
         this.price=price;
     }
 
+    /**
+     * Gets the total price of the event
+     * @return int - price of the event
+     */
     public Integer getPrice(){
         return price;
     }
 
+    /**
+     * Gets the address (location) of the event
+     * @return String - address of the event
+     */
     public String getAddress(){
         return address;
     }
 
+    /**
+     * Sets the address of the event
+     * @param adress
+     * @throws EventException
+     */
     private void setAddress(String adress) throws EventException{
         if(!(adress.isEmpty()) && adress!=null){
             this.address = adress;
@@ -218,18 +331,35 @@ public class Event{
 
     }
 
+    /**
+     * Gets the ID of the event
+     * @return int - The event ID
+     */
     public int getIdEvent(){
         return idEvent;
     }
 
+    /**
+     * Sets the ID of the event
+     * @param idEvent
+     */
     private void setIdEvent(int idEvent){
         this.idEvent = idEvent;
     }
 
+    /**
+     * Gets the longitude of the event location
+     * @return double - longitude  of the event
+     */
     public Double getLongitude(){
         return longitude;
     }
 
+    /**
+     * Sets the longitude of the event, validating it
+     * @param longitude
+     * @throws EventException
+     */
     private void setLongitude(String longitude) throws EventException{
         if(!(longitude.toString().isEmpty()) && longitude!=null){
             Double longitudeDouble = Double.parseDouble(longitude);
@@ -245,10 +375,19 @@ public class Event{
 
     }
 
+    /**
+     * Gets the name of the event
+     * @return String - the event name
+     */
     public String getNameEvent(){
         return nameEvent;
     }
 
+    /**
+     * Sets the name of the event, validating it
+     * @param nameEvent
+     * @throws EventException
+     */
     private void setNameEvent(String nameEvent) throws EventException{
         if(!nameEvent.isEmpty() && nameEvent!= null){
 
@@ -262,6 +401,10 @@ public class Event{
         }
     }
 
+    /**
+     * Gets the description of the event
+     * @return String - description of the event
+     */
     public String getDescription(){
         return description;
     }
@@ -279,10 +422,19 @@ public class Event{
 
     }
 
+    /**
+     * Gets the latitude of the event
+     * @return double - latitude of the event
+     */
     public Double getLatitude(){
         return latitude;
     }
 
+    /**
+     * Sets the latitude of the event, validanting it
+     * @param latitude
+     * @throws EventException
+     */
     private void setLatitude(String latitude) throws EventException{
         if(!(latitude.toString().isEmpty()) && latitude!=null){
             Double latitudeDouble = Double.parseDouble(latitude);
@@ -296,6 +448,11 @@ public class Event{
         }
     }
 
+    /**
+     * Sets the category (type) of the event
+     * @param category
+     * @throws EventException
+     */
     private void setCategory(Vector<String> category) throws EventException{
         if(category!=null && !category.isEmpty()){
             this.category = category;
@@ -304,14 +461,26 @@ public class Event{
         }
     }
 
+    /**
+     * Gets the category of the event
+     * @return Vector <String> -  The category of the event
+     */
     public Vector<String> getCategory(){
         return category;
     }
 
+    /**
+     * Gets the ID of the creator of the event
+     * @return int - ID of the owner (user)
+     */
     public int getIdOwner(){
         return idOwner;
     }
 
+    /**
+     * Sets the ID of the creator of the event
+     * @param idOwner
+     */
     private void setIdOwner(int idOwner){
         this.idOwner = idOwner;
     }
