@@ -40,14 +40,28 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
     private JSONObject foundPlaces;
     private static final String TAG = "setUpMapIfNeeded";
 
+    /**
+     * Gets the filter to the search
+     * @return String - an filter to make the search easier
+     */
     private String getFilter(){
         return filter;
     }
+
+    /**
+     * Sets the filter to the search
+     * @param filter
+     */
     private void setFilter(String filter){
         this.filter = filter;
     }
 
-
+    /**
+     *  Calls the parent onCreate to setup the activity view that contains this fragment
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -56,12 +70,18 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         mMap.setOnMarkerClickListener(this);
     }
 
+    /**
+     * Calls the method to resume the app and sets up the map if it isn´t instantiated yet.
+     */
     @Override
     protected void onResume(){
         super.onResume();
         setUpMapIfNeeded();
     }
 
+    /**
+     * Sets up the map in case it isn't instantiated yet
+     */
     private void setUpMapIfNeeded(){
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null){
@@ -79,10 +99,17 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         }
     }
 
+    /**
+     * Searches for Places as decided by the user
+     * @return JSONObject - Returns a JSONObject with the results of the consult
+     */
     private JSONObject searchPlaces(){
         return new PlaceDAO(this).searchPlaceByPartName(getFilter());
     }
 
+    /**
+     * Instantiates up the Map up
+     */
     private void setUpMap() {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(-15.7941454, -47.8825479), 9));
@@ -102,6 +129,13 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
 
     }
 
+    /**
+     * Converts the result from JSONObject to Place data
+     * @param result - The result from the search
+     * @throws JSONException
+     * @throws PlaceException
+     * @throws ParseException
+     */
     private void convertJsonToPlace(JSONObject result) throws JSONException, PlaceException,
             ParseException{
 
@@ -126,6 +160,9 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         }
     }
 
+    /**
+     * Adds a marker to be used on a desired place
+     */
     private void addMarkerPlace(){
         if(places != null) {
             for (int i = 0; i < places.size(); ++i){
@@ -140,6 +177,11 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         }
     }
 
+    /**
+     * Shows basic information from the event when the user clicks on the marker
+     * @param marker - The marker on a place
+     * @return
+     */
     @Override
     public boolean onMarkerClick(Marker marker){
         String placeMarker = marker.getId().substring(1);
@@ -149,6 +191,10 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         return false;
     }
 
+    /**
+     * Select an place by it's id
+     * @param id
+     */
     private void select(int id){
         clickedPlace = places.get(id);
         try {
@@ -157,12 +203,20 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
             e.printStackTrace();
         }
     }
+
+    /**
+     * Starts the activity that shows the info from a place
+     */
     private void startShowInfoActivity(){
         Intent intent = new Intent(this, ShowPlaceInfo.class);
         intent.putExtras(getPlaceInfoAsBundle());
         startActivity(intent);
     }
 
+    /**
+     * Receives and organize the information of a place in a Bundle
+     * @return Bunlde - The information of a place
+     */
     private Bundle getPlaceInfoAsBundle(){
         Bundle placeInfo = new Bundle();
         placeInfo.putString("name", clickedPlace.getPlaceName());
