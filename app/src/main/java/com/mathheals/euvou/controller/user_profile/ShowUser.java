@@ -46,11 +46,11 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
         View showUserView = inflater.inflate(R.layout.show_user, container, false);
 
-        boolean isUserLoggedIn = getUserLoginStatus();
-
         //Get the identifier of the user logged in
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         currentUserId = loginUtility.getUserId();
+
+        boolean isUserLoggedIn = loginUtility.hasUserLoggedIn();
 
         setUpRatingBar(isUserLoggedIn, showUserView);
 
@@ -140,8 +140,6 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      */
     private void setEvaluationAtRatingBar(RatingBar ratingBar){
 
-        ratingBar.setVisibility(View.VISIBLE);
-
         //Searches the user evaluation at database
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
         JSONObject userEvaluationAtDataBase = userEvaluationDAO.searchUserEvaluation(
@@ -182,24 +180,6 @@ public class ShowUser extends android.support.v4.app.Fragment implements
     }
 
     /**
-     * Verify if the user is logged in or logged out
-     * @return boolean - True if user is logged in and False if user is logged out
-     */
-    private boolean getUserLoginStatus(){
-        boolean isUserLoggedIn = false;
-        LoginUtility loginUtility = new LoginUtility(this.getActivity());
-
-        if(loginUtility.hasUserLoggedIn()){
-            isUserLoggedIn = true;
-        }
-        else{
-            isUserLoggedIn = false;
-        }
-        
-        return isUserLoggedIn;
-    }
-
-    /**
      * Sets the message of the ratingBar label based on user login status
      * @param showUserView - View that contains the ratingBar label
      * @param message - Message to be displayed at the label
@@ -221,6 +201,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
             RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
             ratingBar.setOnRatingBarChangeListener(this);
+            ratingBar.setVisibility(View.VISIBLE);
 
             setRatingBarStyle(ratingBar);
 

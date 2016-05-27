@@ -3,13 +3,11 @@
     android:layout_height="match_parent"
     tools:context="com.mathheals.euvou.controller.showPlaceRanking.ShowPlaceRank">
 
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewPlacesTotall"
+        android:id="@+id/listViewAllPlaces"
         android:layout_below="@+id/placeName" />
-
 
     <TextView
         android:id="@+id/placeName"
@@ -22,6 +20,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginStart="21dp"
         android:layout_marginBottom="10dp" />
+
     <TextView
         android:id="@+id/placeEvaluation"
         android:layout_width="wrap_content"
@@ -34,5 +33,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp" />
+
 </RelativeLayout>
 

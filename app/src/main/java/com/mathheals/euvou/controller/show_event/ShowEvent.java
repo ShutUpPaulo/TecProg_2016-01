@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.mathheals.euvou.R;
 import com.mathheals.euvou.controller.utility.LoginUtility;
-import com.mathheals.euvou.controller.utility.Mask;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.widget.Button;
@@ -25,20 +24,18 @@ import dao.EventCategoryDAO;
 import dao.EventDAO;
 import dao.EventEvaluationDAO;
 import exception.EventEvaluationException;
+import model.Event;
 import model.EventEvaluation;
 
-public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener {
+public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener,
+        RatingBar.OnRatingBarChangeListener {
 
-    private EventDAO eventDAO;
     private String eventLongitude;
     private String eventLatitude;
     private String eventId;
-    private final String GO = "#EUVOU";
-
+    private EventDAO eventDAO;
     private int userId;
-    private boolean isUserLoggedIn;
-    private View showEventView;
-    private EventEvaluation eventEvaluation;
+    EventEvaluation eventEvaluation;
 
     public ShowEvent(){
         // Required empty public constructor
@@ -48,90 +45,136 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
-        setShowEventView(inflater.inflate(R.layout.fragment_show_event, container, false));
+        View showEventView = inflater.inflate(R.layout.fragment_show_event, container, false);
 
-        Button showEventOnMapButton = (Button) showEventView.findViewById(R.id.showEventOnMapButton);
-        Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
-
+        //Sets the listener to the button that open the event on map
+        Button showEventOnMapButton = (Button) showEventView.findViewById(R.id.
+                showEventOnMapButton);
         showEventOnMapButton.setOnClickListener(this);
-        participateButton.setOnClickListener(this);
+
+        getEventIdFromDataBase();
+
+        //Gets the user login status
+        LoginUtility loginUtility = new LoginUtility(this.getActivity());
+        boolean isUserLoggedIn = loginUtility.hasUserLoggedIn();
+
+        //Gets the current user identifier
+        userId = loginUtility.getUserId();
 
         eventDAO = new EventDAO(this.getActivity());
-        eventId = this.getArguments().getString("id");
-        JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
-        setUserId(new LoginUtility(getActivity()).getUserId());
-        Integer LOGGED_OUT = -1;
+        String eventName = getString(R.string.empty_string);
+        String eventAddress = getString(R.string.empty_string);
+        String eventDescription = getString(R.string.empty_string);
+        String eventDateTime = getString(R.string.empty_string);
+        String eventPrice = getString(R.string.empty_string);
 
-        if(userId == LOGGED_OUT){
-            participateButton.setVisibility(showEventView.GONE);
-        }
-        else{
-            participateButton.setVisibility(View.VISIBLE);
-            if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) == null){
-                participateButton.setText(GO);
-            }
-            else{
-                String NOTGO = "#NÃOVOU";
-                participateButton.setText(NOTGO);
-            }
-        }
+        getEventInfoFromDataBase(showEventView, eventName, eventAddress, eventPrice,
+                eventDescription, eventDateTime);
 
-        try{
-            String eventNameDB = eventDATA.getJSONObject("0").getString("nameEvent");
-            String eventAdress = eventDATA.getJSONObject("0").getString("address");
-            String eventDescription = eventDATA.getJSONObject("0").getString("description");
-            String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            String PRICE_COLUMN = "price";
-            String eventPrice = eventDATA.getJSONObject("0").getString(PRICE_COLUMN);
-            eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
-            eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
+        setUpRatingBar(isUserLoggedIn, showEventView);
 
-            TextView name1Event = (TextView) showEventView.findViewById(R.id.nameEventShow);
-            TextView dateEvent = (TextView) showEventView.findViewById(R.id.dateEvent);
-            TextView description = (TextView) showEventView.findViewById(R.id.descriptionEvent);
-            TextView addressShow = (TextView) showEventView.findViewById(R.id.eventPlaces);
-            TextView eventCategoriesText = (TextView) showEventView.findViewById(R.id.eventCategories);
-            TextView eventPriceText = (TextView) showEventView.findViewById(R.id.eventPrice);
-            name1Event.setText(eventNameDB);
-            description.setText(eventDescription);
-            dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
-            setPriceText(eventPriceText, eventPrice);
-            setCategoriesText(new Integer(eventId), eventCategoriesText);
-            addressShow.setText(eventAdress);
-
-        }catch (JSONException ex){
-            ex.printStackTrace();
-        }catch (NullPointerException exception){
-            Toast.makeText(getActivity(), "O nome não foi encontrado", Toast.LENGTH_LONG).show();
-        }
-
-        setIsUserLoggedIn(userId != LOGGED_OUT);
-        setRatingMessage(isUserLoggedIn);
-        setRatingBarIfNeeded();
+        setUpParticipateButton(isUserLoggedIn, showEventView);
 
         return showEventView;
     }
 
+    private void getEventIdFromDataBase(){
+        this.eventId = this.getArguments().getString("id");
+    }
+
+    private void showEventInformationOnTextView(View showEventView, String eventName,
+                                                String eventAddress, String eventDate,
+                                                String eventDescription, String eventPrice){
+
+        //Gets the text views of the fragment view
+        TextView eventNameTextView = (TextView) showEventView.findViewById(R.id.nameEventShow);
+        TextView eventDateTextView = (TextView) showEventView.findViewById(R.id.dateEvent);
+        TextView eventAddressTextView = (TextView) showEventView.findViewById(R.id.eventPlaces);
+        TextView eventPriceTextView = (TextView) showEventView.findViewById(R.id.eventPrice);
+        TextView eventCategoriesTextView = (TextView) showEventView.findViewById(R.id.
+                eventCategories);
+        TextView eventDescriptionTextView = (TextView) showEventView.findViewById(R.id.
+                descriptionEvent);
+
+        //Sets the text of text views for the data of the parameters
+        eventNameTextView.setText(eventName);
+        eventDescriptionTextView.setText(eventDescription);
+        eventDateTextView.setText(eventDate);
+        eventAddressTextView.setText(eventAddress);
+        setPriceText(eventPriceTextView, eventPrice);
+        setCategoriesText(Integer.parseInt(eventId), eventCategoriesTextView);
+    }
+
+    private void getEventInfoFromDataBase(View showEventView, String eventName, String eventAddress,
+                                          String eventPrice, String eventDescription,
+                                          String eventDateTime){
+        try{
+            JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
+
+            eventName = eventDATA.getJSONObject("0").getString("nameEvent");
+            eventAddress = eventDATA.getJSONObject("0").getString("address");
+            eventDescription = eventDATA.getJSONObject("0").getString("description");
+            eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
+            eventPrice = eventDATA.getJSONObject("0").getString("price");
+            eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
+            eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
+
+            showEventInformationOnTextView(showEventView, eventName, eventAddress, eventDateTime,
+                    eventDescription, eventPrice);
+
+        }catch(JSONException jsonException){
+            jsonException.printStackTrace();
+        }
+    }
+
+    private void setUpParticipateButton(boolean isUserLoggedIn,
+                                        View showEventView){
+
+        Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
+        participateButton.setOnClickListener(this);
+
+        if(isUserLoggedIn){
+            participateButton.setVisibility(View.VISIBLE);
+
+            if(eventDAO.verifyParticipate(userId, Integer.parseInt(eventId)) != null){
+                final String NOTGO = "#NÃOVOU";
+                participateButton.setText(NOTGO);
+            }
+            else{
+                final String GO = "#EUVOU";
+                participateButton.setText(GO);
+            }
+        }
+        else{
+            participateButton.setVisibility(showEventView.GONE);
+
+        }
+    }
+
 
     private String[] getEventCategoriesById(int eventId){
-        final String ID_CATEGORY = "idCategory";
-        final String NAME_CATEGORY = "nameCategory";
-        final String FIRST_COLUMN = "0";
 
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
         JSONObject eventCategoryJSON = eventCategoryDAO.searchCategoriesByEventId(eventId);
-        CategoryDAO categoryDAO = new CategoryDAO(getActivity());
-
 
         ArrayList<String> categories = new ArrayList<>();
 
         for(int i = 0; i < eventCategoryJSON.length(); ++i){
             try{
-                int categoryId = eventCategoryJSON.getJSONObject(Integer.toString(i)).getInt(ID_CATEGORY);
+
+                final String ID_CATEGORY = "idCategory";
+                final String NAME_CATEGORY = "nameCategory";
+                final String FIRST_COLUMN = "0";
+
+                int categoryId = eventCategoryJSON.getJSONObject(Integer.toString(i))
+                        .getInt(ID_CATEGORY);
+                CategoryDAO categoryDAO = new CategoryDAO(getActivity());
                 JSONObject categoryJSON = categoryDAO.searchCategoryById(categoryId);
-                String categoryName = categoryJSON.getJSONObject(FIRST_COLUMN).getString(NAME_CATEGORY);
+                String categoryName = categoryJSON.getJSONObject(FIRST_COLUMN)
+                        .getString(NAME_CATEGORY);
                 categories.add(categoryName);
+
             }catch (JSONException e){
                 e.printStackTrace();
             }
@@ -139,12 +182,14 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         String[] categoriesArray = new String[categories.size()];
         categoriesArray = categories.toArray(categoriesArray);
+
         return categoriesArray;
     }
 
     public void setCategoriesText(int eventId, TextView eventCategoriesText){
         String[] eventCategories = getEventCategoriesById(eventId);
         String text = eventCategories[0];
+
         for(int i = 1; i < eventCategories.length; ++i){
             text += (", " + eventCategories[i]);
         }
@@ -162,7 +207,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
     private void showEventOnMap(){
         Bundle latitudeAndLongitude = new Bundle();
-        latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude, eventLongitude});
+        latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude,
+                eventLongitude});
         Intent intent = new Intent(getContext(), ShowOnMap.class);
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
@@ -171,7 +217,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void markParticipate(){
 
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
-            Toast.makeText(getActivity(), "Heyy, você já marcou sua participação", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Hey, você já marcou sua participação",
+                    Toast.LENGTH_SHORT).show();
         }
         else{
             eventDAO.markParticipate(userId, Integer.parseInt(eventId));
@@ -181,12 +228,28 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
     private void markOffParticipate(){
 
-        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) == null){
-            Toast.makeText(getActivity(), "Heyy, você já desmarcou sua participação", Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
             eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
             Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getActivity(), "Hey, você já desmarcou sua participação",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateParticipation(View view){
+        final String GO = "#EUVOU";
+
+        //Get the current text at participate button
+        Button participateButton = (Button) view.findViewById(R.id.EuVou);
+        String participateButtonText = participateButton.getText().toString();
+
+        if(participateButtonText.equals(GO)){
+            markParticipate();
+        }
+        else{
+            markOffParticipate();
         }
     }
 
@@ -197,95 +260,91 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 showEventOnMap();
                 break;
             case R.id.EuVou:
-                if(((Button)view.findViewById(R.id.EuVou)).getText().equals(GO)){
-                    markParticipate();
-                }
-                else{
-                    markOffParticipate();
-                }
+                updateParticipation(view);
                 break;
         }
     }
 
-    private void setUserId(int userId){
-        this.userId = userId;
+    /**
+     * Sets the message of the ratingBar label based on user login status
+     * @param showUserView - View that contains the ratingBar label
+     * @param message - Message to be displayed at the label
+     */
+    private void setRatingMessage(View showUserView, String message){
+        TextView ratingMessageTextView = (TextView) showUserView.findViewById(R.id.rate_event_text);
+        ratingMessageTextView.setText(message);
     }
 
-    private void setIsUserLoggedIn(boolean isUserLoggedIn){
-        this.isUserLoggedIn = isUserLoggedIn;
-    }
-
-    private void setRatingMessage(boolean isUserLoggedIn){
-        final String LOGGED_IN_MESSAGE = "Sua avaliação:";
-        final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este evento!";
-        String message = isUserLoggedIn ? LOGGED_IN_MESSAGE : LOGGED_OUT_MESSAGE;
-
-        TextView ratingMessage = (TextView) showEventView.findViewById(R.id.rate_event_text);
-        ratingMessage.setText(message);
-    }
-
-    private void setShowEventView(View showEventView){
-        this.showEventView = showEventView;
-    }
-
-    private void setRatingBarIfNeeded(){
+    /**
+     * Sets the necessary configurations of the ratingBar based on user login status
+     * @param isUserLoggedIn - User login status
+     * @param showUserView - View that contains the ratingBar
+     */
+    private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
         if(isUserLoggedIn){
-            setRatingBar();
+            final String LOGGED_IN_MESSAGE = "Sua avaliação:";
+            setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
+
+            RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
+            ratingBar.setOnRatingBarChangeListener(this);
+            ratingBar.setVisibility(View.VISIBLE);
+
+            setEvaluationAtRatingBar(ratingBar);
+        }
+        else{
+            final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
+            setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
         }
     }
 
+    private void setEvaluationAtRatingBar(RatingBar ratingBar){
 
-    private void setRatingBar(){
-        RatingBar ratingBar = (RatingBar) showEventView.findViewById(R.id.ratingBar);
-        ratingBar.setVisibility(View.VISIBLE);
-
+        //Searches the event evaluation at database
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+        JSONObject evaluationJSON = eventEvaluationDAO.searchEventEvaluation(Integer.
+                parseInt(eventId), userId);
 
-        JSONObject evaluationJSON = eventEvaluationDAO.searchEventEvaluation(Integer.parseInt(eventId), userId);
-
-        if(evaluationJSON!=null){
-            Float evaluation = null;
+        if(evaluationJSON != null){
             try{
-                evaluation = new Float(evaluationJSON.getJSONObject("0").getDouble("grade"));
+                Float eventEvaluation = new Float(evaluationJSON.getJSONObject("0")
+                        .getDouble("grade"));
+                ratingBar.setRating(eventEvaluation);
+
             }catch (JSONException e){
                 e.printStackTrace();
             }
-
-            ratingBar.setRating(evaluation);
         }
-
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
-            @Override
-            public void onRatingChanged(RatingBar arg0, float rateValue, boolean arg2){
-                setEventEvaluation(rateValue, userId, new Integer(eventId));
-
-                EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
-
-                eventEvaluationDAO.evaluateEvent(getEventEvaluation());
-            }
-        });
-    }
-
-    private EventEvaluation getEventEvaluation(){
-        return eventEvaluation;
+        else{
+            //If event don't have an evaluation, it don't need to be set at ratingBar
+        }
     }
 
     private void setEventEvaluation(Float rating, Integer userId, Integer eventId){
         try{
-            this.eventEvaluation = new EventEvaluation(rating, userId, eventId);
-            String SUCCESSFULL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
-            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_EVALUATION_MESSAGE, Toast.LENGTH_LONG).show();
+            eventEvaluation = new EventEvaluation(rating, userId, eventId);
+            String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFUL_EVALUATION_MESSAGE,
+                    Toast.LENGTH_LONG).show();
 
         }catch (EventEvaluationException exception){
-            if(exception.getMessage() == EventEvaluation.EVALUATION_IS_INVALID){
+            if(exception.getMessage().equals(EventEvaluation.EVALUATION_IS_INVALID)){
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
             }
-            if(exception.getMessage() == EventEvaluation.EVENT_ID_IS_INVALID){
+            if(exception.getMessage().equals(EventEvaluation.EVENT_ID_IS_INVALID)){
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
             }
-            if(exception.getMessage() == EventEvaluation.USER_ID_IS_INVALID){
+            if(exception.getMessage().equals(EventEvaluation.USER_ID_IS_INVALID)){
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
+        setEventEvaluation(rating, userId, new Integer(eventId));
+
+        EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+        eventEvaluationDAO.evaluateEvent(eventEvaluation);
     }
 }

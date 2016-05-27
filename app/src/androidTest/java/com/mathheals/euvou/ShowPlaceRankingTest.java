@@ -29,7 +29,7 @@ public class ShowPlaceRankingTest extends ActivityInstrumentationTestCase2<HomeP
     }
 
     public void testIfTop5IsDisplayed(){
-        onView(withId(R.id.rateEvent)).check(matches(isDisplayed()));
+        onView(withId(R.id.listViewTop5Places)).check(matches(isDisplayed()));
         onView(withId(R.id.more)).check(matches(isDisplayed()));
         onView(withId(R.id.labelRankingPlace)).check(matches(isDisplayed()));
 
@@ -37,13 +37,13 @@ public class ShowPlaceRankingTest extends ActivityInstrumentationTestCase2<HomeP
     public void testIfPlaceRakingIsDisplayed(){
         testIfTop5IsDisplayed();
         onView(withId(R.id.more)).perform(click());
-        onView(withId(R.id.rateEvent)).check(matches(isDisplayed()));
+        onView(withId(R.id.listViewTop5Places)).check(matches(isDisplayed()));
 
     }
 
     public void testclickPlaceRakingIsDisplayed(){
         testIfTop5IsDisplayed();
-        onView(withId(R.id.rateEvent)).perform(click());
+        onView(withId(R.id.listViewTop5Places)).perform(click());
 
     }
 

@@ -31,7 +31,6 @@ import com.mathheals.euvou.controller.remove_user.RemoveUserFragment;
 import com.mathheals.euvou.controller.search_event.ListEvents;
 import com.mathheals.euvou.controller.search_place.SearchPlaceMaps;
 import com.mathheals.euvou.controller.showPlaceRanking.ShowTop5Ranking;
-import com.mathheals.euvou.controller.user_registration.RegisterFragment;
 import com.mathheals.euvou.controller.utility.ActivityUtility;
 import com.mathheals.euvou.controller.utility.LoginUtility;
 

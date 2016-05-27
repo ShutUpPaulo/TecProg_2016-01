@@ -52,7 +52,7 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
         Button completeRankingButton = (Button) top5RankingView.findViewById(R.id.more);
         completeRankingButton.setOnClickListener(this);
 
-        ListView listView = (ListView) top5RankingView.findViewById(R.id.listViewPlaces5);
+        ListView listView = (ListView) top5RankingView.findViewById(R.id.listViewTop5Places);
         listView.setOnItemClickListener(this);
 
         fillList(listView);
@@ -132,22 +132,22 @@ public class ShowTop5Ranking extends android.support.v4.app.Fragment implements 
         startActivity(intent);
     }
 
-    private Bundle getPlaceInfoAsBundle(int id){
+    private Bundle getPlaceInfoAsBundle(int position){
         Bundle placeInfo = new Bundle();
-        Toast.makeText(getActivity(), "" + id, Toast.LENGTH_LONG);
-        placeInfo.putString("name", places.get(id).getPlaceName());
-        placeInfo.putString("phone", places.get(id).getPlacePhone());
-        placeInfo.putString("address", places.get(id).getPlaceAddress());
-        placeInfo.putString("description", places.get(id).getPlaceDescription());
-        placeInfo.putDouble("latitude", places.get(id).getPlacetLatitude());
-        placeInfo.putDouble("longitude", places.get(id).getPlaceLongitude());
-        placeInfo.putString("operation", places.get(id).getOperation());
-        placeInfo.putInt("idPlace", places.get(id).getId());
+        Toast.makeText(getActivity(), "" + position, Toast.LENGTH_LONG);
+        placeInfo.putString("name", places.get(position).getPlaceName());
+        placeInfo.putString("phone", places.get(position).getPlacePhone());
+        placeInfo.putString("address", places.get(position).getPlaceAddress());
+        placeInfo.putString("description", places.get(position).getPlaceDescription());
+        placeInfo.putDouble("latitude", places.get(position).getPlacetLatitude());
+        placeInfo.putDouble("longitude", places.get(position).getPlaceLongitude());
+        placeInfo.putString("operation", places.get(position).getOperation());
+        placeInfo.putInt("idPlace", places.get(position).getId());
         return placeInfo;
     }
 
     @Override
-    public void onClick(View v){
+    public void onClick(View view){
         android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, new ShowPlaceRank());
         fragmentTransaction.addToBackStack(null);

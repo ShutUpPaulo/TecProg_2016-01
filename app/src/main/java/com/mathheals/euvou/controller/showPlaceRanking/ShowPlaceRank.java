@@ -61,7 +61,7 @@ public class ShowPlaceRank extends android.support.v4.app.Fragment implements Ad
         assert rankingView != null;
 
         //Sets the listener that allows to get when the user click in a list item
-        ListView listToBeFilled = (ListView) rankingView.findViewById(R.id.listViewPlacesTotall);
+        ListView listToBeFilled = (ListView) rankingView.findViewById(R.id.listViewAllPlaces);
         listToBeFilled.setOnItemClickListener(this);
 
         fillList(listToBeFilled);

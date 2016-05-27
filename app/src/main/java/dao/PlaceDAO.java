@@ -8,6 +8,8 @@ package dao;
 import android.app.Activity;
 import org.json.JSONObject;
 
+import model.Place;
+
 public class PlaceDAO extends DAO{
 
     /**
@@ -16,6 +18,13 @@ public class PlaceDAO extends DAO{
      */
     public PlaceDAO(Activity currentActivity){
         super(currentActivity);
+    }
+
+    /**
+     * Empty constructor required for tests
+     */
+    public PlaceDAO(){
+
     }
 
     /**
