@@ -24,7 +24,6 @@ import dao.EventCategoryDAO;
 import dao.EventDAO;
 import dao.EventEvaluationDAO;
 import exception.EventEvaluationException;
-import model.Event;
 import model.EventEvaluation;
 
 public class ShowEvent extends android.support.v4.app.Fragment implements View.OnClickListener,
@@ -42,8 +41,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState){
 
         View showEventView = inflater.inflate(R.layout.fragment_show_event, container, false);
 
@@ -63,14 +62,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         eventDAO = new EventDAO(this.getActivity());
 
-        String eventName = getString(R.string.empty_string);
-        String eventAddress = getString(R.string.empty_string);
-        String eventDescription = getString(R.string.empty_string);
-        String eventDateTime = getString(R.string.empty_string);
-        String eventPrice = getString(R.string.empty_string);
-
-        getEventInfoFromDataBase(showEventView, eventName, eventAddress, eventPrice,
-                eventDescription, eventDateTime);
+        getEventInfoFromDataBase(showEventView);
 
         setUpRatingBar(isUserLoggedIn, showEventView);
 
@@ -83,9 +75,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         this.eventId = this.getArguments().getString("id");
     }
 
-    private void showEventInformationOnTextView(View showEventView, String eventName,
-                                                String eventAddress, String eventDate,
-                                                String eventDescription, String eventPrice){
+    private void showEventInformationOnTextView(final View showEventView, final String eventName,
+                                                final String eventAddress, final String eventDate,
+                                                final String eventDescription,
+                                                final String eventPrice){
 
         //Gets the text views of the fragment view
         TextView eventNameTextView = (TextView) showEventView.findViewById(R.id.nameEventShow);
@@ -106,17 +99,15 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         setCategoriesText(Integer.parseInt(eventId), eventCategoriesTextView);
     }
 
-    private void getEventInfoFromDataBase(View showEventView, String eventName, String eventAddress,
-                                          String eventPrice, String eventDescription,
-                                          String eventDateTime){
+    private void getEventInfoFromDataBase(final View showEventView){
         try{
             JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
 
-            eventName = eventDATA.getJSONObject("0").getString("nameEvent");
-            eventAddress = eventDATA.getJSONObject("0").getString("address");
-            eventDescription = eventDATA.getJSONObject("0").getString("description");
-            eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
-            eventPrice = eventDATA.getJSONObject("0").getString("price");
+            String eventName = eventDATA.getJSONObject("0").getString("nameEvent");
+            String eventAddress = eventDATA.getJSONObject("0").getString("address");
+            String eventDescription = eventDATA.getJSONObject("0").getString("description");
+            String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
+            String eventPrice = eventDATA.getJSONObject("0").getString("price");
             eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
@@ -128,8 +119,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    private void setUpParticipateButton(boolean isUserLoggedIn,
-                                        View showEventView){
+    private void setUpParticipateButton(final boolean isUserLoggedIn,
+                                        final View showEventView){
 
         Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
         participateButton.setOnClickListener(this);
@@ -153,7 +144,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
 
-    private String[] getEventCategoriesById(int eventId){
+    private String[] getEventCategoriesById(final int eventId){
 
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
         JSONObject eventCategoryJSON = eventCategoryDAO.searchCategoriesByEventId(eventId);
@@ -186,7 +177,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         return categoriesArray;
     }
 
-    public void setCategoriesText(int eventId, TextView eventCategoriesText){
+    public void setCategoriesText(final int eventId, final TextView eventCategoriesText){
         String[] eventCategories = getEventCategoriesById(eventId);
         String text = eventCategories[0];
 
@@ -196,7 +187,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventCategoriesText.setText(text);
     }
 
-    public void setPriceText(TextView eventPriceText, String eventPrice){
+    public void setPriceText(final TextView eventPriceText, final String eventPrice){
         final int PRICE = new Integer(eventPrice);
         final String REAIS_PART = Integer.toString(PRICE / 100);
         final String CENTS = Integer.toString(PRICE % 100);
@@ -253,7 +244,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    public void onClick(View view){
+    public void onClick(final View view){
 
         switch(view.getId()){
             case R.id.showEventOnMapButton:
@@ -262,6 +253,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             case R.id.EuVou:
                 updateParticipation(view);
                 break;
+            default:
+                //nothing to do
         }
     }
 
@@ -270,7 +263,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param showUserView - View that contains the ratingBar label
      * @param message - Message to be displayed at the label
      */
-    private void setRatingMessage(View showUserView, String message){
+    private void setRatingMessage(final View showUserView, final String message){
         TextView ratingMessageTextView = (TextView) showUserView.findViewById(R.id.rate_event_text);
         ratingMessageTextView.setText(message);
     }
@@ -280,7 +273,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param isUserLoggedIn - User login status
      * @param showUserView - View that contains the ratingBar
      */
-    private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
+    private void setUpRatingBar(final boolean isUserLoggedIn, final View showUserView){
         if(isUserLoggedIn){
             final String LOGGED_IN_MESSAGE = "Sua avaliação:";
             setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
@@ -297,7 +290,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    private void setEvaluationAtRatingBar(RatingBar ratingBar){
+    private void setEvaluationAtRatingBar(final RatingBar ratingBar){
 
         //Searches the event evaluation at database
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
@@ -319,7 +312,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    private void setEventEvaluation(Float rating, Integer userId, Integer eventId){
+    private void setEventEvaluation(final Float rating, final Integer userId, final Integer eventId){
         try{
             eventEvaluation = new EventEvaluation(rating, userId, eventId);
             String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
@@ -340,7 +333,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
     @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
+    public void onRatingChanged(final RatingBar ratingBar, final float rating, final boolean fromUser){
         setEventEvaluation(rating, userId, new Integer(eventId));
 
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
