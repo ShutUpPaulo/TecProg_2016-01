@@ -35,14 +35,14 @@ public class EvalueteEventControlTest extends ActivityInstrumentationTestCase2<H
     private LoginUtility isLoged;
 
     public EvalueteEventControlTest() {
-            super(HomePage.class);
-            }
+        super(HomePage.class);
+    }
 
     @Before
     public void setUp() throws Exception {
-            super.setUp();
-            getActivity();
-            isLoged = new LoginUtility(getActivity());
+        super.setUp();
+        getActivity();
+        isLoged = new LoginUtility(getActivity());
     }
 
     public void testIfEditUserOptionIsDisplayedForUserLoggedOut() {

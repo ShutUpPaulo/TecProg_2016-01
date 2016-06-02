@@ -40,6 +40,14 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         // Required empty public constructor
     }
 
+    /**
+     * Creates and returns the view hierarchy associated with the fragment
+     * @param inflater - Object used to inflate any views in the fragment
+     * @param container - If non-null, is the parent view that the fragment should be attached to
+     * @param savedInstanceState - If non-null, this fragment is being re-constructed from a
+     *                           previous saved state as given here
+     * @return View - View of the ShowEvent fragment
+     */
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState){
@@ -75,6 +83,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         this.eventId = this.getArguments().getString("id");
     }
 
+    /**
+     * Sets the TextViews to show the user information
+     * @param showEventView - View that contains the TextViews
+     * @param eventName - Name to be set at the text view that shows the event name
+     * @param eventDate - Date to be set at the text view that shows the event date
+     * @param eventAddress - Address to be set at the text view that shows the event address
+     * @param eventDescription - Description to be set at the text view that shows the event
+     *                           description
+     * @param eventPrice - Price to be set at the text view that shows the event price
+     */
     private void showEventInformationOnTextView(final View showEventView, final String eventName,
                                                 final String eventAddress, final String eventDate,
                                                 final String eventDescription,
@@ -99,6 +117,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         setCategoriesText(Integer.parseInt(eventId), eventCategoriesTextView);
     }
 
+    /**
+     * Get the event name, date, address, description, price, latitude and longitude from database
+     * @param showEventView - View of ShowEvent fragment
+     */
     private void getEventInfoFromDataBase(final View showEventView){
         try{
             JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
@@ -142,7 +164,6 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         }
     }
-
 
     private String[] getEventCategoriesById(final int eventId){
 
@@ -200,6 +221,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         Bundle latitudeAndLongitude = new Bundle();
         latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude,
                 eventLongitude});
+        
         Intent intent = new Intent(getContext(), ShowOnMap.class);
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
@@ -275,9 +297,11 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void setUpRatingBar(final boolean isUserLoggedIn, final View showUserView){
         if(isUserLoggedIn){
+            //Sets the logged in label of the rating bar
             final String LOGGED_IN_MESSAGE = "Sua avaliação:";
             setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
 
+            //Sets the rating bar as visible
             RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
             ratingBar.setOnRatingBarChangeListener(this);
             ratingBar.setVisibility(View.VISIBLE);
@@ -285,11 +309,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             setEvaluationAtRatingBar(ratingBar);
         }
         else{
+            //Sets the logged out label of the rating bar
             final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
             setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
         }
     }
 
+    /**
+     * If the event already has an evaluation, this method sets it at ratingBar
+     * @param ratingBar - RatingBar to sets the evaluation
+     */
     private void setEvaluationAtRatingBar(final RatingBar ratingBar){
 
         //Searches the event evaluation at database
@@ -299,6 +328,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         if(evaluationJSON != null){
             try{
+                //Gets the event evaluation from database and sets it at rating bar
                 Float eventEvaluation = new Float(evaluationJSON.getJSONObject("0")
                         .getDouble("grade"));
                 ratingBar.setRating(eventEvaluation);
@@ -312,14 +342,26 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
-    private void setEventEvaluation(final Float rating, final Integer userId, final Integer eventId){
+    /**
+     * Instantiates an UserEvaluation object
+     * @param rating - Evaluation given to the user (>=0 ... <=5)
+     * @param userId - Identifier of the evaluator user
+     * @param eventId - Identifier of the event evaluated
+     */
+    private void setEventEvaluation(final Float rating, final Integer userId,
+                                    final Integer eventId){
         try{
+            //Tries to instantiate an event evaluation
             eventEvaluation = new EventEvaluation(rating, userId, eventId);
+
+            //Shows a successful message when the evaluation is instantiated with success
             String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFUL_EVALUATION_MESSAGE,
                     Toast.LENGTH_LONG).show();
 
         }catch (EventEvaluationException exception){
+
+            //Sets the error message if the evaluation is invalid
             if(exception.getMessage().equals(EventEvaluation.EVALUATION_IS_INVALID)){
                 Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -332,12 +374,22 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
+    /**
+     * Triggers actions that must be done when the rating changes
+     * @param ratingBar - The RatingBar whose rating has changed
+     * @param rating - The current rating (>=0 ... <=5)
+     * @param fromUser - True if the rating change was initiated by a user's touch gesture or
+     *                 arrow key/horizontal trackbell movement
+     */
     @Override
-    public void onRatingChanged(final RatingBar ratingBar, final float rating, final boolean fromUser){
+    public void onRatingChanged(final RatingBar ratingBar, final float rating,
+                                final boolean fromUser){
+
+        //Tries to instantiate an event evaluation
         setEventEvaluation(rating, userId, new Integer(eventId));
 
+        //Saves the evaluation at database
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
-
         eventEvaluationDAO.evaluateEvent(eventEvaluation);
     }
 }

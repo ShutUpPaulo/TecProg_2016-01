@@ -89,7 +89,8 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param userId - Identifier of the evaluator user
      * @param userEvaluatedId - Identifier of the user evaluated
      */
-    private void setUserEvaluation(UserEvaluation userEvaluation, Float rating, Integer userId, Integer userEvaluatedId){
+    private void setUserEvaluation(UserEvaluation userEvaluation, Float rating, Integer userId,
+                                   Integer userEvaluatedId){
         try{
             userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
 
