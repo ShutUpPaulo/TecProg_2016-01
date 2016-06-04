@@ -68,6 +68,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         //Gets the current user identifier
         userId = loginUtility.getUserId();
 
+        //Sets EventDAO object to communicate with database
         eventDAO = new EventDAO(this.getActivity());
 
         getEventInfoFromDataBase(showEventView);
@@ -79,6 +80,9 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         return showEventView;
     }
 
+    /**
+     * Gets the event identifier from database
+     */
     private void getEventIdFromDataBase(){
         this.eventId = this.getArguments().getString("id");
     }
@@ -118,13 +122,13 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     }
 
     /**
-     * Get the event name, date, address, description, price, latitude and longitude from database
+     * Gets the event name, date, address, description, price, latitude and longitude from database
      * @param showEventView - View of ShowEvent fragment
      */
     private void getEventInfoFromDataBase(final View showEventView){
         try{
+            //Gets event data according to the eventId
             JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
-
             String eventName = eventDATA.getJSONObject("0").getString("nameEvent");
             String eventAddress = eventDATA.getJSONObject("0").getString("address");
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
@@ -133,6 +137,7 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
             eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
 
+            //Shows the event data on the text view
             showEventInformationOnTextView(showEventView, eventName, eventAddress, eventDateTime,
                     eventDescription, eventPrice);
 
@@ -141,32 +146,50 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
+    /**
+     * Sets visibility and configuration of participate button according to the user login status
+     * @param isUserLoggedIn - User login status (true if user is logged in, false if user is not)
+     * @param showEventView - View that contains the participate button
+     */
     private void setUpParticipateButton(final boolean isUserLoggedIn,
                                         final View showEventView){
 
+        //Sets the listener to the participate button
         Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
         participateButton.setOnClickListener(this);
 
+        //Sets visibility as visible for user logged in, and config button text
         if(isUserLoggedIn){
             participateButton.setVisibility(View.VISIBLE);
 
+            /* If user participation is on, sets button text to the option to turn off the
+               participation */
             if(eventDAO.verifyParticipate(userId, Integer.parseInt(eventId)) != null){
                 final String NOTGO = "#NÃOVOU";
                 participateButton.setText(NOTGO);
             }
+            /* If user participation is off or user never set a participation, sets button text to
+               the option to turn on the participation */
             else{
                 final String GO = "#EUVOU";
                 participateButton.setText(GO);
             }
         }
+        //Sets the visibility as gone for user logged out
         else{
             participateButton.setVisibility(showEventView.GONE);
 
         }
     }
 
+    /**
+     * Gets the event categories from database and saves it in a String array
+     * @param eventId - Identifier of the event
+     * @return String[] - Array of strings with the event categories
+     */
     private String[] getEventCategoriesById(final int eventId){
 
+        //Gets the JSON with all event categories
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
         JSONObject eventCategoryJSON = eventCategoryDAO.searchCategoriesByEventId(eventId);
 
@@ -179,12 +202,15 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 final String NAME_CATEGORY = "nameCategory";
                 final String FIRST_COLUMN = "0";
 
+                //Gets each category name
                 int categoryId = eventCategoryJSON.getJSONObject(Integer.toString(i))
                         .getInt(ID_CATEGORY);
                 CategoryDAO categoryDAO = new CategoryDAO(getActivity());
                 JSONObject categoryJSON = categoryDAO.searchCategoryById(categoryId);
                 String categoryName = categoryJSON.getJSONObject(FIRST_COLUMN)
                         .getString(NAME_CATEGORY);
+
+                //Adds the category name in the categories ArrayList
                 categories.add(categoryName);
 
             }catch (JSONException e){
@@ -192,19 +218,31 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
             }
         }
 
+        //Convert the categories ArrayList in a new array of strings
         String[] categoriesArray = new String[categories.size()];
         categoriesArray = categories.toArray(categoriesArray);
 
         return categoriesArray;
     }
 
+    /**
+     * Unifies the categories strings in one, adding commas to separate the words
+     * @param eventId - Identifier of the event to have its categories configured
+     * @param eventCategoriesText - TextView that shows the categories
+     */
     public void setCategoriesText(final int eventId, final TextView eventCategoriesText){
+        //Gets the categories names
         String[] eventCategories = getEventCategoriesById(eventId);
+
+        //Initializes the final categories text with the first category
         String text = eventCategories[0];
 
+        //Updates the final categories text with the other categories names separating it with comma
         for(int i = 1; i < eventCategories.length; ++i){
             text += (", " + eventCategories[i]);
         }
+
+        //Sets the final categories text at the text view
         eventCategoriesText.setText(text);
     }
 
@@ -217,16 +255,25 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
     }
 
+    /**
+     * Shows the event location on the map
+     */
     private void showEventOnMap(){
+        //Saves event latitude and longitude in a bundle
         Bundle latitudeAndLongitude = new Bundle();
         latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude,
                 eventLongitude});
-        
+
+        /* Starts the activity that shows the map, sending the latitude and longitude through the
+           bundle created above */
         Intent intent = new Intent(getContext(), ShowOnMap.class);
         intent.putExtras(latitudeAndLongitude);
         startActivity(intent);
     }
 
+    /**
+     * Turn on the user participation in the event at database
+     */
     private void markParticipate(){
 
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
@@ -239,6 +286,9 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
+    /**
+     * Turn off the user participation in the event at database
+     */
     private void markOffParticipate(){
 
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
@@ -251,13 +301,18 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
+    /**
+     * Marks the user participation in the event according to the text at the button
+     * @param view View that contains the participation button
+     */
     private void updateParticipation(View view){
         final String GO = "#EUVOU";
 
-        //Get the current text at participate button
+        //Gets the current text at participate button
         Button participateButton = (Button) view.findViewById(R.id.EuVou);
         String participateButtonText = participateButton.getText().toString();
 
+        //Updates the participation based on the current text at the button
         if(participateButtonText.equals(GO)){
             markParticipate();
         }
@@ -266,6 +321,12 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         }
     }
 
+    /**
+     * Calls method to update the user participation in the event when the user clicks on
+     * the EuVou button and method that shows the event on map when the user clicks on the
+     * showEventOnMapButton
+     * @param view View that contains the buttons that triggers the actions by user click
+     */
     public void onClick(final View view){
 
         switch(view.getId()){
