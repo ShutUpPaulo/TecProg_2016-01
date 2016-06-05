@@ -13,7 +13,6 @@ import android.os.Bundle;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.mathheals.euvou.R;
 
 public class LocalEventActivity extends FragmentActivity implements GoogleMap.OnMapClickListener{
@@ -32,6 +31,14 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
         assert savedInstanceState != null;
 
         super.onCreate(savedInstanceState);
+
+        initViews();
+    }
+
+    /**
+     * Initializes the views
+     */
+    private void initViews(){
         setContentView(R.layout.activity_local_event);
         setUpMapIfNeeded();
         mMap.setOnMapClickListener(this);
@@ -41,7 +48,7 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
      * Called when the activity will start interacting with the user
      */
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         setUpMapIfNeeded();
     }
@@ -61,20 +68,20 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
+    private void setUpMapIfNeeded(){
+        if(mMap != null){
+            //Nothing to do
+        }
+        else{
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+
+            if(mMap != null){
                 setUpMap();
-            }else{
-                // Nothing to do
             }
-        }else{
-            // Nothing to do
+            else{
+                //Nothing to do
+            }
         }
     }
 
@@ -84,7 +91,7 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
      * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap() {
+    private void setUpMap(){
     }
 
     /**
@@ -95,10 +102,16 @@ public class LocalEventActivity extends FragmentActivity implements GoogleMap.On
     public void onMapClick(LatLng latLng) {
         assert latLng != null;
 
-        Intent resultado = new Intent();
-        resultado.putExtra("longitude", " "+latLng.longitude);
-        resultado.putExtra("latitude", " "+latLng.latitude);
-        setResult(Activity.RESULT_OK, resultado);
+        final String LATITUDE_FIELD = "latitude";
+        final String LONGITUDE_FIELD = "longitude";
+        final String SPACE_STRING = " ";
+
+        Intent result = new Intent();
+
+        result.putExtra(LONGITUDE_FIELD, SPACE_STRING + latLng.longitude);
+        result.putExtra(LATITUDE_FIELD, SPACE_STRING + latLng.latitude);
+
+        setResult(Activity.RESULT_OK, result);
         finish();
     }
 }
