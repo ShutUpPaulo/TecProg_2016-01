@@ -34,15 +34,14 @@ import model.Event;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListEvents extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
-
-    private ListView listView;
+public class ListEvents extends android.support.v4.app.Fragment
+        implements AdapterView.OnItemClickListener {
     private Vector<Event> events;
 
     /**
      * Required constructor to instantiate a fragment object
      */
-    public ListEvents() {
+    public ListEvents(){
 
     }
 
@@ -53,7 +52,7 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
      *                           supplied in
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
     }
 
@@ -67,62 +66,81 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         assert inflater != null;
         assert container != null;
         assert savedInstanceState != null;
 
         View view = inflater.inflate(R.layout.fragment_list_events, container, false);
-        // Inflate the layout for this fragment
-        listView = (ListView) view.findViewById(R.id.eventList);
-        listView.setOnItemClickListener(this);
-        populateList();
+
+        setListView(view);
+
         return view;
     }
 
     /**
-     * Populates a ArrayList with the events created by the user logged in
+     * Set the listView on view
+     * @param view - Current view
      */
-    private void populateList() {
-        try {
-            int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
-            events = new EventDAO(getActivity()).searchEventByOwner(idUserLoggedIn);
+    private void setListView(View view){
+        assert view != null;
 
-            if(events!=null){
-                List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
+        ListView listView = (ListView) view.findViewById(R.id.eventList);
+        listView.setOnItemClickListener(this);
 
-                for (Event event : events)
-                    eventList.add(createEvent("Nome", event.getNameEvent()));
+        populateList(listView);
+    }
 
-                SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
-                        android.R.layout.simple_list_item_1,
-                        new String[]{"Nome"}, new int[]{android.R.id.text1});
+    /**
+     * Populates a ArrayList with the events created by the user logged in
+     * @param listView - List of scrollable items
+     */
+    private void populateList(ListView listView){
+        assert listView != null;
 
-                listView.setAdapter(simpleAdapter);
-            }else{
-                List<Map<String, String>> eventList = new ArrayList<Map<String, String>>();
-
-                for (Event event : events)
-                    eventList.add(createEvent("Nome", event.getNameEvent()));
-
-                SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
-                        android.R.layout.simple_list_item_1,
-                        new String[]{"Nome"}, new int[]{android.R.id.text1});
-
-                listView.setAdapter(simpleAdapter);
-            }
-
-        } catch (JSONException e) {
+        try{
+            setListViewAdapter(listView);
+        }catch (JSONException e){
             e.printStackTrace();
-        } catch (ParseException e) {
+        }catch (ParseException e){
             e.printStackTrace();
-        } catch (EventException e) {
+        }catch (EventException e){
             e.printStackTrace();
-        }catch( NullPointerException e) {
+        }catch(NullPointerException e){
             e.printStackTrace();
-            Toast.makeText(getContext(),"Sem eventos criados",Toast.LENGTH_SHORT).show();
 
+            final String NO_EVENT_CREATED = "Sem eventos criados";
+            Toast.makeText(getContext(), NO_EVENT_CREATED,Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Set the Adapter of the the listView
+     * @param listView - List of scrollable items
+     * @throws JSONException
+     * @throws ParseException
+     * @throws EventException
+     * @throws NullPointerException
+     */
+    private void setListViewAdapter(ListView listView) throws JSONException, ParseException,
+            EventException, NullPointerException{
+        assert listView != null;
+
+        int idUserLoggedIn = (new LoginUtility(getActivity())).getUserId();
+        List < Map<String, String> > eventList = new ArrayList<>();
+        events = new EventDAO(getActivity()).searchEventByOwner(idUserLoggedIn);
+
+        final String NAME = "Nome";
+
+        for(Event event : events){
+            eventList.add(createEvent(NAME , event.getNameEvent()));
+        }
+
+        SimpleAdapter simpleAdapter = new SimpleAdapter(getActivity(), eventList,
+                android.R.layout.simple_list_item_1,
+                new String[]{NAME}, new int[]{android.R.id.text1});
+
+        listView.setAdapter(simpleAdapter);
     }
 
     /**
@@ -131,7 +149,7 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
      * @param number - Name of the event which will be inserted on the map
      * @return HashMap - HashMap where the event was stored
      */
-    private HashMap<String, String> createEvent(String name, String number) {
+    private HashMap<String, String> createEvent(String name, String number){
         assert name != null;
         assert number != null;
 
@@ -142,24 +160,26 @@ public class ListEvents extends android.support.v4.app.Fragment implements Adapt
 
     /**
      * Invoked when an item in the AdapterView was clicked
-     * @param parent AdapterView where click happened
-     * @param view View within the AdapterView that was clicked
-     * @param positionEvent Position of view in the adapter
-     * @param id Id of the clicked item
+     * @param parent - AdapterView where click happened
+     * @param view - View within the AdapterView that was clicked
+     * @param positionEvent - Position of view in the adapter
+     * @param id - Id of the clicked item
      */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int positionEvent, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int positionEvent, long id){
         assert view != null;
         assert positionEvent >= 0;
         assert id >= 0;
 
-        final android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Event eventClicked = events.get(positionEvent);
+        final android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getActivity().getSupportFragmentManager().beginTransaction();
+
         EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
+        Event eventClicked = events.get(positionEvent);
         editOrRemoveFragment.evento = eventClicked;
+
         fragmentTransaction.replace(R.id.content_frame, editOrRemoveFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 }
