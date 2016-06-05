@@ -32,11 +32,10 @@ public class LoginValidation {
         assert username != null;
 
         final String STRING_EMPTY = " ";
-        if(username.isEmpty() == false && username.contains(STRING_EMPTY) == false){
-            return true;
-        }else{
-            return false;
-        }
+        boolean isUsernameCharactersOk = username.isEmpty() == false &&
+                username.contains(STRING_EMPTY) == false;
+
+        return isUsernameCharactersOk;
     }
 
     /**
@@ -47,25 +46,26 @@ public class LoginValidation {
     public boolean isActivity(String username){
         assert username != null;
 
-        UserDAO userDAO = new UserDAO(this.activity);
+        final String YES_OPTION = "Y";
+        final String NO_OPTION = "N";
 
-        JSONObject json = null;
-        String isActivity = null;
-        try {
-            json = userDAO.searchUserByUsername(username);
+        String userState = NO_OPTION;
+
+        try{
+            UserDAO userDAO = new UserDAO(this.activity);
+            JSONObject json = userDAO.searchUserByUsername(username);
 
             final String COLUMN_USER_STATE = "isActivity";
-            isActivity = json.getJSONObject(JSON_FORMAT).getString(COLUMN_USER_STATE);
-        } catch (JSONException e) {
+            userState = json.getJSONObject(JSON_FORMAT).getString(COLUMN_USER_STATE);
+        }catch(JSONException e){
+            e.printStackTrace();
+        }catch(NullPointerException e){
             e.printStackTrace();
         }
 
-        final String YES_OPTION = "Y";
-        if(json != null && isActivity.equals(YES_OPTION)){
-            return true;
-        }else{
-            return false;
-        }
+        boolean isUserActivity = userState.equals(YES_OPTION);
+
+        return isUserActivity;
     }
 
     /**
@@ -77,15 +77,16 @@ public class LoginValidation {
         assert username != null;
 
         UserDAO userDAO = new UserDAO(this.activity);
-
         JSONObject json = userDAO.searchUserByUsername(username);
 
+        boolean isRegistered;
         if(json != null){
-            return true;
+            isRegistered = true;
         }else{
-            return false;
+            isRegistered = false;
         }
 
+        return isRegistered;
     }
 
     /**
@@ -96,7 +97,9 @@ public class LoginValidation {
     public boolean isUsernameValid(String username){
         assert username != null;
 
-        return checkUsernameCharacters(username) && isUsernameRegistered(username);
+        boolean isValid = checkUsernameCharacters(username) && isUsernameRegistered(username);
+
+        return isValid;
     }
 
     /**
@@ -109,24 +112,30 @@ public class LoginValidation {
         assert validUsername != null;
         assert passwordTyped != null;
 
-        UserDAO userDAO = new UserDAO(this.activity);
+        boolean isPasswordOk;
+        try{
+            UserDAO userDAO = new UserDAO(this.activity);
+            JSONObject json = userDAO.searchUserByUsername(validUsername);
 
-        JSONObject json = userDAO.searchUserByUsername(validUsername);
-
-        try {
             final String PASSWORD_USER = "passwordUser";
             String password = json.getJSONObject(JSON_FORMAT).getString(PASSWORD_USER);
 
             if(password.equals(passwordTyped)){
-                return true;
+                isPasswordOk = true;
             }else{
-                return false;
+                isPasswordOk = false;
             }
-        } catch (JSONException e) {
+        }catch(JSONException e){
+            isPasswordOk = false;
+
             e.printStackTrace();
-            return false;
+        }catch(NullPointerException e){
+            isPasswordOk = false;
+
+            e.printStackTrace();
         }
 
+        return isPasswordOk;
     }
 
     /**
