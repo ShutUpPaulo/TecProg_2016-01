@@ -78,7 +78,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
             case R.id.button_back_id:
                 returnToConfigurationOptions(fragmentManager);
 
-                RemoveUserVIewMessages.showWelcomeBackMessage(activity.getBaseContext());
+                RemoveUserViewMessages.showWelcomeBackMessage(activity.getBaseContext());
 
                 break;
 
@@ -91,7 +91,7 @@ public class DisableAccountLoginConfirmation extends android.support.v4.app.Frag
                     loginUtility.setUserLogOff();
 
                     ActivityUtility.restartActivity(homePage);
-                    RemoveUserVIewMessages.showAccountDeactivateMessage(homePage.getBaseContext());
+                    RemoveUserViewMessages.showAccountDeactivateMessage(homePage.getBaseContext());
                 }else{
                     //nothing to do
                 }

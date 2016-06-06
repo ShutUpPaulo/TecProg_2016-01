@@ -40,10 +40,51 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
+
         View view = inflater.inflate(R.layout.edit_or_remove_event_fragment, container, false);
 
         Button editOrRemoveButton = (Button) view.findViewById(R.id.editRemoveButton);
         editOrRemoveButton.setOnClickListener(this);
+
+        getEventInfo(view);
+
+        return view;
+    }
+
+    /**
+     * Sets the information of an event on the Text View.
+     * @param view - View of the fragment
+     * @param eventName - The name of the event to be showed
+     * @param eventDateTime - Date and time of the event to be showed
+     * @param eventDescription - Description of the event to be showed
+     * @param eventAddress - Address of the event to be showed
+     * @param eventPrice - Price of the event to be showed
+     */
+    public void setEventInfoOnTextView(View view, String eventName, String eventDateTime,
+                                       String eventDescription, String eventAddress,
+                                       Integer eventPrice){
+
+        TextView nameOfEvent = (TextView) view.findViewById(R.id.nameEventShow);
+        TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
+        TextView descriptionOfEvent = (TextView) view.findViewById(R.id.descriptionEvent);
+        TextView eventAddressTextView = (TextView) view.findViewById(R.id.eventPlaces);
+        TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
+        TextView eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
+
+        nameOfEvent.setText(eventName);
+        descriptionOfEvent.setText(eventDescription);
+        dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
+        eventAddressTextView.setText(eventAddress);
+
+        showEvent.setPriceText(eventPriceText, eventPrice+"");
+        showEvent.setCategoriesText(Integer.valueOf(evento.getIdEvent()), eventCategoriesText);
+    }
+
+    /**
+     * Gets the information of an event
+     * @param view - View of the fragment
+     */
+    public void getEventInfo(View view){
 
         String eventName = evento.getNameEvent();
         String eventDescription = evento.getDescription();
@@ -51,20 +92,9 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         Integer eventPrice = evento.getPrice();
         String eventAddress = evento.getAddress();
 
-        TextView name1Event = (TextView) view.findViewById(R.id.nameEventShow);
-        TextView dateEvent = (TextView) view.findViewById(R.id.dateEvent);
-        TextView description = (TextView) view.findViewById(R.id.descriptionEvent);
-        TextView eventAddres = (TextView) view.findViewById(R.id.eventPlaces);
-        TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
-        TextView eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
-        name1Event.setText(eventName);
-        description.setText(eventDescription);
-        dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
-        eventAddres.setText(eventAddress);
-        showEvent.setPriceText(eventPriceText, eventPrice+"");
-        showEvent.setCategoriesText(Integer.valueOf(evento.getIdEvent()), eventCategoriesText);
-
-        return view;
+        //Calls the method to show the information obtained above
+        setEventInfoOnTextView(view, eventName, eventDateTime, eventDescription, eventAddress,
+                eventPrice);
     }
 
     /**

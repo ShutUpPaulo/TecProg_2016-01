@@ -31,6 +31,9 @@ import com.mathheals.euvou.controller.utility.LoginUtility;
 import dao.EvaluatePlaceDAO;
 import model.Evaluation;
 
+/**
+ * The type Show place info.
+ */
 public class ShowPlaceInfo extends FragmentActivity{
 
     private static final String STRING_EMPTY = "";
@@ -56,7 +59,7 @@ public class ShowPlaceInfo extends FragmentActivity{
     private SupportMapFragment placeMapFragment = null;
 
     private RatingBar ratingBar = null;
-    private Integer userId = INT_ZERO;
+    private Integer userId = LOGGED_OUT;
     private boolean isUserLoggedIn = false;
 
     private Evaluation ratingEvaluation = null;
@@ -69,31 +72,35 @@ public class ShowPlaceInfo extends FragmentActivity{
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
-        assert  savedInstanceState != null;
+        assert savedInstanceState != null;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_place_info);
 
-        setShowMapButton((Button) findViewById(R.id.button_show_map));
-        setHideMapButton((Button) findViewById(R.id.button_hide_map));
+        this.setContentView(R.layout.activity_show_place_info);
 
-        setUserId(new LoginUtility(this).getUserId());
-        setIsUserLoggedIn(!userId.equals(LOGGED_OUT));
+        Button showMapButton = (Button) this.findViewById(R.id.button_show_map);
+        this.setShowMapButton(showMapButton);
 
-        setPlaceInformation();
-        setAllTextViews();
-        setUpMapIfNeeded();
-        placeMapFragment.getView().setVisibility(View.INVISIBLE);
+        Button hideMapButton = (Button) this.findViewById(R.id.button_hide_map);
+        this.setHideMapButton(hideMapButton);
 
-        setRatingMessage(isUserLoggedIn);
-        setRatingBarIfNeeded();
+        this.setUserId(new LoginUtility(this).getUserId());
+        this.setIsUserLoggedIn(!userId.equals(LOGGED_OUT));
+
+        this.setPlaceInformation();
+        this.setAllTextViews();
+        this.setUpMapIfNeeded();
+        this.placeMapFragment.getView().setVisibility(View.INVISIBLE);
+
+        this.setRatingMessage(isUserLoggedIn);
+        this.setRatingBarIfNeeded();
     }
 
     /**
      * Sets rating bar if user is logged in
      */
     private void setRatingBarIfNeeded(){
-        if(isUserLoggedIn){
-            setRatingBar();
+        if(this.isUserLoggedIn){
+            this.setRatingBar();
         }else{
             //nothing to do
         }
@@ -103,11 +110,12 @@ public class ShowPlaceInfo extends FragmentActivity{
      * Sets rating bar on place view
      */
     private void setRatingBar(){
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        assert ratingBar != null;
+        this.ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        assert this.ratingBar != null;
 
-        ratingBar.setVisibility(View.VISIBLE);
-        ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
+        this.ratingBar.setVisibility(View.VISIBLE);
+
+        this.ratingBar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rateValue, boolean fromUser){
                 setRatingEvaluation(idPlace, userId, rateValue);
@@ -115,14 +123,15 @@ public class ShowPlaceInfo extends FragmentActivity{
                 evaluatePlaceDAO.evaluatePlace(ratingEvaluation);
             }
         });
-        setRatingBarStyle();
+
+        this.setRatingBarStyle();
     }
 
     /**
      * Sets rating bar style
      */
     private void setRatingBarStyle(){
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        LayerDrawable stars = (LayerDrawable) this.ratingBar.getProgressDrawable();
         assert stars != null;
 
         stars.getDrawable(2).setColorFilter(ContextCompat.getColor(getBaseContext(),
@@ -134,16 +143,18 @@ public class ShowPlaceInfo extends FragmentActivity{
      */
     private void setUpMapIfNeeded(){
         // Do a null check to confirm that we have not already instantiated the map.
-        if(placeMap != null){
+        if(this.placeMap != null){
             //nothing to do
         }else{
             // Try to obtain the map from the SupportMapFragment.
-            placeMapFragment = ((SupportMapFragment)getSupportFragmentManager().
-                    findFragmentById(R.id.fragment_show_place_info_map));
-            placeMap = placeMapFragment.getMap();
-            // Check if we were successful in obtaining the map.
-            if (placeMap != null){
-                setUpMap();
+            this.placeMapFragment =
+                    (SupportMapFragment) getSupportFragmentManager().
+                    findFragmentById(R.id.fragment_show_place_info_map);
+
+            this.placeMap = this.placeMapFragment.getMap();
+
+            if(placeMap != null){
+                this.setUpMap();
             }else{
                 //nothing to do
             }
@@ -154,9 +165,9 @@ public class ShowPlaceInfo extends FragmentActivity{
      * Sets up map
      */
     private void setUpMap(){
-        placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(getLatitude(),
+        this.placeMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(getLatitude(),
                 getLongitude()), 9));
-        markPlaceOnMap();
+        this.markPlaceOnMap();
     }
 
     /**
@@ -201,15 +212,47 @@ public class ShowPlaceInfo extends FragmentActivity{
      */
     private void setPlaceInformation(){
         Intent intent = getIntent();
-        setName(intent.getStringExtra("name"));
-        setPhone(intent.getStringExtra("phone"));
-        setAddress(intent.getStringExtra("address"));
-        setGrade(intent.getFloatExtra("grade", FLOAT_ZERO));
-        setDescription(intent.getStringExtra("description"));
-        setLatitude(intent.getDoubleExtra("latitude", DOUBLE_ZERO));
-        setLongitude(intent.getDoubleExtra("longitude", DOUBLE_ZERO));
-        setOperation(intent.getStringExtra("operation"));
-        setIdPlace(intent.getIntExtra("idPlace", INT_ZERO));
+        this.setName(intent.getStringExtra("name"));
+        this.setPhone(intent.getStringExtra("phone"));
+        this.setAddress(intent.getStringExtra("address"));
+        this.setGrade(intent.getFloatExtra("grade", FLOAT_ZERO));
+        this.setDescription(intent.getStringExtra("description"));
+        this.setLatitude(intent.getDoubleExtra("latitude", DOUBLE_ZERO));
+        this.setLongitude(intent.getDoubleExtra("longitude", DOUBLE_ZERO));
+        this.setOperation(intent.getStringExtra("operation"));
+        this.setIdPlace(intent.getIntExtra("idPlace", INT_ZERO));
+    }
+
+    /**
+     * Returns the place name
+     * @return Current place name
+     */
+    private String getName(){
+        return this.name;
+    }
+
+    /**
+     * Returns place latitude
+     * @return Current place latitude
+     */
+    private double getLatitude(){
+        return this.latitude;
+    }
+
+    /**
+     * Returns the place address
+     * @return Current place address
+     */
+    private String getAddress(){
+        return this.address;
+    }
+
+    /**
+     * Returns the place longitude
+     * @return Current place longitude
+     */
+    private double getLongitude(){
+        return this.longitude;
     }
 
     /**
@@ -227,22 +270,6 @@ public class ShowPlaceInfo extends FragmentActivity{
     private void setAddress(String address){
         assert address != null;
         this.address = address;
-    }
-
-    /**
-     * Returns the place address
-     * @return Current place address
-     */
-    private String getAddress(){
-        return address;
-    }
-
-    /**
-     * Returns the place longitude
-     * @return Current place longitude
-     */
-    private double getLongitude(){
-        return longitude;
     }
 
     /**
@@ -272,23 +299,6 @@ public class ShowPlaceInfo extends FragmentActivity{
     }
 
     /**
-     * Sets place phone
-     * @param phone New place phone
-     */
-    private void setPhone(String phone){
-        assert phone != null;
-        this.phone = phone;
-    }
-
-    /**
-     * Returns the place name
-     * @return Current place name
-     */
-    private String getName(){
-        return name;
-    }
-
-    /**
      * Sets place name
      * @param name New place name
      */
@@ -298,11 +308,12 @@ public class ShowPlaceInfo extends FragmentActivity{
     }
 
     /**
-     * Returns place latitude
-     * @return Current place latitude
+     * Sets place phone
+     * @param phone New place phone
      */
-    private double getLatitude(){
-        return latitude;
+    private void setPhone(String phone){
+        assert phone != null;
+        this.phone = phone;
     }
 
     /**
@@ -385,11 +396,11 @@ public class ShowPlaceInfo extends FragmentActivity{
      * Sets place text views
      */
     private void setAllTextViews(){
-        setAddressText(address);
-        setOperationText(operation);
-        setPhoneText(phone);
-        setGradeText(Float.toString(grade));
-        setDescriptionText(description);
+        setAddressText(this.address);
+        setOperationText(this.operation);
+        setPhoneText(this.phone);
+        setGradeText(Float.toString(this.grade));
+        setDescriptionText(this.description);
     }
 
     /**
@@ -442,14 +453,6 @@ public class ShowPlaceInfo extends FragmentActivity{
      */
     private void setIsUserLoggedIn(boolean isUserLoggedIn){
         this.isUserLoggedIn = isUserLoggedIn;
-    }
-
-    /**
-     * Return the place id
-     * @return Current place id
-     */
-    public int getIdPlace(){
-        return idPlace;
     }
 
     /**

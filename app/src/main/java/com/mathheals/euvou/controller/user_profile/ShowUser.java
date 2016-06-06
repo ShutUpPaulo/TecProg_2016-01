@@ -22,9 +22,10 @@ import model.UserEvaluation;
 public class ShowUser extends android.support.v4.app.Fragment implements
         RatingBar.OnRatingBarChangeListener{
 
-    private final int INVALID_IDENTIFIER = -2;
+    private final int INVALID_IDENTIFIER = -2; //Flag for used logged out
     private String userEvaluatedId = null;
     private int currentUserId = INVALID_IDENTIFIER;
+    private UserEvaluation userEvaluation;
 
     /**
      * Required constructor to instantiate a fragment object
@@ -46,22 +47,15 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
         View showUserView = inflater.inflate(R.layout.show_user, container, false);
 
-        //Get the identifier of the user logged in
+        //Gets the identifier of the user logged in
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         currentUserId = loginUtility.getUserId();
 
         boolean isUserLoggedIn = loginUtility.hasUserLoggedIn();
 
+        getUserInfoFromDataBase(showUserView);
+
         setUpRatingBar(isUserLoggedIn, showUserView);
-
-        final String EMPTY_STRING = "";
-        String userName = EMPTY_STRING;
-        String userBirthDate = EMPTY_STRING;
-        String userMail = EMPTY_STRING;
-
-        getUserInfoFromDataBase(userName, userBirthDate, userMail);
-
-        showUserInformationOnTextView(showUserView, userName, userBirthDate, userMail);
 
         return showUserView;
     }
@@ -71,12 +65,12 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param ratingBar - The RatingBar whose rating has changed
      * @param rating - The current rating (>=0 ... <=5)
      * @param fromUser - True if the rating change was initiated by a user's touch gesture or
-     *                 arrow key/horizontal trackbell movement
+     *                   arrow key/horizontal trackbell movement
      */
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
-        UserEvaluation userEvaluation = null;
-        setUserEvaluation(userEvaluation, rating, currentUserId, Integer.valueOf(userEvaluatedId));
+
+        setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
 
         //Saves the user evaluation set at database
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
@@ -89,18 +83,20 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param userId - Identifier of the evaluator user
      * @param userEvaluatedId - Identifier of the user evaluated
      */
-    private void setUserEvaluation(UserEvaluation userEvaluation, Float rating, Integer userId,
+    private void setUserEvaluation(Float rating, Integer userId,
                                    Integer userEvaluatedId){
         try{
-            userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
+            //Tries to instantiate an UserEvaluation object
+            this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
 
+            //Shows a successful message if the object was instantiated
             final String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
-
             Toast.makeText(getActivity().getBaseContext(), SUCCESSFUL_EVALUATION_MESSAGE,
                     Toast.LENGTH_LONG).show();
 
         }catch(UserEvaluationException exception){
 
+            //Sets the error message if the evaluation is invalid
             switch(exception.getMessage()){
                 case UserEvaluation.EVALUATION_IS_INVALID:
                     Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
@@ -116,19 +112,22 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
     /**
      * Get the user name, birth date and mail from database
-     * @param userName - String to stores the name of the user
-     * @param userBirthDate - String to stores the birth date of the user
-     * @param userMail - String to stores the mail of the user
      */
-    private void getUserInfoFromDataBase(String userName, String userBirthDate, String userMail){
+    private void getUserInfoFromDataBase(final View showUserView){
         try{
+            //Gets the JSONObject with the user data according to the user identifier
             UserDAO userDAO = new UserDAO(getActivity());
             userEvaluatedId = this.getArguments().getString("id");
-            JSONObject userData = new JSONObject(userDAO.searchUserById(Integer.parseInt(userEvaluatedId)));
+            JSONObject userData = new JSONObject(userDAO.searchUserById(Integer
+                    .parseInt(userEvaluatedId)));
 
-            userName = userData.getJSONObject("0").getString("nameUser");
-            userBirthDate = userData.getJSONObject("0").getString("birthDate");
-            userMail = userData.getJSONObject("0").getString("email");
+            //Gets each user attribute from the JSONObject obtained above
+            String userName = userData.getJSONObject("0").getString("nameUser");
+            String userBirthDate = userData.getJSONObject("0").getString("birthDate");
+            String userMail = userData.getJSONObject("0").getString("email");
+
+            //Shows the user data on the text view
+            showUserInformationOnTextView(showUserView, userName, userBirthDate, userMail);
 
         }catch(JSONException jsonException){
             jsonException.printStackTrace();
@@ -148,7 +147,9 @@ public class ShowUser extends android.support.v4.app.Fragment implements
 
         if(userEvaluationAtDataBase != null){
             try{
-                Float currentUserEvaluation = new Float(userEvaluationAtDataBase.getJSONObject("0").getDouble("grade"));
+                //Gets the user evaluation from database and sets it at rating bar
+                Float currentUserEvaluation = new Float(userEvaluationAtDataBase.getJSONObject("0")
+                        .getDouble("grade"));
                 ratingBar.setRating(currentUserEvaluation);
 
             }catch (JSONException e){
@@ -156,7 +157,7 @@ public class ShowUser extends android.support.v4.app.Fragment implements
             }
         }
         else{
-            //If user don't have an evaluation, it don't need to be set at ratingBar
+            //If the user don't have an evaluation, it don't need to be set at ratingBar
         }
     }
 
@@ -167,7 +168,8 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * @param userBirthDate - Date to be set at the text view that shows the user birth date
      * @param userMail - Mail to be set at the text view that shows the user mail
      */
-    private void showUserInformationOnTextView(View showUserView, String userName, String userBirthDate, String userMail){
+    private void showUserInformationOnTextView(View showUserView, String userName,
+                                               String userBirthDate, String userMail){
 
         //Gets the text views of the fragment view
         TextView userNameTextView = (TextView) showUserView.findViewById(R.id.labelName);
@@ -197,9 +199,11 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      */
     private void setUpRatingBar(boolean isUserLoggedIn, View showUserView){
         if(isUserLoggedIn){
+            //Sets the rating bar message
             final String LOGGED_IN_MESSAGE = "Sua avaliação:";
             setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
 
+            //Sets the listener and visibility for the rating bar
             RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
             ratingBar.setOnRatingBarChangeListener(this);
             ratingBar.setVisibility(View.VISIBLE);

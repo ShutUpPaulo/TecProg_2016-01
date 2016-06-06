@@ -200,7 +200,7 @@ public class Event{
 
     /**
      * Sets the date and time of the event
-     * @param dateTimeEvent - The date (day and hour) of the event
+     * @param dateTimeEvent - The date (day and hour) of thse event
      */
     private void setDateTimeEvent(String dateTimeEvent){
         this.dateTimeEvent=dateTimeEvent;
