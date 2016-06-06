@@ -37,15 +37,16 @@ public class EventEvaluationDAO extends DAO{
         JSONObject findEvaluation = searchEventEvaluation(evaluation.getEventId(),
                                     evaluation.getUserId());
 
-        if(findEvaluation==null){
+        if(findEvaluation!=null){
+            QUERY = "UPDATE participate SET grade = \"" +evaluation.getRating() + "\" " +
+                    "WHERE idEvent = \"" + evaluation.getEventId() + "\" AND idUser = \"" +
+                    evaluation.getUserId() + "\"";
+        }else{
             QUERY = "INSERT INTO participate(grade, idUser, idEvent) VALUES (\"" +
                     evaluation.getRating() + "\"," +
                     "\"" + evaluation.getUserId() + "\"," +
                     "\"" + evaluation.getEventId() + "\")";
-        }else{
-            QUERY = "UPDATE participate SET grade = \"" +evaluation.getRating() + "\" " +
-                    "WHERE idEvent = \"" + evaluation.getEventId() + "\" AND idUser = \"" +
-                    evaluation.getUserId() + "\"";
+
         }
 
         executeQuery(QUERY);
