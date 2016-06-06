@@ -124,6 +124,6 @@ public class DisableAccountFragment extends android.support.v4.app.Fragment
         Context homePageContext = activity.getBaseContext();
 
         fragmentManager.popBackStack();
-        RemoveUserVIewMessages.showWelcomeBackMessage(homePageContext);
+        RemoveUserViewMessages.showWelcomeBackMessage(homePageContext);
     }
 }
