@@ -57,6 +57,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
+        assert savedInstanceState != null;
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.fragment_navigation_drawer);
@@ -70,6 +73,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         onConfigActionBar();
 
         ShowTop5Ranking showTop5Ranking = new ShowTop5Ranking();
+
+        assert showTop5Ranking != null;
+
         openFragment(showTop5Ranking);
     }
 
@@ -78,8 +84,14 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      * @param fragmentToBeOpen - Fragment to be open
      */
     private void openFragment(Fragment fragmentToBeOpen){
+
+        assert fragmentToBeOpen != null;
+
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
+
+        assert fragmentTransaction != null;
+
         fragmentTransaction.replace(R.id.content_frame, fragmentToBeOpen);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -94,18 +106,35 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         final String INVALID_SEARCH = "Pesquisa Invalida";
 
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
+
+        assert filter != null;
+
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+
+        assert map != null;
+
         if(filter.isEmpty()){
+
+            assert filter.isEmpty();
+
             Toast.makeText(this, INVALID_SEARCH, Toast.LENGTH_LONG).show();
         }
         else{
             map.putExtra(QUERY, filter);
+
+            assert map.hasExtra(QUERY);
+
             HomePage.this.startActivity(map);
+
+            assert drawerLayout != null;
+
             drawerLayout.closeDrawer(linearLayout);
         }
     }
 
     private void callGoogleMaps(){
+
+        assert drawerList != null;
         drawerList.setOnItemClickListener(this);
     }
 
@@ -116,6 +145,11 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer_list);
+
+        assert linearLayout != null;
+        assert drawerLayout != null;
+        assert drawerList != null;
+
         drawerToggle =
                 new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_drawer,
                         R.string.drawer_open, R.string.drawer_close){
@@ -132,15 +166,21 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
         textOptions = getResources().getStringArray(R.array.itens_menu_string);
 
+        assert textOptions != null;
+
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         actionBar = getSupportActionBar();
+
+        assert actionBar != null;
     }
 
     /**
      * Sets acton bar configuration
      */
     private void onConfigActionBar(){
+
+        assert actionBar != null;
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -156,8 +196,13 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      */
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
+
+        assert inflater != null;
+
         LoginUtility loginUtility = new LoginUtility(HomePage.this);
         // Inflating menu for logged users
+
+        assert loginUtility != null;
 
         USER_STATUS = loginUtility.getUserId();
 
@@ -182,6 +227,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
 
+        assert drawerToggle != null;
+
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -194,6 +241,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     @Override
     protected void onPostCreate(Bundle savedInstanceState){
         super.onPostCreate(savedInstanceState);
+
+        assert drawerToggle != null;
 
         drawerToggle.syncState();
     }
@@ -208,6 +257,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     public boolean onOptionsItemSelected(MenuItem item){
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
+
+        assert drawerToggle != null;
+
         if (drawerToggle.onOptionsItemSelected(item)){
             return true;
         }
@@ -231,6 +283,8 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      * @return boolean - True if the fragment was open with success
      */
     private boolean userLoggedInOptions(MenuItem item){
+
+        assert item != null;
 
         switch(item.getItemId()){
             case R.id.edit_register:
@@ -273,6 +327,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      * @return boolean - True if the fragment was open with success
      */
     private boolean userLoggedOutOptions(MenuItem item){
+
+        assert item != null;
+
         switch (item.getItemId()){
             case R.id.registration:
                 RegisterEventFragment registerEventFragment = new RegisterEventFragment();
@@ -292,9 +349,15 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      * @param view - View that shows the message
      */
     public void editUserUpdateButtonOnClick(View view){
+
+        assert view != null;
+
         final String SUCESS_EDIT_MESSAGE = "Dados alterados com sucesso :)";
         Toast.makeText(getBaseContext(), SUCESS_EDIT_MESSAGE, Toast.LENGTH_LONG).show();
         FragmentManager fragmentManager = getSupportFragmentManager();
+
+        assert fragmentManager != null;
+
         fragmentManager.popBackStack();
     }
 
@@ -304,6 +367,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      */
     public void searchOnclick(MenuItem item){
         Intent eventConsultation = new Intent(HomePage.this, EventConsultation.class);
+
+        assert eventConsultation != null;
+
         HomePage.this.startActivity(eventConsultation);
     }
 
@@ -316,6 +382,12 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+
+        assert parent != null;
+        assert view != null;
+        assert position >= 0;
+        assert position <= Integer.MAX_VALUE;
+
         String aux = "";
         switch (position){
             case 1:
@@ -335,9 +407,19 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
                 break;
 
         }
+
         Intent map = new Intent(HomePage.this, SearchPlaceMaps.class);
+
+        assert map != null;
+
         map.putExtra(QUERY, aux);
+
+        assert map.hasExtra(QUERY);
+
         HomePage.this.startActivity(map);
+
+        assert drawerLayout != null;
+
         drawerLayout.closeDrawer(linearLayout);
     }
 }
