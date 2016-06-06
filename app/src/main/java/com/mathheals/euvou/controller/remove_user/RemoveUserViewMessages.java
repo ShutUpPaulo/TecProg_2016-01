@@ -9,7 +9,7 @@ package com.mathheals.euvou.controller.remove_user;
 import android.content.Context;
 import android.widget.Toast;
 
-public class RemoveUserVIewMessages{
+public class RemoveUserViewMessages{
     private static final String BYE_BYE_MESSAGE = "Conta desativada :(";
     private static final String WELCOME_BACK_MESSAGE = "Seja bem vindo novamente!";
 
