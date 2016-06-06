@@ -48,6 +48,13 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
     private int USER_STATUS;
     private final int LOGGED_OUT = -1;
 
+    /**
+     * Calls the parent onCreate to setup the activity view that contains this fragment and
+     * loads the XML layouts used in the activity
+     * @param savedInstanceState - If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently
+     *                           supplied in
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -66,6 +73,10 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         openFragment(showTop5Ranking);
     }
 
+    /**
+     * Opens a new fragment
+     * @param fragmentToBeOpen - Fragment to be open
+     */
     private void openFragment(Fragment fragmentToBeOpen){
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
@@ -74,7 +85,12 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         fragmentTransaction.commit();
     }
 
+    /**
+     * Searches a place based on the query typed by the user
+     * @param view - View that contains the EditText with the filter typed by the user
+     */
     public void searchPlace(View view){
+
         final String INVALID_SEARCH = "Pesquisa Invalida";
 
         String filter = ((EditText)findViewById(R.id.place_search)).getText().toString();
@@ -93,6 +109,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         drawerList.setOnItemClickListener(this);
     }
 
+    /**
+     * Initialize the views of the fragment
+     */
     private void initViews(){
         linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,6 +137,9 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         actionBar = getSupportActionBar();
     }
 
+    /**
+     * Sets acton bar configuration
+     */
     private void onConfigActionBar(){
 
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -127,6 +149,11 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
 
     }
 
+    /**
+     * Create and configure the options of the menu at the action bar
+     * @param menu - Menu of the action bar
+     * @return boolean - True if the options of the menu was created with success
+     */
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         LoginUtility loginUtility = new LoginUtility(HomePage.this);
@@ -148,12 +175,22 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Called by the system when the device configuration changes while the activity is running
+     * @param newConfig -  The new device configuration
+     */
     public void onConfigurationChanged(Configuration newConfig){
         super.onConfigurationChanged(newConfig);
 
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * Called when activity start-up is complete
+     * @param savedInstanceState -  If the activity is being re-initialized after previously being
+     *                              shut down then this Bundle contains the data it most recently
+     *                              supplied
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState){
         super.onPostCreate(savedInstanceState);
@@ -161,6 +198,12 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         drawerToggle.syncState();
     }
 
+    /**
+     * Triggers the actions by click in an option at the action bar menu
+     * @param item - The menu item that was selected
+     * @return boolean - Return false to allow normal menu processing to proceed,
+     *                   true to consume it here
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         // Pass the event to ActionBarDrawerToggle, if it returns
@@ -182,7 +225,11 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Opens the fragment according to the item clicked for user logged in menu
+     * @param item - The menu item that was selected
+     * @return boolean - True if the fragment was open with success
+     */
     private boolean userLoggedInOptions(MenuItem item){
 
         switch(item.getItemId()){
@@ -220,6 +267,11 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         }
     }
 
+    /**
+     * Opens the fragment according to the item clicked for user logged out menu
+     * @param item - The menu item that was selected
+     * @return boolean - True if the fragment was open with success
+     */
     private boolean userLoggedOutOptions(MenuItem item){
         switch (item.getItemId()){
             case R.id.registration:
@@ -235,7 +287,10 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         }
     }
 
-    // Alterar Usuário methods
+    /**
+     * Shows message with success when data is updated
+     * @param view - View that shows the message
+     */
     public void editUserUpdateButtonOnClick(View view){
         final String SUCESS_EDIT_MESSAGE = "Dados alterados com sucesso :)";
         Toast.makeText(getBaseContext(), SUCESS_EDIT_MESSAGE, Toast.LENGTH_LONG).show();
@@ -243,10 +298,22 @@ public class HomePage extends ActionBarActivity implements AdapterView.OnItemCli
         fragmentManager.popBackStack();
     }
 
+    /**
+     * Starts the EventConsultation activity by click at search button
+     * @param item - Item that was clicked
+     */
     public void searchOnclick(MenuItem item){
         Intent eventConsultation = new Intent(HomePage.this, EventConsultation.class);
         HomePage.this.startActivity(eventConsultation);
     }
+
+    /**
+     * Opens the activity that shows the places with the category clicked
+     * @param parent - The AdapterView where the click happened
+     * @param view - The view within the AdapterView that was clicked
+     * @param position - The position of the view in the adapter
+     * @param id - The row id of the item that was clicked.
+     */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         String aux = "";

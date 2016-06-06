@@ -22,7 +22,7 @@ import model.UserEvaluation;
 public class ShowUser extends android.support.v4.app.Fragment implements
         RatingBar.OnRatingBarChangeListener{
 
-    private final int INVALID_IDENTIFIER = -2; //Flag for used logged out
+    private final int INVALID_IDENTIFIER = -1; //Flag for used logged out
     private String userEvaluatedId = null;
     private int currentUserId = INVALID_IDENTIFIER;
     private UserEvaluation userEvaluation;

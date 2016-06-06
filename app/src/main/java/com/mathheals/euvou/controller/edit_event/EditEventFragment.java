@@ -111,6 +111,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
+        assert dateField != null;
+
         settingEditText(view);
         dateField.addTextChangedListener(Mask.insert("##/##/####", dateField));
         settingCheckBoxes(view);
@@ -144,6 +146,9 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         //Change the value of idEvent when the consultEvent was finished
         JSONObject jsonEvent = eventDAO.searchEventById(idEvent);
         JSONObject jsonEventCategory = eventCategoryDAO.searchCategoriesByEventId(idEvent);
+
+        assert jsonEvent != null;
+        assert jsonEventCategory != null;
 
         try {
             String nameEvent = jsonEvent.getJSONObject("0").getString("nameEvent");
@@ -184,6 +189,8 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         for (int i = 0; i < idCategories.size(); i++) {
 
             CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+
+            assert categoryDAO != null;
 
             JSONObject jsonCategory = categoryDAO.searchCategoryById(idCategories.get(i));
             String nameCategory = jsonCategory.getJSONObject("0").getString("nameCategory");
@@ -430,10 +437,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
      * @param v Current view being used in the fragment
      */
     @Override
-    public void onClick(View v) {
+    public void onClick(View v){
         assert v != null;
 
-        if(v.getId() == R.id.updateEvent) {
+        if(v.getId() == R.id.updateEvent){
             updateEvent();
         }
         else if(v.getId() == R.id.removeEvent){
@@ -454,13 +461,13 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
      * @param data - Additional data which the activity may contain
      */
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
         assert data != null;
 
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
+        switch(requestCode){
             case (2) : {
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK){
                     Bundle bundle = data.getExtras();
                     latitude = bundle.getString("latitude");
                     longitude = bundle.getString("longitude");
@@ -482,32 +489,40 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         assert v != null;
 
         CheckBox showCategory = (CheckBox) v.findViewById(R.id.optionShow);
+        assert showCategory != null;
         showCategory.setOnClickListener(this);
 
         CheckBox expositionCategory = (CheckBox) v.findViewById(R.id.optionExposition);
+        assert expositionCategory != null;
         expositionCategory.setOnClickListener(this);
 
         CheckBox museumCategory = (CheckBox) v.findViewById(R.id.optionMuseum);
+        assert museumCategory != null;
         museumCategory.setOnClickListener(this);
 
         CheckBox cinemaCategory = (CheckBox) v.findViewById(R.id.optionCinema);
+        assert  cinemaCategory != null;
         cinemaCategory.setOnClickListener(this);
 
         CheckBox theaterCategory = (CheckBox) v.findViewById(R.id.optionTheater);
+        assert theaterCategory != null;
         theaterCategory.setOnClickListener(this);
 
         CheckBox partyCategory = (CheckBox) v.findViewById(R.id.optionParty);
+        assert partyCategory != null;
         partyCategory.setOnClickListener(this);
 
         CheckBox educationCategory = (CheckBox) v.findViewById(R.id.optionEducation);
+        assert educationCategory != null;
         educationCategory.setOnClickListener(this);
 
         CheckBox sportsCategory = (CheckBox) v.findViewById(R.id.optionSports);
+        assert sportsCategory != null;
         sportsCategory.setOnClickListener(this);
 
         CheckBox othersCategory = (CheckBox) v.findViewById(R.id.optionOthers);
+        assert othersCategory != null;
         othersCategory.setOnClickListener(this);
-
     }
 
     /**
@@ -516,9 +531,12 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
      */
     private void removeEvent(int eventId){
         assert eventId >= 0;
+        assert eventId <= Integer.MAX_VALUE;
 
         EventDAO eventDAO = new EventDAO(getActivity());
-        if(eventDAO.deleteEvent(eventId).contains("Salvo")) {
+        assert eventDAO != null;
+
+        if(eventDAO.deleteEvent(eventId).contains("Salvo")){
             Toast.makeText(getActivity(), "Deletado com sucesso", Toast.LENGTH_LONG).show();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, new ShowTop5Ranking());

@@ -52,24 +52,43 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState){
 
+        assert inflater != null;
+
         View showEventView = inflater.inflate(R.layout.fragment_show_event, container, false);
+
+        assert showEventView != null;
 
         //Sets the listener to the button that open the event on map
         Button showEventOnMapButton = (Button) showEventView.findViewById(R.id.
                 showEventOnMapButton);
+
+        assert showEventOnMapButton != null;
+        assert showEventOnMapButton.getId() == R.id.showEventOnMapButton;
+
         showEventOnMapButton.setOnClickListener(this);
+
+        assert showEventOnMapButton.hasOnClickListeners();
 
         getEventIdFromDataBase();
 
+        assert this.getActivity() != null;
+
         //Gets the user login status
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
+
+        assert loginUtility != null;
+
         boolean isUserLoggedIn = loginUtility.hasUserLoggedIn();
 
         //Gets the current user identifier
         userId = loginUtility.getUserId();
 
+        assert userId <= Integer.MAX_VALUE;
+
         //Sets EventDAO object to communicate with database
         eventDAO = new EventDAO(this.getActivity());
+
+        assert eventDAO != null;
 
         getEventInfoFromDataBase(showEventView);
 
@@ -84,7 +103,13 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * Gets the event identifier from database
      */
     private void getEventIdFromDataBase(){
+        assert this.getArguments() != null;
+
         this.eventId = this.getArguments().getString("id");
+
+        assert this.eventId != null;
+        assert Integer.parseInt(eventId) >= 0;
+        assert Integer.parseInt(eventId) <= Integer.MAX_VALUE;
     }
 
     /**
@@ -102,6 +127,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                                                 final String eventDescription,
                                                 final String eventPrice){
 
+        assert showEventView != null;
+
         //Gets the text views of the fragment view
         TextView eventNameTextView = (TextView) showEventView.findViewById(R.id.nameEventShow);
         TextView eventDateTextView = (TextView) showEventView.findViewById(R.id.dateEvent);
@@ -112,11 +139,37 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         TextView eventDescriptionTextView = (TextView) showEventView.findViewById(R.id.
                 descriptionEvent);
 
+        assert eventNameTextView != null;
+        assert eventNameTextView.getId() == R.id.nameEventShow;
+
+        assert eventDateTextView != null;
+        assert eventDateTextView.getId() == R.id.dateEvent;
+
+        assert eventAddressTextView != null;
+        assert eventAddressTextView.getId() == R.id.eventPlaces;
+
+        assert eventPriceTextView != null;
+        assert eventPriceTextView.getId() == R.id.eventPrice;
+
+        assert eventCategoriesTextView != null;
+        assert eventCategoriesTextView.getId() == R.id.eventCategories;
+
+        assert eventDescriptionTextView != null;
+        assert eventDescriptionTextView.getId() == R.id.descriptionEvent;
+
         //Sets the text of text views for the data of the parameters
         eventNameTextView.setText(eventName);
+        assert eventNameTextView.getText() == eventName;
+
         eventDescriptionTextView.setText(eventDescription);
+        assert eventDescriptionTextView.getText() == eventDescription;
+
         eventDateTextView.setText(eventDate);
+        assert eventDateTextView.getText() == eventDate;
+
         eventAddressTextView.setText(eventAddress);
+        assert eventAddressTextView.getText() == eventAddress;
+
         setPriceText(eventPriceTextView, eventPrice);
         setCategoriesText(Integer.parseInt(eventId), eventCategoriesTextView);
     }
@@ -129,13 +182,28 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         try{
             //Gets event data according to the eventId
             JSONObject eventDATA = eventDAO.searchEventById(Integer.parseInt(eventId));
+            assert eventDATA != null;
+
             String eventName = eventDATA.getJSONObject("0").getString("nameEvent");
+            assert eventName != null;
+
             String eventAddress = eventDATA.getJSONObject("0").getString("address");
+            assert eventAddress != null;
+
             String eventDescription = eventDATA.getJSONObject("0").getString("description");
+            assert eventDescription != null;
+
             String eventDateTime = eventDATA.getJSONObject("0").getString("dateTimeEvent");
+            assert eventDateTime != null;
+
             String eventPrice = eventDATA.getJSONObject("0").getString("price");
+            assert eventPrice != null;
+
             eventLongitude = eventDATA.getJSONObject("0").getString("longitude");
+            assert eventLongitude != null;
+
             eventLatitude = eventDATA.getJSONObject("0").getString("latitude");
+            assert eventLatitude != null;
 
             //Shows the event data on the text view
             showEventInformationOnTextView(showEventView, eventName, eventAddress, eventDateTime,
@@ -154,30 +222,51 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void setUpParticipateButton(final boolean isUserLoggedIn,
                                         final View showEventView){
 
+        assert showEventView != null;
+
         //Sets the listener to the participate button
         Button participateButton = (Button) showEventView.findViewById(R.id.EuVou);
+
+        assert participateButton != null;
+        assert participateButton.getId() == R.id.EuVou;
+
         participateButton.setOnClickListener(this);
+
+        assert participateButton.hasOnClickListeners();
 
         //Sets visibility as visible for user logged in, and config button text
         if(isUserLoggedIn){
+
+            assert userId >= 0;
+
             participateButton.setVisibility(View.VISIBLE);
+
+            assert participateButton.getVisibility() == View.VISIBLE;
 
             /* If user participation is on, sets button text to the option to turn off the
                participation */
+            assert eventDAO != null;
+
             if(eventDAO.verifyParticipate(userId, Integer.parseInt(eventId)) != null){
                 final String NOTGO = "#NÃOVOU";
                 participateButton.setText(NOTGO);
+
+                assert participateButton.getText() == NOTGO;
             }
             /* If user participation is off or user never set a participation, sets button text to
                the option to turn on the participation */
             else{
                 final String GO = "#EUVOU";
                 participateButton.setText(GO);
+
+                assert participateButton.getText() == GO;
             }
         }
         //Sets the visibility as gone for user logged out
         else{
             participateButton.setVisibility(showEventView.GONE);
+
+            assert participateButton.getVisibility() == showEventView.GONE;
 
         }
     }
@@ -189,9 +278,19 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private String[] getEventCategoriesById(final int eventId){
 
+        assert getActivity() != null;
+
         //Gets the JSON with all event categories
         EventCategoryDAO eventCategoryDAO = new EventCategoryDAO(getActivity());
+
+        assert eventCategoryDAO != null;
+
+        assert eventId >= 0;
+        assert eventId <= Integer.MAX_VALUE;
+
         JSONObject eventCategoryJSON = eventCategoryDAO.searchCategoriesByEventId(eventId);
+
+        assert eventCategoryJSON != null;
 
         ArrayList<String> categories = new ArrayList<>();
 
@@ -205,13 +304,27 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                 //Gets each category name
                 int categoryId = eventCategoryJSON.getJSONObject(Integer.toString(i))
                         .getInt(ID_CATEGORY);
+
                 CategoryDAO categoryDAO = new CategoryDAO(getActivity());
+
+                assert categoryDAO != null;
+
                 JSONObject categoryJSON = categoryDAO.searchCategoryById(categoryId);
+
+                assert categoryJSON != null;
+
                 String categoryName = categoryJSON.getJSONObject(FIRST_COLUMN)
                         .getString(NAME_CATEGORY);
 
+                assert categoryName != null;
+
+                assert categories != null;
+                int categoriesSizeBeforeAddCategories = categories.size();
+
                 //Adds the category name in the categories ArrayList
                 categories.add(categoryName);
+
+                assert categories.size() == categoriesSizeBeforeAddCategories + 1;
 
             }catch (JSONException e){
                 e.printStackTrace();
@@ -220,7 +333,12 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         //Convert the categories ArrayList in a new array of strings
         String[] categoriesArray = new String[categories.size()];
+
+        assert categoriesArray != null;
+
         categoriesArray = categories.toArray(categoriesArray);
+
+        assert categoriesArray instanceof String[];
 
         return categoriesArray;
     }
