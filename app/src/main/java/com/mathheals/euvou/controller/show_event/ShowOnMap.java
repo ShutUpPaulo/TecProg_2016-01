@@ -22,7 +22,6 @@ public class ShowOnMap extends FragmentActivity{
     private Double latitude = INVALID_LATITUDE;
     private Double longitude = INVALID_LONGITUDE;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
