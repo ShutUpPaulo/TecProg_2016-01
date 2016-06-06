@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import dao.CategoryDAO;
@@ -45,6 +46,10 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
                      othersCheckBox,sportsCheckBox, partyCheckBox;
     private final Vector<String> CATEGORIES = new Vector<>();
     private EditAndRegisterUtility  editAndRegisterUtility = new EditAndRegisterUtility();
+
+    private Vector<String> categories= new Vector<>();
+
+    ArrayList<Integer> checkBoxOptions = new ArrayList<>();
 
     /**
      * Required constructor to instantiate a fragment object
@@ -356,89 +361,73 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Fill an ArrayList with the Checkbox Options Id's
+     */
+    private void initializeOptions(){
+        checkBoxOptions.add(R.id.optionCinema);
+        checkBoxOptions.add(R.id.optionEducation);
+        checkBoxOptions.add(R.id.optionExposition);
+        checkBoxOptions.add(R.id.optionMuseum);
+        checkBoxOptions.add(R.id.optionOthers);
+        checkBoxOptions.add(R.id.optionParty);
+        checkBoxOptions.add(R.id.optionShow);
+        checkBoxOptions.add(R.id.optionSports);
+        checkBoxOptions.add(R.id.optionTheater);
+    }
 
     /**
      * Adds the names of the categories which were clicked in a vector of strings
-     * @param v - Current view being used in the fragment
+     * @param view - Current view being used in the fragment
      */
-    private void addEventCategories(View v){
-        assert v != null;
+    private void addEventCategories(View view){
+        assert view != null;
 
-        if(v.getId() == R.id.optionCinema){
-            CheckBox cinemaCheckBox = (CheckBox) v;
+        for(int i = 0; i < checkBoxOptions.size(); i++){
+            if(view.getId() == checkBoxOptions.get(i)){
+                CheckBox optionCheckBox = (CheckBox) view;
+                String checkBoxText = getCheckBoxText(optionCheckBox, checkBoxOptions.get(i));
 
-            if(cinemaCheckBox.isChecked()) {
-                CATEGORIES.add(cinemaCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(cinemaCheckBox.getText().toString());
+                if(optionCheckBox.isChecked()){
+                    categories.add(checkBoxText);
+                }
+                else{
+                    categories.remove(checkBoxText);
+                }
             }
-        }else if(v.getId() == R.id.optionEducation) {
-            CheckBox educationCheckBox = (CheckBox) v;
-
-            if(educationCheckBox.isChecked()) {
-                CATEGORIES.add("Educacao");
-            }else{
-                CATEGORIES.remove("Educacao");
+            else{
+                //Nothing to do
             }
-        }else if(v.getId() == R.id.optionExposition){
-            CheckBox expositionCheckBox = (CheckBox) v;
-
-            if(expositionCheckBox.isChecked()) {
-                CATEGORIES.add("Exposicao");
-            }else{
-                CATEGORIES.remove("Exposicao");
-            }
-        }else if(v.getId() == R.id.optionMuseum){
-            CheckBox museumCheckBox = (CheckBox) v;
-
-            if(museumCheckBox.isChecked()) {
-                CATEGORIES.add(museumCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(museumCheckBox.getText().toString());
-            }
-        }else if(v.getId() == R.id.optionOthers){
-            CheckBox othersCheckBox = (CheckBox) v;
-
-            if(othersCheckBox.isChecked()) {
-                CATEGORIES.add(othersCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(othersCheckBox.getText().toString());
-            }
-        }else if(v.getId() == R.id.optionParty){
-            CheckBox partyCheckBox = (CheckBox) v;
-
-            if(partyCheckBox.isChecked()) {
-                CATEGORIES.add(partyCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(partyCheckBox.getText().toString());
-            }
-        }else if(v.getId() == R.id.optionShow){
-            CheckBox showCheckBox = (CheckBox) v;
-
-            if(showCheckBox.isChecked()) {
-                CATEGORIES.add(showCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(showCheckBox.getText().toString());
-            }
-        }else if(v.getId() == R.id.optionSports){
-            CheckBox sportsCheckBox = (CheckBox) v;
-
-            if(sportsCheckBox.isChecked()) {
-                CATEGORIES.add(sportsCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(sportsCheckBox.getText().toString());
-            }
-        }else if(v.getId() == R.id.optionTheater){
-            CheckBox theaterCheckBox = (CheckBox) v;
-
-            if(theaterCheckBox.isChecked()) {
-                CATEGORIES.add(theaterCheckBox.getText().toString());
-            }else{
-                CATEGORIES.remove(theaterCheckBox.getText().toString());
-            }
-        }else{
-            // Nothing to do
         }
+
+    }
+
+    /**
+     * Gets the text of the checkbox option
+     * @param optionCheckBox - An object of the checkbox option
+     * @param idOption - The id of the checkbox option
+     * @return String - The text of the checkbox option
+     */
+    private String getCheckBoxText(CheckBox optionCheckBox, Integer idOption){
+        assert optionCheckBox != null;
+        assert idOption != null;
+
+        String checkBoxText;
+
+        final String EDUCATION_TEXT = "Educacao";
+        final String EXPOSITION_TEXT = "Exposicao";
+
+        if(idOption == R.id.optionEducation){
+            checkBoxText = EDUCATION_TEXT;
+        }
+        else if(idOption == R.id.optionExposition){
+            checkBoxText = EXPOSITION_TEXT;
+        }
+        else{
+            checkBoxText = optionCheckBox.getText().toString();
+        }
+
+        return checkBoxText;
     }
 
     /**
