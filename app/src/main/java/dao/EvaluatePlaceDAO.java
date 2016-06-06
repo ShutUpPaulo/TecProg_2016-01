@@ -14,6 +14,16 @@ import model.Evaluation;
 public class EvaluatePlaceDAO extends DAO{
 
     private static final String STRING_EMPTY = "";
+    private static final String SELECT_EVALUATE_PLACE_COMMAND =
+            "SELECT * FROM evaluate_place WHERE ";
+
+    private static final String UPDATE_EVALUATE_PLACE_COMMAND =
+            "UPDATE evaluate_place SET ";
+
+    private static final String INSERT_EVALUATE_PLACE_COMMAND =
+            "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (";
+
+
 
     /**
      * Required empty public constructor
@@ -38,20 +48,15 @@ public class EvaluatePlaceDAO extends DAO{
 
         String evaluationQuery = STRING_EMPTY;
 
-        String consultEvaluation = "SELECT * FROM evaluate_place WHERE idPlace = \"" +
-                evaluation.getIdPlace() + "\" " + "AND idUser = \"" +
-                evaluation.getIdUser() + "\"";
+        String consultEvaluation =
+                getConsultEvaluationQuery(evaluation.getIdUser(), evaluation.getIdPlace());
 
         JSONObject findEvaluation = executeConsult(consultEvaluation);
 
         if(findEvaluation != null){
-            evaluationQuery = "UPDATE evaluate_place SET grade = \"" +
-                    evaluation.getGrid() + "\" " + "WHERE idPlace = \"" + evaluation.getIdPlace() +
-                    "\" AND idUser = \"" + evaluation.getIdUser() + "\"";
+            evaluationQuery = getUpdateEvaluationQuery(evaluation);
         }else{
-            evaluationQuery = "INSERT INTO evaluate_place(grade, idUser, idPlace) VALUES (\"" +
-                    evaluation.getGrid() + "\"," + "\"" + evaluation.getIdUser() + "\"," +
-                    "\"" + evaluation.getIdPlace() + "\")";
+            evaluationQuery = getInsertEvaluationQuery(evaluation);
         }
 
         executeQuery(evaluationQuery);
@@ -67,10 +72,41 @@ public class EvaluatePlaceDAO extends DAO{
         assert placeId >= 0;
         assert userId >= 0;
 
-        String searchPlaceEvaluationQuery = "SELECT * FROM evaluate_place WHERE idUser = \"" +
-                userId + "\" AND idPlace = " + placeId;
-
+        String searchPlaceEvaluationQuery = getConsultEvaluationQuery(userId, placeId);
         JSONObject consultJsonObject = executeConsult(searchPlaceEvaluationQuery);
         return consultJsonObject;
+    }
+
+    private String getUpdateEvaluationQuery(Evaluation evaluation){
+        final String gradeValue = "grade = \"" + evaluation.getGrid() + "\" ";
+        final String idPlaceCondition = "WHERE idPlace = \"" + evaluation.getIdPlace() + "\"";
+        final String idUserCondition = "AND idUser = \"" + evaluation.getIdUser() + "\"";
+
+        final String updateEvaluationQuery =
+                UPDATE_EVALUATE_PLACE_COMMAND  + gradeValue + idPlaceCondition + idUserCondition;
+
+        return updateEvaluationQuery;
+    }
+
+    private String getInsertEvaluationQuery(Evaluation evaluation){
+        final String gradeValue = "\"" + evaluation.getGrid() + "\",";
+        final String userValue = "\"" + evaluation.getIdUser() + "\",";
+        final String placeValue = "\"" + evaluation.getIdPlace() + "\")";
+
+        final String insertEvaluationQuery =
+                INSERT_EVALUATE_PLACE_COMMAND + gradeValue + userValue + placeValue;
+
+        return insertEvaluationQuery;
+    }
+
+    private String getConsultEvaluationQuery(int idUser, int idPlace){
+        final String idPlaceCondition = "idPlace = \"" + idPlace + "\" ";
+        final String idUserCondition = "AND idUser = \"" + idUser + "\"";
+
+
+        final String consultEvaluationQuery =
+                SELECT_EVALUATE_PLACE_COMMAND + idPlaceCondition + idUserCondition;
+
+        return consultEvaluationQuery;
     }
 }
