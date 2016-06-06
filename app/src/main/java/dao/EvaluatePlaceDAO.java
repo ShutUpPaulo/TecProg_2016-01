@@ -77,6 +77,11 @@ public class EvaluatePlaceDAO extends DAO{
         return consultJsonObject;
     }
 
+    /**
+     * Returns string of update query of a given evaluation
+     * @param evaluation Evaluation to be updated
+     * @return String of the database command of update
+     */
     private String getUpdateEvaluationQuery(Evaluation evaluation){
         final String gradeValue = "grade = \"" + evaluation.getGrid() + "\" ";
         final String idPlaceCondition = "WHERE idPlace = \"" + evaluation.getIdPlace() + "\"";
@@ -88,6 +93,11 @@ public class EvaluatePlaceDAO extends DAO{
         return updateEvaluationQuery;
     }
 
+    /**
+     * Returns string of update query of a given evaluation
+     * @param evaluation Evaluation to be updated
+     * @return String of the database command of update evaluation
+     */
     private String getInsertEvaluationQuery(Evaluation evaluation){
         final String gradeValue = "\"" + evaluation.getGrid() + "\",";
         final String userValue = "\"" + evaluation.getIdUser() + "\",";
@@ -99,6 +109,12 @@ public class EvaluatePlaceDAO extends DAO{
         return insertEvaluationQuery;
     }
 
+    /**
+     * Returns string of consult query of a given evaluation
+     * @param idUser id of user of the evaluation
+     * @param idPlace id of place of the evaluation
+     * @return String of the database command of select evaluation
+     */
     private String getConsultEvaluationQuery(int idUser, int idPlace){
         final String idPlaceCondition = "idPlace = \"" + idPlace + "\" ";
         final String idUserCondition = "AND idUser = \"" + idUser + "\"";
