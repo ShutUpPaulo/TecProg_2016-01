@@ -35,9 +35,12 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener{
 
     private static final int USER_NOT_LOGGED_IN = -1;
+    private static final String NO_RECOMMENDED_EVENTS = "Sem eventos recomendados!";
+    private static final String ID_EVENT = "idEvent";
+    private static final String NAME_EVENT = "nameEvent";
+    private static final String ID_EVENT_SEARCH = "idEventSearch";
 
     private ListView listViewEventRecommendations;
-    private ArrayList<Event> events;
     private JSONObject eventDATA;
     private int idUser;
 
@@ -63,20 +66,20 @@ public class RecommendEvent extends android.support.v4.app.Fragment
 
         View view = inflater.inflate(R.layout.fragment_recommend_event, container, false);
 
-        listViewEventRecommendations =
+        this.listViewEventRecommendations =
                 (ListView) view.findViewById(R.id.list_view_event_recomendations);
-        assert listViewEventRecommendations != null;
+        assert this.listViewEventRecommendations != null;
 
-        listViewEventRecommendations.setOnItemClickListener(this);
+        this.listViewEventRecommendations.setOnItemClickListener(this);
 
         LoginUtility loginUtility = new LoginUtility(getActivity());
-        idUser = loginUtility.getUserId();
+        this.idUser = loginUtility.getUserId();
 
-        if(idUser != USER_NOT_LOGGED_IN){
+        if(this.idUser != USER_NOT_LOGGED_IN){
             fillEventsList();
         }else{
             Toast.makeText(getActivity().getBaseContext(),
-                    "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
+                    NO_RECOMMENDED_EVENTS, Toast.LENGTH_LONG).show();
         }
         return view;
     }
@@ -87,37 +90,36 @@ public class RecommendEvent extends android.support.v4.app.Fragment
     private void fillEventsList(){
         EventRecommendationDAO eventRecommendationDAO = new EventRecommendationDAO();
 
-        events = new ArrayList<>();
+        ArrayList<Event> events = new ArrayList<>();
 
         try{
-            eventDATA = eventRecommendationDAO.recommendEvents(idUser);
+            this.eventDATA = eventRecommendationDAO.recommendEvents(idUser);
 
-            for(int i=0; i<eventDATA.length(); i++){
-                    int idEvent = eventDATA.getJSONObject(Integer.toString(i)).getInt("idEvent");
-                    String nameEvent = eventDATA.getJSONObject(Integer.toString(i))
-                            .getString("nameEvent");
+            for(int i = 0; i < this.eventDATA.length(); i++){
+                    final int idEvent = this.eventDATA.
+                            getJSONObject(Integer.toString(i)).getInt(ID_EVENT);
+                    assert this.eventDATA != null;
+
+                    String nameEvent = this.eventDATA.getJSONObject(Integer.toString(i))
+                            .getString(NAME_EVENT);
                     assert nameEvent != null;
 
-                    int eventEvaluation = 4;
+                    final int eventEvaluation = 4;
 
                     Event event = new Event(idEvent, nameEvent, eventEvaluation);
 
                     events.add(event);
             }
-        }catch (JSONException e){
+        }catch(JSONException | ParseException | EventException e){
             e.printStackTrace();
-        }catch (ParseException e){
-            e.printStackTrace();
-        }catch (EventException e){
-            e.printStackTrace();
-        }catch (NullPointerException e){
+        } catch(NullPointerException e){
             Toast.makeText(getActivity().getBaseContext(),
-                    "Sem eventos recomendados!", Toast.LENGTH_LONG).show();
+                    NO_RECOMMENDED_EVENTS, Toast.LENGTH_LONG).show();
         }
 
         EventAdapter eventAdapter = new EventAdapter(getActivity(),events);
 
-        listViewEventRecommendations.setAdapter(eventAdapter);
+        this.listViewEventRecommendations.setAdapter(eventAdapter);
     }
 
     /**
@@ -133,8 +135,6 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         assert view != null;
         assert id >= 0;
 
-        final String ID_COLUMN = "idEvent";
-
         int eventId = 0;
         final Bundle bundle = new Bundle();
         final ShowEvent event = new ShowEvent();
@@ -144,8 +144,9 @@ public class RecommendEvent extends android.support.v4.app.Fragment
                     = getActivity().getSupportFragmentManager().beginTransaction();
 
             eventId = new Integer(eventDATA.getJSONObject
-                    (Integer.toString(position)).getString(ID_COLUMN));
-            bundle.putString("idEventSearch", Integer.toString(eventId));
+                    (Integer.toString(position)).getString(ID_EVENT));
+
+            bundle.putString(ID_EVENT_SEARCH, Integer.toString(eventId));
 
             event.setArguments(bundle);
             //fragmentTransaction.replace(R.id.content_frame, event);
