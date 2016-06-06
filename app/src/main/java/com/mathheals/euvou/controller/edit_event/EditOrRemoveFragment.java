@@ -41,10 +41,16 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
+        assert inflater != null;
+        assert container != null;
+
         View view = inflater.inflate(R.layout.edit_or_remove_event_fragment, container, false);
+        assert view != null;
 
         Button editOrRemoveButton = (Button) view.findViewById(R.id.editRemoveButton);
         editOrRemoveButton.setOnClickListener(this);
+        assert  editOrRemoveButton != null;
+        assert  editOrRemoveButton.hasOnClickListeners();
 
         getEventInfo(view);
 
@@ -71,10 +77,32 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         TextView eventPriceText = (TextView) view.findViewById(R.id.eventPrice);
         TextView eventCategoriesText = (TextView) view.findViewById(R.id.eventCategories);
 
+        assert nameOfEvent != null;
+        assert nameOfEvent.getId() == R.id.nameEventShow;
+
+        assert dateEvent != null;
+        assert dateEvent.getId() == R.id.dateEvent;
+
+        assert descriptionOfEvent != null;
+        assert descriptionOfEvent.getId() == R.id.descriptionEvent;
+
+        assert eventAddressTextView != null;
+        assert eventAddressTextView.getId() == R.id.eventPlaces;
+
+        assert eventPriceText != null;
+        assert eventPriceText.getId() == R.id.eventPrice;
+
+        assert eventCategoriesText != null;
+        assert eventCategoriesText.getId() == R.id.eventCategories;
+
         nameOfEvent.setText(eventName);
+        assert nameOfEvent.getText() == eventName;
         descriptionOfEvent.setText(eventDescription);
+        assert  descriptionOfEvent.getText() == eventDescription;
         dateEvent.setText(Mask.getDateTimeInBrazilianFormat(eventDateTime));
+        assert dateEvent.getText() == eventDateTime;
         eventAddressTextView.setText(eventAddress);
+        assert eventAddressTextView.getText() == eventAddress;
 
         showEvent.setPriceText(eventPriceText, eventPrice+"");
         showEvent.setCategoriesText(Integer.valueOf(evento.getIdEvent()), eventCategoriesText);
@@ -103,9 +131,17 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
      */
     @Override
     public void onClick(View v){
+        assert v != null;
+
         if(v.getId()==R.id.editRemoveButton){
+            assert getId() >= 0;
+            assert getId() <= Integer.MAX_VALUE;
+
             EditEventFragment editEventFragment = new EditEventFragment();
             Bundle bundle = new Bundle();
+
+            assert editEventFragment != null;
+            assert bundle !=null;
 
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().
                     getSupportFragmentManager().beginTransaction();
