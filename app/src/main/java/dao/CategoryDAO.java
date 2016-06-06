@@ -35,6 +35,11 @@ public class CategoryDAO extends DAO{
         return consultQuery;
     }
 
+    /**
+     * Returns the consult query string of a given category
+     * @param idCategory id of category searched
+     * @return string of the database command of consult category
+     */
     private String getConsultQueryString(int idCategory){
         final String idCategoryValue = "idCategory = " + idCategory;
 
