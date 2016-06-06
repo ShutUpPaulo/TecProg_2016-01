@@ -49,7 +49,7 @@ public class ConsultDAO {
         isDoing = value;
     }
 
-    public String exec()
+    public String execute()
     {
         new Access().execute();
         return getResult();

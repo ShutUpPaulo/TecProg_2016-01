@@ -46,14 +46,14 @@ public abstract class DAO{
         assert query != null;
         assert urlQuery != null;
 
-        Consult consult = new Consult(query,urlQuery);
-        consult.exec();
+        ConsultDAO consultDAO = new ConsultDAO(query,urlQuery);
+        consultDAO.execute();
 
-        boolean isConnectionTimedOut = testConnectionTime(consult);
+        boolean isConnectionTimedOut = this.testConnectionTime(consultDAO);
 
         String consultAnswer = STRING_EMPTY;
         if(!isConnectionTimedOut){
-            consultAnswer = consult.getResult();
+            consultAnswer = consultDAO.getResult();
         }else{
             consultAnswer = null;
         }
@@ -122,17 +122,17 @@ public abstract class DAO{
 
     /**
      * Tests connection time of a given consult
-     * @param consult Consult to be made in database
+     * @param consultDAO Consult to be made in database
      * @return True if the connection had timed out, false otherwise
      */
-    private boolean testConnectionTime(Consult consult){
+    private boolean testConnectionTime(ConsultDAO consultDAO){
         long currentTime = Calendar.getInstance().getTime().getTime();
         assert currentTime >= 0;
 
         long timeLimit = currentTime + LIMIT_CONNECTION_TIME;
         assert timeLimit >= 0;
 
-        while(!consult.getIsDoing() && currentTime < timeLimit){
+        while(!consultDAO.getIsDoing() && currentTime < timeLimit){
             currentTime = Calendar.getInstance().getTime().getTime();
         }
 
