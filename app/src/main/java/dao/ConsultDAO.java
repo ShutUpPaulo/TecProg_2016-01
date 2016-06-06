@@ -22,14 +22,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Consult {
+public class ConsultDAO {
 
     private final String URL;
     private String result;
     private boolean isDoing;
     private final String query;
 
-    public Consult(String query, String URL)
+    public ConsultDAO(String query, String URL)
     {
         assert query != null;
         assert URL != null;
@@ -102,7 +102,7 @@ public class Consult {
         protected void onPostExecute(String result) {
             assert result != null;
 
-            Consult.this.setIsDoing(true);
+            ConsultDAO.this.setIsDoing(true);
         }
 
         private StringBuilder inputStreamToString(InputStream is) throws IOException {
