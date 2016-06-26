@@ -1,0 +1,91 @@
+<resources>
+    <string name = "app_name"> EuVou </string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_search_a__place">Search_a_Place</string>
+    <string name="btnSearchPlace">Encontrar Lugar</string>
+    <string name="labelSearchPlace">Encontrar lugar por nombre</string>
+    <string name="title_activity_update">UpdateActivity</string>
+    <string name="empty_string"></string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="do_login">Login</string>
+    <string name="username">Usuario</string>
+    <string name="dateTag">Fecha de nacimiento:</string>
+    <string name="email">E-mail:</string>
+    <string name="emailConfirmation">Confirmación de e-mail:</string>
+    <string name="passwordConfirmation">Confirmación de contraseña:</string>
+    <string name="edit">Editar</string>
+    <string name="login_activity">Vamonos?</string>
+
+    <string name="title_activity_home_page">HomePage</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Open navigation drawer</string>
+    <string-array name="itens_menu_string">
+        <item>Todos</item>
+        <item>Museos</item>
+        <item>Parques</item>
+        <item>Teatros</item>
+        <item>Centros comerciales</item>
+        <item>Deportes</item>
+    </string-array>
+
+    <!-- Remove user strings -->
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_search_user">SearchUser</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="events">Eventos</string>
+    <string name="places">Lugares</string>
+    <string name="people">Personas</string>
+    <string name="title_activity_event_consultation">EventConsultation</string>
+    <string name="name">Nombre</string>
+
+    <!-- Event -->
+    <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
+    <string name="title_activity_local_event">Mapa</string>
+    <string name="event_date">Fecha:</string>
+    <string name="event_hour">Tiempo:</string>
+    <string name="event_description">Descripción:</string>
+    <string name="event_name">Nombre:</string>
+    <string name="event_price">Precio:</string>
+    <string name="event_categories">Categorías:</string>
+    <string name="event_address">Dirección:</string>
+    <string name="event_evaluation">Su evaluación:</string>
+    <string name="event_confirmation">#MeVoy</string>
+    <string name="grade">Nota</string>
+    <string name="button_show_map_txt">Mostrar en el mapa</string>
+    <string name="event_not_found_message">No se han encontrado eventos :(</string>
+    <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
+    <string name="title_activity_show_single">ShowSingle</string>
+    <string name="visualizarRanking">Mostrar Rank Completo</string>
+    <string name="category_show">Espectáculo</string>
+    <string name="category_theater">Teatro</string>
+    <string name="category_cinema">Cine</string>
+    <string name="category_party">Fiesta</string>
+    <string name="category_museum">Museo</string>
+    <string name="category_education">Educación</string>
+    <string name="category_exposition">Exposición</string>
+    <string name="category_sport">Desportes</string>
+    <string name="category_others">Otros</string>
+    <string name="real_symbol">R$</string>
+    <string name="comma">,</string>
+    <string name="event_local">Lugar del evento</string>
+    <string name="select_event_local">Seleccionar lugar del evento</string>
+    <string name="register">Registrar</string>
+    <string name="change">Cambiar</string>
+    <string name="remove">Eliminar</string>
+
+</resources>
