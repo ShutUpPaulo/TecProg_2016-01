@@ -15,4 +15,6 @@
     <string name="password_hint">Contraseña</string>
     <string name="back">Volver</string>
 
+    <string name="deactivated_account">Cuenta Inhabilitada :(</string>
+    <string name="welcome_back">Sea bienvenido de nuevo!</string>
 </resources>

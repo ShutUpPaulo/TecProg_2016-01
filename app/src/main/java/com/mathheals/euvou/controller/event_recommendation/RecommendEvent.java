@@ -38,7 +38,7 @@ public class RecommendEvent extends android.support.v4.app.Fragment
     private static final String ID_EVENT = "idEvent";
     private static final String NAME_EVENT = "nameEvent";
     private static final String ID_EVENT_SEARCH = "idEventSearch";
-    private final String NO_RECOMMENDED_EVENTS = 
+    private final String NO_RECOMMENDED_EVENTS =
             getResources().getString(R.string.no_recommended_events);
 
     private ListView listViewEventRecommendations;
