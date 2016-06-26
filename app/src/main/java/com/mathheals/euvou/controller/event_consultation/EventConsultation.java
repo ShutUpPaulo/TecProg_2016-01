@@ -65,10 +65,18 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        assert savedInstanceState != null;
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event_consultation);
         listView = (ListView) findViewById(R.id.events_list);
+        assert listView != null;
+        assert listView.getId() == R.id.events_list;
+
         event_not_found_text = (TextView) findViewById(R.id.event_not_found_text);
+        assert event_not_found_text != null;
+        assert event_not_found_text.getId() == R.id.event_not_found_text;
         setListViewListener();
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -80,8 +88,11 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
+        assert menu != null;
+
         getMenuInflater().inflate(R.menu.menu_event_consultation, menu);
         actionBar = getSupportActionBar();
+        assert getMenuInflater() != null;
 
         setSearchBar(menu);
         configActionBar();
@@ -97,6 +108,8 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
      * MUST BE REFACTORED!
      */
     private void setSearchBar(Menu menu){
+        assert menu != null;
+
         final String SEARCH_VIEW_HINT = "Pesquisar";
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);

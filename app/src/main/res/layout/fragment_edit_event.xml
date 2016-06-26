@@ -16,7 +16,7 @@
 
 
         <TextView
-            android:text="Nome do Evento"
+            android:text="@string/event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -27,7 +27,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:text="Data do Evento"
+            android:text="@string/event_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -38,7 +38,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:text="Horário do Evento"
+            android:text="@string/event_hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -49,7 +49,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:text="Categoria do Evento"
+            android:text="@string/event_categories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -62,13 +62,13 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Show"
+                android:text="@string/category_show"
                 android:id="@+id/optionShow" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Teatro"
+                android:text="@string/category_theater"
                 android:id="@+id/optionTheater"
                 android:checked="false"
                 android:layout_alignParentTop="true"
@@ -78,7 +78,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cinema"
+                android:text="@string/category_cinema"
                 android:id="@+id/optionCinema"
                 android:checked="false"
                 android:layout_alignParentTop="true"
@@ -88,7 +88,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Balada"
+                android:text="@string/category_party"
                 android:id="@+id/optionParty"
                 android:checked="false"
                 android:layout_below="@+id/optionTheater" />
@@ -96,7 +96,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Museu"
+                android:text="@string/category_museum"
                 android:id="@+id/optionMuseum"
                 android:checked="false"
                 android:layout_below="@+id/optionCinema"
@@ -106,7 +106,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Educação"
+                android:text="@string/category_education"
                 android:id="@+id/optionEducation"
                 android:checked="false"
                 android:layout_below="@+id/optionCinema"
@@ -116,7 +116,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Exposição"
+                android:text="@string/category_exposition"
                 android:id="@+id/optionExposition"
                 android:checked="false"
                 android:layout_alignParentTop="true"
@@ -126,7 +126,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Esporte"
+                android:text="@string/category_sport"
                 android:id="@+id/optionSports"
                 android:checked="false"
                 android:layout_below="@+id/optionTheater"
@@ -136,7 +136,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Outros"
+                android:text="@string/category_others"
                 android:id="@+id/optionOthers"
                 android:checked="false"
                 android:layout_below="@+id/optionParty"
@@ -147,7 +147,7 @@
         </RelativeLayout>
 
         <TextView
-            android:text="Preço do Evento"
+            android:text="@string/event_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"/>
@@ -162,7 +162,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="R$"
+                android:text="@string/real_symbol"
                 android:id="@+id/textView10"
                 android:layout_weight="0.13" />
 
@@ -175,7 +175,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="28dp"
-                android:text=","
+                android:text="@string/comma"
                 android:id="@+id/textView9" />
 
             <EditText
@@ -187,7 +187,7 @@
         </LinearLayout>
 
         <TextView
-            android:text="Endereço"
+            android:text="@string/event_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -198,7 +198,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:text="Local do Evento"
+            android:text="@string/event_local"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -207,10 +207,10 @@
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:singleLine="true"
-            android:text="Selecionar Local do evento" />
+            android:text="@string/select_event_local" />
 
         <TextView
-            android:text="Descriçao do Evento"
+            android:text="@string/event_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:background="#00C0C3"
-                android:text="Alterar"
+                android:text="@string/change"
                 android:layout_gravity="left"
                 />
 
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:background="#00C0C3"
-                android:text="Remover"
+                android:text="@string/remove"
                 android:layout_gravity="right|center_vertical"
 
                 />

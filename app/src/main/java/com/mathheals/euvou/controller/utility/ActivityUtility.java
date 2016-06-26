@@ -21,6 +21,8 @@ public class ActivityUtility{
      */
     public static void restartActivity(Activity activity){
 
+        assert activity != null;
+
         Log.d(TAG, "restartActivity: beggining the restart of the activity");
 
         Intent intent = activity.getIntent();
@@ -33,6 +35,8 @@ public class ActivityUtility{
      * @param fragmentActivity
      */
     public static void clearBackStack(FragmentActivity fragmentActivity){
+        assert fragmentActivity != null;
+
         FragmentManager manager = fragmentActivity.getSupportFragmentManager();
         if (manager.getBackStackEntryCount() > 0){
             Log.d(TAG, "clearBackStack: the back stack is ready to be cleared");

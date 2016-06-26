@@ -7,7 +7,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Nome de usuário"
+        android:text="@string/username"
         android:layout_height="wrap_content" />
 
     <EditText
@@ -18,7 +18,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:text="Senha"
+        android:text="@string/password"
         android:layout_height="wrap_content" />
 
     <EditText
@@ -29,7 +29,7 @@
 
     <Button
         android:id="@+id/doLogin"
-        android:text="Login"
+        android:text="@string/do_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

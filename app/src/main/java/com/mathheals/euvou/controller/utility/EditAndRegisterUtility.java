@@ -20,6 +20,9 @@ public class EditAndRegisterUtility{
      * @param message
      */
     public void setMessageError(EditText editText, String message){
+        assert editText != null;
+        assert message != null;
+
         editText.requestFocus();
         editText.setError(message);
     }
