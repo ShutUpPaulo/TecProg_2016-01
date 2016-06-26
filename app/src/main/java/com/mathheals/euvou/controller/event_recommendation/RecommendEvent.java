@@ -38,8 +38,6 @@ public class RecommendEvent extends android.support.v4.app.Fragment
     private static final String ID_EVENT = "idEvent";
     private static final String NAME_EVENT = "nameEvent";
     private static final String ID_EVENT_SEARCH = "idEventSearch";
-    private final String NO_RECOMMENDED_EVENTS = 
-            getResources().getString(R.string.no_recommended_events);
 
     private ListView listViewEventRecommendations;
     private JSONObject eventDATA;
@@ -79,6 +77,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         if(this.idUser != USER_NOT_LOGGED_IN){
             fillEventsList();
         }else{
+            final String NO_RECOMMENDED_EVENTS =
+                    getResources().getString(R.string.no_recommended_events);
             Toast.makeText(getActivity().getBaseContext(),
                     NO_RECOMMENDED_EVENTS, Toast.LENGTH_LONG).show();
         }
@@ -114,6 +114,8 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         }catch(JSONException | ParseException | EventException e){
             e.printStackTrace();
         } catch(NullPointerException e){
+            final String NO_RECOMMENDED_EVENTS =
+                    getResources().getString(R.string.no_recommended_events);
             Toast.makeText(getActivity().getBaseContext(),
                     NO_RECOMMENDED_EVENTS, Toast.LENGTH_LONG).show();
         }
