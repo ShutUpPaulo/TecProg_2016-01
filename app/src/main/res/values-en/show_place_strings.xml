@@ -8,4 +8,5 @@
     <string name="place_description">Description: </string>
     <string name="show_place_map">Show map</string>
     <string name="hide_place_map">Hide map</string>
+    <string name="login_to_evaluate">Sign in to rate!</string>
 </resources>
