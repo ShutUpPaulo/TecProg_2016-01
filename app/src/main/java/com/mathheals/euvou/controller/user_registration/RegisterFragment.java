@@ -176,7 +176,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener{
 
             registerUser(user);
 
-            String SUCCESSFUL_REGISTRATION_MESSAGE = "Bem vindo ao #EuVou :)";
+            String SUCCESSFUL_REGISTRATION_MESSAGE = getResources().getString(R.string.welcome_to_app);
             Toast.makeText(getActivity().getBaseContext(),
                     SUCCESSFUL_REGISTRATION_MESSAGE, Toast.LENGTH_LONG).show();
 

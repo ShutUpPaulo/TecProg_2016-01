@@ -20,6 +20,8 @@
     <string name="edit">Alterar</string>
     <string name="login_activity">Bora?</string>
 
+    <string name="welcome_to_app">"Bem vindo ao #EuVou :)"</string>
+
     <string name="title_activity_home_page">HomePage</string>
 
     <string name="title_section1">Section 1</string>
