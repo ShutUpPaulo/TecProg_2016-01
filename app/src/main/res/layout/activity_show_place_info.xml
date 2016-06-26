@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/address"
-        android:text="Endereço: "
+        android:text="@string/place_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
 
     <TextView
         android:id="@+id/operation"
-        android:text="Funcionamento: "
+        android:text="@string/place_operation"
         android:layout_below="@id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
 
     <TextView
         android:id="@+id/phone"
-        android:text="Telefone: "
+        android:text="@string/place_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/operation"
@@ -70,7 +70,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:textStyle="italic"
-        android:text="Sua avaliação:"
+        android:text="@string/place_your_evaluation"
         />
 
 
@@ -101,7 +101,7 @@
 
     <TextView
         android:id="@+id/grid"
-        android:text="Avaliação: "
+        android:text="@string/place_evaluation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/phone"
@@ -122,7 +122,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:text="Descrição: "
+        android:text="@string/place_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rate_it_text"
@@ -146,7 +146,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:text="Exibir mapa"
+        android:text="@string/show_place_map"
         android:id="@+id/button_show_map"
         android:textColor="#FFFFFF"
         android:background="@color/turquesa_app"
@@ -159,7 +159,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:text="Ocultar mapa"
+        android:text="@string/hide_place_map"
         android:id="@+id/button_hide_map"
         android:textColor="#FFFFFF"
         android:background="@color/turquesa_app"

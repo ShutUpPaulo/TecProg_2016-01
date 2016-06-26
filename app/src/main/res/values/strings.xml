@@ -20,6 +20,8 @@
     <string name="edit">Alterar</string>
     <string name="login_activity">Bora?</string>
 
+    <string name="welcome_to_app">"Bem vindo ao #EuVou :)"</string>
+
     <string name="title_activity_home_page">HomePage</string>
 
     <string name="title_section1">Section 1</string>
@@ -51,6 +53,7 @@
     <string name="places">Locais</string>
     <string name="people">Pessoas</string>
     <string name="title_activity_event_consultation">EventConsultation</string>
+    <string name="name">Nome</string>
 
     <!-- Event -->
     <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
@@ -62,6 +65,9 @@
     <string name="event_price">Preço:</string>
     <string name="event_categories">Categorias:</string>
     <string name="event_address">Endereço:</string>
+    <string name="event_evaluation">Sua avaliação:</string>
+    <string name="event_confirmation">#EuVou</string>
+    <string name="grade">Nota</string>
     <string name="button_show_map_txt">Ver no mapa</string>
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
@@ -83,5 +89,6 @@
     <string name="register">Cadastrar</string>
     <string name="change">Alterar</string>
     <string name="remove">Remover</string>
-
+    <string name="no_results">Sem resultados</string>
+    <string name="no_recommended_events">Sem eventos recomendados!</string>
 </resources>

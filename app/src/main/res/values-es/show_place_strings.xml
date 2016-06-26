@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="place_address">Dirección: </string>
+    <string name="place_operation">Operación: </string>
+    <string name="place_phone">Teléfono: </string>
+    <string name="place_evaluation">Evaluación: </string>
+    <string name="place_your_evaluation">Su evaluación: </string>
+    <string name="place_description">Descripción: </string>
+    <string name="show_place_map">Mostrar mapa</string>
+    <string name="hide_place_map">Ocultar mapa</string>
+    <string name="login_to_evaluate">Accede para puntuar!</string>
+</resources>

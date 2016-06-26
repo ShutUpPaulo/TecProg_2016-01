@@ -429,9 +429,9 @@ public class ShowPlaceInfo extends FragmentActivity{
         String message = STRING_EMPTY;
 
         if(isUserLoggedIn){
-            message = "Sua avaliação:";
+            message = getResources().getString(R.string.place_your_evaluation);
         }else{
-            message = "Faça login para avaliar!";
+            message = getResources().getString(R.string.login_to_evaluate);
         }
         TextView ratingMessage = (TextView) findViewById(R.id.rate_it_text);
         assert ratingMessage != null;
