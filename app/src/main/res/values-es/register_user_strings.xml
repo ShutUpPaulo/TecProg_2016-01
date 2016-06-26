@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Register user strings -->
+
+    <string name="register_name">Nombre</string>
+    <string name="register_birthday">Fecha de nacimiento</string>
+    <string name="register_email">E-mail</string>
+    <string name="register_email_confirmation">Confirmación de e-mail</string>
+    <string name="register_login">Login</string>
+    <string name="register_password">Contraseña</string>
+    <string name="register_password_confirmation">Confirmación de contraseña</string>
+
+</resources>

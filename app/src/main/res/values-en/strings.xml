@@ -1,0 +1,93 @@
+<resources>
+    <string name = "app_name"> EuVou </string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_search_a__place">Search_a_Place</string>
+    <string name="btnSearchPlace">Search a Place</string>
+    <string name="labelSearchPlace">Search place by name</string>
+    <string name="title_activity_update">UpdateActivity</string>
+    <string name="empty_string"></string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="do_login">Login</string>
+    <string name="username">Username</string>
+    <string name="dateTag">Birthday:</string>
+    <string name="email">E-mail:</string>
+    <string name="emailConfirmation">E-mail confirmation:</string>
+    <string name="passwordConfirmation">Password confirmation:</string>
+    <string name="edit">Edit</string>
+    <string name="login_activity">Let\'s go?</string>
+
+    <string name="title_activity_home_page">HomePage</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Open navigation drawer</string>
+    <string-array name="itens_menu_string">
+        <item>All</item>
+        <item>Museums</item>
+        <item>Parks</item>
+        <item>Teathers</item>
+        <item>Malls</item>
+        <item>Sports</item>
+    </string-array>
+
+    <!-- Remove user strings -->
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_search_user">SearchUser</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="events">Events</string>
+    <string name="places">Places</string>
+    <string name="people">People</string>
+    <string name="title_activity_event_consultation">EventConsultation</string>
+    <string name="name">Name</string>
+
+    <!-- Event -->
+    <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
+    <string name="title_activity_local_event">Map</string>
+    <string name="event_date">Date:</string>
+    <string name="event_hour">Hour:</string>
+    <string name="event_description">Description:</string>
+    <string name="event_name">Name:</string>
+    <string name="event_price">Price:</string>
+    <string name="event_categories">Categories:</string>
+    <string name="event_address">Address:</string>
+    <string name="event_evaluation">Your evaluation:</string>
+    <string name="event_confirmation">#EuVou</string>
+    <string name="grade">Grade</string>
+    <string name="button_show_map_txt">Show on map</string>
+    <string name="event_not_found_message">No event found :(</string>
+    <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
+    <string name="title_activity_show_single">ShowSingle</string>
+    <string name="visualizarRanking">Show Full Rank</string>
+    <string name="category_show">Show</string>
+    <string name="category_theater">Teather</string>
+    <string name="category_cinema">Movie Teather</string>
+    <string name="category_party">Party</string>
+    <string name="category_museum">Museum</string>
+    <string name="category_education">Education</string>
+    <string name="category_exposition">Exposition</string>
+    <string name="category_sport">Sports</string>
+    <string name="category_others">Others</string>
+    <string name="real_symbol">R$</string>
+    <string name="comma">,</string>
+    <string name="event_local">Event Place</string>
+    <string name="select_event_local">Select Event Place</string>
+    <string name="register">Register</string>
+    <string name="change">Change</string>
+    <string name="remove">Remove</string>
+
+    <string name="welcome_to_app">"Welcome to #EuVou :)"</string>
+
+</resources>
