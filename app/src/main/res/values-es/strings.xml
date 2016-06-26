@@ -90,4 +90,7 @@
 
     <string name="welcome_to_app">"Bienvenido al #EuVou :)"</string>
 
+    <string name="no_results">Sin resultados</string>
+    <string name="no_user_found">Ningún usuario encontrado :(</string>
+    <string name="search">Buscar</string>
 </resources>

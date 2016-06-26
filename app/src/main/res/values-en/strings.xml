@@ -89,5 +89,7 @@
     <string name="remove">Remove</string>
 
     <string name="welcome_to_app">"Welcome to #EuVou :)"</string>
-
+    <string name="no_results">No results</string>
+    <string name="no_user_found">No user found :(</string>
+    <string name="search">Search</string>
 </resources>
