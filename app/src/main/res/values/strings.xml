@@ -51,6 +51,7 @@
     <string name="places">Locais</string>
     <string name="people">Pessoas</string>
     <string name="title_activity_event_consultation">EventConsultation</string>
+    <string name="name">Nome</string>
 
     <!-- Event -->
     <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
@@ -64,6 +65,7 @@
     <string name="event_address">Endereço:</string>
     <string name="event_evaluation">Sua avaliação:</string>
     <string name="event_confirmation">#EuVou</string>
+    <string name="grade">Nota</string>
     <string name="button_show_map_txt">Ver no mapa</string>
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
