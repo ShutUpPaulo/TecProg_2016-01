@@ -90,4 +90,5 @@
     <string name="change">Alterar</string>
     <string name="remove">Remover</string>
     <string name="no_results">Sem resultados</string>
+    <string name="no_recommended_events">Sem eventos recomendados!</string>
 </resources>
