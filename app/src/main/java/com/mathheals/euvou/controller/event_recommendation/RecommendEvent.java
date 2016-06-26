@@ -35,10 +35,11 @@ public class RecommendEvent extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener{
 
     private static final int USER_NOT_LOGGED_IN = -1;
-    private static final String NO_RECOMMENDED_EVENTS = "Sem eventos recomendados!";
     private static final String ID_EVENT = "idEvent";
     private static final String NAME_EVENT = "nameEvent";
     private static final String ID_EVENT_SEARCH = "idEventSearch";
+    private final String NO_RECOMMENDED_EVENTS =
+            getResources().getString(R.string.no_recommended_events);
 
     private ListView listViewEventRecommendations;
     private JSONObject eventDATA;

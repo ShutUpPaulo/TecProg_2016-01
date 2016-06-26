@@ -15,4 +15,7 @@
     <string name="password_hint">Senha</string>
     <string name="back">Voltar</string>
 
+    <string name="deactivated_account">Conta desativada :(</string>
+    <string name="welcome_back">Seja bem-vindo novamente!</string>
+
 </resources>

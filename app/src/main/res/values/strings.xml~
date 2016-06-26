@@ -90,10 +90,5 @@
     <string name="change">Alterar</string>
     <string name="remove">Remover</string>
     <string name="no_results">Sem resultados</string>
-<<<<<<< HEAD
-    <string name="no_user_found">Nenhum usuário foi encontrado :(</string>
-    <string name="search">Pesquisar</string>
-=======
-    <string name="no_recommended_events">Sem eventos recomendados!</string>
->>>>>>> 1646fbeb6f6e1a7610ca0d9029a6ca3071b47953
+    <string name="no_user_found">Nenhum usuário foi encontrado :(</strings>
 </resources>

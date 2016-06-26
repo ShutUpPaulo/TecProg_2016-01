@@ -8,4 +8,6 @@
     <string name="place_description">Descrição: </string>
     <string name="show_place_map">Exibir mapa</string>
     <string name="hide_place_map">Ocultar mapa</string>
+    <string name="login_to_evaluate">Faça login para avaliar!</string>
+
 </resources>
