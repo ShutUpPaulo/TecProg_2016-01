@@ -62,6 +62,8 @@
     <string name="event_price">Preço:</string>
     <string name="event_categories">Categorias:</string>
     <string name="event_address">Endereço:</string>
+    <string name="event_evaluation">Sua avaliação:</string>
+    <string name="event_confirmation">#EuVou</string>
     <string name="button_show_map_txt">Ver no mapa</string>
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
