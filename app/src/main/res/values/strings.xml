@@ -89,5 +89,5 @@
     <string name="register">Cadastrar</string>
     <string name="change">Alterar</string>
     <string name="remove">Remover</string>
-
+    <string name="no_results">Sem resultados</string>
 </resources>
