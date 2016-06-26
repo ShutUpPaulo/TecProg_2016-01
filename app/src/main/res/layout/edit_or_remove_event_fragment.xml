@@ -88,7 +88,7 @@
         android:id="@+id/event_adress_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/event_adress"
+        android:text="@string/event_address"
         android:layout_marginTop="10dp" />
 
     <TextView

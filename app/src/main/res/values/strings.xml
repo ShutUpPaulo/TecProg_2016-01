@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EuVou</string>
+    <string name = "app_name"> EuVou </string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -56,15 +56,30 @@
     <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
     <string name="title_activity_local_event">Map</string>
     <string name="event_date">Data:</string>
+    <string name="event_hour">Horário:</string>
     <string name="event_description">Descrição:</string>
     <string name="event_name">Nome:</string>
     <string name="event_price">Preço:</string>
     <string name="event_categories">Categorias:</string>
-    <string name="event_adress">Endereço:</string>
+    <string name="event_address">Endereço:</string>
     <string name="button_show_map_txt">Ver no mapa</string>
     <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
     <string name="title_activity_show_single">ShowSingle</string>
     <string name="visualizarRanking">Visualizar Rank Completo</string>
+    <string name="category_show">Show</string>
+    <string name="category_theater">Teatro</string>
+    <string name="category_cinema">Cinema</string>
+    <string name="category_party">Balada</string>
+    <string name="category_museum">Museu</string>
+    <string name="category_education">Educação</string>
+    <string name="category_exposition">Exposição</string>
+    <string name="category_sport">Esportes</string>
+    <string name="category_others">Outros</string>
+    <string name="real_symbol">R$</string>
+    <string name="comma">,</string>
+    <string name="event_local">Local do Evento</string>
+    <string name="select_event_local">Selecionar Local do Evento</string>
+    <string name="register">Cadastrar</string>
 
 </resources>
