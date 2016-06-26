@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Remove user strings -->
+
+    <string name="allow_gps_message">Allow to use my localization</string>
+    <string name="disable_account">Deactivate account</string>
+    <string name="gosh_message">Oh Gosh :(</string>
+    <string name="some_more_message">Do you want to stay a little longer?</string>
+    <string name="unable_message">DEACTIVATE</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="login">User:</string>
+    <string name="password">Password:</string>
+    <string name="login_hint">User confirmation</string>
+    <string name="password_hint">Password</string>
+    <string name="back">Back</string>
+
+</resources>
