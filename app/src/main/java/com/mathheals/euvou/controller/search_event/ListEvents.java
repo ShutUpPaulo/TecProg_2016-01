@@ -5,6 +5,8 @@
 
 package com.mathheals.euvou.controller.search_event;
 
+import android.content.Context;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -109,8 +111,10 @@ public class ListEvents extends android.support.v4.app.Fragment
         }catch(NullPointerException e){
             e.printStackTrace();
 
-            final String NO_EVENT_CREATED = "Sem eventos criados";
-            Toast.makeText(getContext(), NO_EVENT_CREATED,Toast.LENGTH_SHORT).show();
+            final String NO_EVENT_CREATED_MESSAGE = getContext().getResources().
+                    getString(R.string.no_event_created);
+            
+            Toast.makeText(getContext(), NO_EVENT_CREATED_MESSAGE,Toast.LENGTH_SHORT).show();
         }
     }
 
