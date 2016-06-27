@@ -56,13 +56,19 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
 
         View view = inflater.inflate(R.layout.fragment_edit_user, container, false);
 
+        assert view != null;
+
         UserDAO userDAO = new UserDAO(this.getActivity());
+
+        assert userDAO != null;
 
         setingEditText(view);
         birthDateField.addTextChangedListener(Mask.insert("##/##/####", birthDateField));
 
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
+
+        assert loginUtility != null;
 
         String str = userDAO.searchUserById(USER_STATUS);
         JSONObject json = null;
@@ -84,12 +90,18 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
             birthDateField.setText(birthDate);
             mailField.setText(mail);
 
+            assert nameField.getText().equals(nameUser);
+            assert birthDateField.getText().equals(birthDate);
+            assert mailField.getText().equals(mail);
+
         }catch(JSONException e){
             e.printStackTrace();
         }
 
         Button update = (Button)view.findViewById(R.id.updateButton);
         update.setOnClickListener(this);
+
+        assert update != null;
 
         return view;
     }
@@ -101,6 +113,8 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
     private void updateUser(User user){
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.updateUser(user);
+
+        assert userDAO.updateUser(user).equals(user);
     }
 
     /**
@@ -142,11 +156,15 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
         USER_STATUS = loginUtility.getUserId();
 
+        assert loginUtility != null;
+
         try{
             User user = new User(USER_STATUS, name, birthDate, mail, mailConfirm, password, passwordConfirm);
             updateUser(user);
             Toast.makeText(this.getActivity().getBaseContext(), getResources().
                     getString(R.string.user_updated_with_success), Toast.LENGTH_LONG).show();
+
+            assert user != null;
 
             Activity activity = getActivity();
             Intent intent = activity.getIntent();
