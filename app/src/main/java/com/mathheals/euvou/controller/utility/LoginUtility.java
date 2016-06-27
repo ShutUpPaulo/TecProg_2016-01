@@ -17,12 +17,6 @@ public class LoginUtility {
     private static final int LOGGED_OUT = -1;
     private static final String ID_FIELD =  "idField";
     private static final String COLUMN_USER_ID = "idUser";
-    private static final String COLUMN_USER_NAME = "nameUser";
-    private static final String COLUMN_USER_LOGIN = "login";
-    private static final String COLUMN_USER_EMAIL = "email";
-    private static final String COLUMN_USER_PASSWORD = "passwordUser";
-    private static final String COLUMN_USER_BIRTHDATE = "birthDate";
-    private static final String COLUMN_USER_STATE = "isActivity";
     private Activity activity;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
