@@ -88,6 +88,7 @@
     <string name="change">Change</string>
     <string name="remove">Remove</string>
     <string name="no_recommended_events">No recommended events!</string>
+    <string name="no_event_created">No event created!</string>
 
     <string name="welcome_to_app">"Welcome to #EuVou :)"</string>
 

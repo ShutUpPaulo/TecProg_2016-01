@@ -91,4 +91,5 @@
     <string name="remove">Remover</string>
     <string name="no_results">Sem resultados</string>
     <string name="no_recommended_events">Sem eventos recomendados!</string>
+    <string name="no_event_created">Sem eventos criados!</string>
 </resources>
