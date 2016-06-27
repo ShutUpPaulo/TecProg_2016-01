@@ -43,13 +43,13 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
     HashMap <String, EditText> messages = new HashMap<>();
 
-    EditText nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
-    EditText dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
-    EditText hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
-    EditText descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
-    EditText addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
-    EditText priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
-    EditText priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
+    EditText nameEventField;
+    EditText dateEventField;
+    EditText hourEventField;
+    EditText descriptionEventField;
+    EditText addressEventField;
+    EditText priceEventRealField;
+    EditText priceEventDecimalField;
 
     /**
      * Required constructor to instantiate a fragment object
@@ -91,6 +91,14 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
 
         //Adding listener to CheckBoxs to verify if each CheckBox is checked or not
         addCheckBoxListeners(view);
+
+        nameEventField = (EditText) this.getActivity().findViewById(R.id.eventName);
+        dateEventField = (EditText) this.getActivity().findViewById(R.id.eventDate);
+        hourEventField = (EditText) this.getActivity().findViewById(R.id.eventHour);
+        descriptionEventField = (EditText) this.getActivity().findViewById(R.id.eventDescription);
+        addressEventField = (EditText) this.getActivity().findViewById(R.id.eventAddress);
+        priceEventRealField = (EditText) this.getActivity().findViewById(R.id.eventPriceReal);
+        priceEventDecimalField = (EditText) this.getActivity().findViewById(R.id.eventPriceDecimal);
 
         return view;
     }
