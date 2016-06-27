@@ -28,6 +28,9 @@ public class PlaceAdapter extends ArrayAdapter<Place>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        assert position >= 0;
+        assert convertView != null;
+        assert parent != null;
 
         Place place = getItem(position);
         ViewHolder viewHolder;
@@ -56,6 +59,8 @@ public class PlaceAdapter extends ArrayAdapter<Place>{
     }
 
     private String resumePlaceName(String placeName){
+        assert placeName != null;
+
         String placeNameText;
 
         if(placeName.length() <= 40){
