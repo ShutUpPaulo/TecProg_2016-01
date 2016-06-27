@@ -115,4 +115,6 @@
     <string name="already_unmarked_participation">Hey, você já desmarcou sua participação</string>
     <string name="success_saved">Salvo com sucesso!</string>
     <string name="go">#EUVOU</string>
+    <string name="event_registered_with_success">Evento cadastrado com sucesso :)</string>
+    <string name="local_successfully_selected">Local selecionado com sucesso</string>
 </resources>

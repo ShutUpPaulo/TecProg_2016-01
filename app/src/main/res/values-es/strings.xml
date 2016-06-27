@@ -118,4 +118,6 @@
     <string name="category_is_invalid">Hey, se olvidó de informar a la categoría del evento,
         ¡llenarlo ahí, por favor!</string>
     <string name="go">#YOIRÉ</string>
+    <string name="event_registered_with_success">Acontecimiento registrado con éxito :)</string>
+    <string name="local_successfully_selected">Local seleccionado con éxito</string>
 </resources>

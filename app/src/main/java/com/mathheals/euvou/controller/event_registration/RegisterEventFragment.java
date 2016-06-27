@@ -5,6 +5,7 @@
 
 package com.mathheals.euvou.controller.event_registration;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,7 +34,6 @@ import model.Event;
  */
 public class RegisterEventFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
-    private static final String SUCCESSFULL_CADASTRATION_MESSAGE = "Evento cadastrado com sucesso :)";
     private String latitude;
     private String longitude;
 
@@ -205,7 +205,12 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     categories);
             registerEvent(event);
 
-            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_CADASTRATION_MESSAGE,
+            final Context context = getActivity().getBaseContext();
+
+            final String EVENT_REGISTERED_WITH_SUCCESS_MESSAGE = context.getResources().
+                    getString(R.string.event_registered_with_success);
+
+            Toast.makeText(context, EVENT_REGISTERED_WITH_SUCCESS_MESSAGE,
                     Toast.LENGTH_LONG).show();
         } catch (EventException e) {
             String message = e.getMessage();
@@ -272,7 +277,12 @@ public class RegisterEventFragment extends android.support.v4.app.Fragment imple
                     latitude = bundle.getString("latitude");
                     longitude = bundle.getString("longitude");
 
-                    Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
+                    final Context context = getContext();
+
+                    final String LOCAL_SUCCESSFULLY_SELECTED_MESSAGE = context.getResources().
+                            getString(R.string.local_successfully_selected);
+
+                    Toast.makeText(context, LOCAL_SUCCESSFULLY_SELECTED_MESSAGE, Toast.LENGTH_LONG).show();
                 }
                 else{
                     //Nothing to do
