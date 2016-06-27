@@ -4,7 +4,6 @@
  */
 package com.mathheals.euvou.controller.utility;
 
-import android.support.v4.app.Fragment;
 import android.widget.EditText;
 
 public class EditAndRegisterUtility{

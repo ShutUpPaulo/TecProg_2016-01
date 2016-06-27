@@ -103,7 +103,9 @@ public abstract class Mask{
                 dateSplit[1] + "-" +
                 dateSplit[0];
 
-        return brazilianDateFormat + " " + dateAndTime[1];
+        String dateInBrazilianFormat = brazilianDateFormat + " " + dateAndTime[1];
+
+        return dateInBrazilianFormat;
     }
 }
 

@@ -33,11 +33,14 @@ import model.Place;
 
 public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMarkerClickListener{
 
+    private static final String STRING_EMPTY = "";
+    private static final int INT_ZERO = 0;
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ArrayList<Place> places;
-    private String filter;
+    private String filter = STRING_EMPTY;
     private Place clickedPlace;
-    private int selectedPlaceId;
+    private int selectedPlaceId = INT_ZERO;
     private JSONObject foundPlaces;
     private static final String TAG = "setUpMapIfNeeded";
 
@@ -105,7 +108,9 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
      * @return JSONObject - Returns a JSONObject with the results of the consult
      */
     private JSONObject searchPlaces(){
-        return new PlaceDAO(this).searchPlaceByPartName(getFilter());
+        JSONObject placesSearched = new PlaceDAO(this).searchPlaceByPartName(getFilter());
+
+        return placesSearched;
     }
 
     /**
@@ -191,6 +196,7 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
         int id = Integer.parseInt(placeMarker);
         select(id);
         startShowInfoActivity();
+
         return false;
     }
 
