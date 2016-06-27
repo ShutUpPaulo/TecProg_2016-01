@@ -40,7 +40,7 @@ import java.util.Objects;
 import dao.EventDAO;
 import dao.UserDAO;
 
-public class EventConsultation extends AppCompatActivity implements OnCheckedChangeListener{
+public class    EventConsultation extends AppCompatActivity implements OnCheckedChangeListener{
 
     private RadioGroup radioGroup;
     private ActionBar actionBar;
@@ -52,7 +52,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     private TextView event_not_found_text;
 
     private JSONObject peopleDATA;
-    private static final String PEOPLE_NOT_FOUND_MESSAGE = "Nenhum usuário foi encontrado :(";
+    private final String PEOPLE_NOT_FOUND_MESSAGE = getResources().getString(R.string.no_user_found);
 
     private String option;
 
@@ -110,7 +110,7 @@ public class EventConsultation extends AppCompatActivity implements OnCheckedCha
     private void setSearchBar(Menu menu){
         assert menu != null;
 
-        final String SEARCH_VIEW_HINT = "Pesquisar";
+        final String SEARCH_VIEW_HINT = getResources().getString(R.string.search);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
