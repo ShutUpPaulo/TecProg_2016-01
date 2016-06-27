@@ -6,9 +6,12 @@ package model;
 
 public class Evaluation{
 
-    private float grid;
-    private int idPlace;
-    private int idUser;
+    private static final float FLOAT_ZERO = 0;
+    private static final int INT_ZERO = 0;
+
+    private float grid = FLOAT_ZERO;
+    private int idPlace = INT_ZERO;
+    private int idUser = INT_ZERO;
 
     /**
      * Constructs the evaluation with the given information
@@ -20,6 +23,10 @@ public class Evaluation{
         setIdPlace(idPlace);
         setIdUser(idUser);
         setGrid(grid);
+
+        assert getIdPlace() == idPlace;
+        assert getIdUser() == idUser;
+        assert getGrid() == grid;
     }
 
     /**
