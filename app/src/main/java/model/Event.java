@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+import java.util.logging.StreamHandler;
+
 import exception.EventException;
 
 public class Event{
@@ -51,15 +53,19 @@ public class Event{
     private static final String CATEGORY_IS_INVALID = Resources.getSystem().getString
             (R.string.category_is_invalid);
 
-    private int idEvent;
-    private String nameEvent;
-    private String dateTimeEvent;
-    private String description;
-    private Double latitude;
-    private Double longitude;
-    private String address;
-    private Integer evaluation;
-    private Integer price;
+    private static final String STRING_EMPTY = "";
+    private static final double DOUBLE_ZERO = 0.0;
+    private static final int INT_ZERO = 0;
+
+    private int idEvent = INT_ZERO;
+    private String nameEvent = STRING_EMPTY;
+    private String dateTimeEvent = STRING_EMPTY;
+    private String description = STRING_EMPTY;
+    private Double latitude = DOUBLE_ZERO;
+    private Double longitude = DOUBLE_ZERO;
+    private String address = STRING_EMPTY;
+    private Integer evaluation = INT_ZERO;
+    private Integer price = INT_ZERO;
     private Vector<String> category;
 
     private static final int MAX_LENGTH_NAME = 50;
