@@ -23,18 +23,9 @@
     <string name="welcome_to_app">"Bem vindo ao #EuVou :)"</string>
 
     <string name="title_activity_home_page">HomePage</string>
-
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-
     <string name="drawer_open">Abrir navigation drawer</string>
     <string name="drawer_close">Fechar navigation drawer</string>
+
     <string-array name="itens_menu_string">
         <item>Todos</item>
         <item>Museus</item>
@@ -94,4 +85,7 @@
     <string name="no_recommended_events">Sem eventos recomendados!</string>
     <string name="no_event_created">Sem eventos criados!</string>
     <string name="user_updated_with_success">Usuario alterado com sucesso</string>
+    <string name="already_mark_participation">Hey, você já marcou sua participação</string>
+    <string name="already_unmarked_participation">Hey, você já desmarcou sua participação</string>
+    <string name="success_saved">Salvo com sucesso!</string>
 </resources>
