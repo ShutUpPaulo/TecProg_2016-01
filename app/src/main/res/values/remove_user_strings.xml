@@ -2,20 +2,19 @@
 <resources>
     <!-- Remove user strings -->
 
-    <string name="allow_gps_message">Permitir usar minha localização</string>
-    <string name="disable_account">Desativar conta</string>
-    <string name="gosh_message">Poxa vida :(</string>
-    <string name="some_more_message">Deseja ficar um pouco mais?</string>
-    <string name="unable_message">DESATIVAR</string>
-    <string name="no">Não</string>
-    <string name="yes">Sim</string>
-    <string name="login">Usuário:</string>
-    <string name="password">Senha:</string>
-    <string name="login_hint">Confirme seu usuário</string>
-    <string name="password_hint">Senha</string>
-    <string name="back">Voltar</string>
+    <string name="allow_gps_message">Allow to use my localization</string>
+    <string name="disable_account">Deactivate account</string>
+    <string name="gosh_message">Oh Gosh :(</string>
+    <string name="some_more_message">Do you want to stay a little longer?</string>
+    <string name="unable_message">DEACTIVATE</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="login">User:</string>
+    <string name="password">Password:</string>
+    <string name="login_hint">User confirmation</string>
+    <string name="password_hint">Password</string>
+    <string name="back">Back</string>
 
-    <string name="deactivated_account">Conta desativada :(</string>
-    <string name="welcome_back">Seja bem-vindo novamente!</string>
-
+    <string name="deactivated_account">Deactivated account :(</string>
+    <string name="welcome_back">Welcome back!</string>
 </resources>

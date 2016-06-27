@@ -1,0 +1,122 @@
+<resources>
+    <string name = "app_name"> EuVou </string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_search_a__place">Search_a_Place</string>
+    <string name="btnSearchPlace">Pesquise um local</string>
+    <string name="labelSearchPlace">Pesquise um local pelo nome</string>
+    <string name="title_activity_update">UpdateActivity</string>
+    <string name="empty_string"></string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="do_login">Login</string>
+    <string name="username">Nome do usuário</string>
+    <string name="dateTag">Data de nascimento:</string>
+    <string name="email">Email:</string>
+    <string name="emailConfirmation">Confirmação de email:</string>
+    <string name="passwordConfirmation">Confirmaçao de senha:</string>
+    <string name="edit">Alterar</string>
+    <string name="login_activity">Bora?</string>
+
+    <string name="welcome_to_app">"Bem vindo ao #EuVou :)"</string>
+
+    <string name="title_activity_home_page">HomePage</string>
+    <string name="drawer_open">Abrir navigation drawer</string>
+    <string name="drawer_close">Fechar navigation drawer</string>
+
+    <string-array name="itens_menu_string">
+        <item>Todos</item>
+        <item>Museus</item>
+        <item>Parques</item>
+        <item>Teatros</item>
+        <item>Shoppings</item>
+        <item>Esportes</item>
+    </string-array>
+
+    <!-- Remove user strings -->
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_search_user">SearchUser</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="events">Eventos</string>
+    <string name="places">Locais</string>
+    <string name="people">Pessoas</string>
+    <string name="title_activity_event_consultation">EventConsultation</string>
+    <string name="name">Nome</string>
+
+    <!-- Event -->
+    <string name="DISABLE_ACCOUNT_FRAGMENT_TAG">disable_account_fragment_tag</string>
+    <string name="title_activity_local_event">Map</string>
+    <string name="event_date">Data:</string>
+    <string name="event_hour">Horário:</string>
+    <string name="event_description">Descrição:</string>
+    <string name="event_name">Nome:</string>
+    <string name="event_price">Preço:</string>
+    <string name="event_categories">Categorias:</string>
+    <string name="event_address">Endereço:</string>
+    <string name="event_evaluation">Sua avaliação:</string>
+    <string name="event_confirmation">#EuVou</string>
+    <string name="grade">Nota</string>
+    <string name="button_show_map_txt">Ver no mapa</string>
+    <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
+    <string name="title_activity_show_single">ShowSingle</string>
+    <string name="visualizarRanking">Visualizar Rank Completo</string>
+    <string name="category_show">Show</string>
+    <string name="category_theater">Teatro</string>
+    <string name="category_cinema">Cinema</string>
+    <string name="category_party">Balada</string>
+    <string name="category_museum">Museu</string>
+    <string name="category_education">Educação</string>
+    <string name="category_exposition">Exposição</string>
+    <string name="category_sport">Esportes</string>
+    <string name="category_others">Outros</string>
+    <string name="real_symbol">R$</string>
+    <string name="comma">,</string>
+    <string name="event_local">Local do Evento</string>
+    <string name="select_event_local">Selecionar Local do Evento</string>
+    <string name="register">Cadastrar</string>
+    <string name="change">Alterar</string>
+    <string name="remove">Remover</string>
+    <string name="no_results">Sem resultados</string>
+    <string name="no_user_found">Nenhum usuário foi encontrado :(</string>
+    <string name="search">Pesquisar</string>
+    <string name="no_recommended_events">Sem eventos recomendados!</string>
+    <string name="no_event_created">Sem eventos criados!</string>
+    <string name="user_updated_with_success">Usuario alterado com sucesso</string>
+    <string name="event_name_cant_be_empty">Hey, acho que você está esquecendo de nos informar o
+        nome do evento!</string>
+    <string name="name_cant_be_greater_than_50">Hey, você ultrapassou o número de caracteres
+        permitido para o nome do evento, tente novamente.</string>
+    <string name="description_cant_be_empty">Hey, acho que você esqueceu de informar a descrição
+        do evento.</string>
+    <string name="description_cant_be_greater_than">Hey, o máximo de caracteres para descrever
+        um evento é de 500 caracteres.</string>
+    <string name="latitude_is_invalid">Hey, você inseriu um número inválido, a latitude deve ser
+        maior que -90 e menor que 90!</string>
+    <string name="longitude_is_invalid">Hey, você inseriu um número inválido, a longitude deve ser
+        maior que -180 e menor que 180.</string>
+    <string name="longitude_is_empty">Hey, você deixou a longitude em branco...
+        preenche ela aí, vai!</string>
+    <string name="latitude_is_empty">Hey, você deixou a latitude em branco...
+        preenche ela aí, vai!</string>
+    <string name="invalid_evaluation">Hey, você deve avaliar um evento com notas de 1 a 5!</string>
+    <string name="address_is_empty">Hey, você esqueceu de nos informar o endereço do evento!</string>
+    <string name="invalid_event_date">Hey, você informou uma data errada, pay attention guy!</string>
+    <string name="event_date_is_empty">Hey, você esqueceu de informar a data do evento, cuidado!</string>
+    <string name="price_real_is_empty">Hey, você esqueceu de informar a parte em reais do preço</string>
+    <string name="price_decimal_is_empty">Hey, voce esqueceu de informar a parte decimal do preço.</string>
+    <string name="invalid_event_hour">Hey, você informou uma hora inválida</string>
+    <string name="event_hour_is_empty">Hey, você esqueceu de informar a hora.</string>
+    <string name="category_is_invalid">Hey, você esqueceu de informar a categoria do evento,
+        preenche ela aí, vai!</string>
+    <string name="already_mark_participation">Hey, você já marcou sua participação</string>
+    <string name="already_unmarked_participation">Hey, você já desmarcou sua participação</string>
+    <string name="success_saved">Salvo com sucesso!</string>
+    <string name="go">#EUVOU</string>
+    <string name="event_registered_with_success">Evento cadastrado com sucesso :)</string>
+    <string name="local_successfully_selected">Local selecionado com sucesso</string>
+    <string name="successfully_update_message">Evento alterado com sucesso :)</string>
+
+</resources>
