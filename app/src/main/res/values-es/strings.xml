@@ -95,4 +95,34 @@
     <string name="no_user_found">Ningún usuario encontrado :(</string>
     <string name="search">Buscar</string>
     <string name="user_updated_with_success">Usuario cambiado con éxito</string>
+    <string name="event_name_cant_be_empty">¡Hey, creo que te estás olvidando de decirnos el nombre
+        del evento!</string>
+    <string name="name_cant_be_greater_than_50">Hey, ha excedido el número de caracteres permitidos
+        para el nombre del evento, intenta de nuevo.</string>
+    <string name="description_cant_be_empty">Hey, creo que se olvidó de informar a la descripción
+        del evento.</string>
+    <string name="description_cant_be_greater_than">Hey, el máximo de caracteres para describir un
+        evento es de 500 caracteres.</string>
+    <string name="latitude_is_invalid">Hey, has introducido un número no válido, la latitud debe ser
+        mayor que -90 y menos de 90!"</string>
+    <string name="longitude_is_invalid">Hey,has introducido un número no válido, la longitud debe
+        ser mayor que -180 y menor que 180.</string>
+    <string name="longitude_is_empty">Hey, dejó el espacio en blanco de longitud ...
+        ¡llenarlo ahí, por favor!</string>
+    <string name="latitude_is_empty">Hey, dejó el espacio en blanco de latitud ...
+        ¡llenarlo ahí, por favor!</string>
+    <string name="invalid_evaluation">¡Hey, se debe evaluar un evento con notas de 1 a 5!"</string>
+    <string name="address_is_empty">¡Hey, se le olvidó decirnos la dirección del evento!</string>
+    <string name="invalid_event_date">Hey, ha introducido una fecha equivocada,
+        presta atención chico!</string>
+    <string name="event_date_is_empty">Hey, se olvidó de informar a la fecha del evento,
+        ¡cuidado!</string>
+    <string name="price_real_is_empty">Hey, se olvidó de informar a la parte del precio
+        de los reales.</string>
+    <string name="price_decimal_is_empty">Hey, se olvidó de informar a la parte
+        decimal del precio.</string>
+    <string name="invalid_event_hour">Hey, ha introducido una hora no válida.</string>
+    <string name="event_hour_is_empty">Hey, se olvidó de dar la hora.</string>
+    <string name="category_is_invalid">Hey, se olvidó de informar a la categoría del evento,
+        ¡llenarlo ahí, por favor!</string>
 </resources>

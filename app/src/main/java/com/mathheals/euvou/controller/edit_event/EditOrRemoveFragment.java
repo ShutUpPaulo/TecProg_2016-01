@@ -26,7 +26,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         // Required empty public constructor
     }
 
-    public Event evento;
+    public Event event;
     private ShowEvent showEvent = new ShowEvent();
 
     /**
@@ -105,7 +105,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
         assert eventAddressTextView.getText() == eventAddress;
 
         showEvent.setPriceText(eventPriceText, eventPrice+"");
-        showEvent.setCategoriesText(Integer.valueOf(evento.getIdEvent()), eventCategoriesText);
+        showEvent.setCategoriesText(Integer.valueOf(event.getIdEvent()), eventCategoriesText);
     }
 
     /**
@@ -114,11 +114,11 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
      */
     public void getEventInfo(View view){
 
-        String eventName = evento.getNameEvent();
-        String eventDescription = evento.getDescription();
-        String eventDateTime = evento.getDateTimeEvent();
-        Integer eventPrice = evento.getPrice();
-        String eventAddress = evento.getAddress();
+        String eventName = event.getNameEvent();
+        String eventDescription = event.getDescription();
+        String eventDateTime = event.getDateTimeEvent();
+        Integer eventPrice = event.getPrice();
+        String eventAddress = event.getAddress();
 
         //Calls the method to show the information obtained above
         setEventInfoOnTextView(view, eventName, eventDateTime, eventDescription, eventAddress,
@@ -145,7 +145,7 @@ public class EditOrRemoveFragment extends android.support.v4.app.Fragment  imple
 
             android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().
                     getSupportFragmentManager().beginTransaction();
-            bundle.putInt("idEvent", evento.getIdEvent());
+            bundle.putInt("idEvent", event.getIdEvent());
             editEventFragment.setArguments(bundle);
 
             fragmentTransaction.addToBackStack(null);

@@ -13,7 +13,7 @@ public class EventEvaluation {
     private Integer eventId;
     public static final String EVALUATION_IS_INVALID = "Hey, a avaliação deve estar entre 0 e 5";
     public static final String USER_ID_IS_INVALID = "O identificador do usuário é inválido";
-    public static final String EVENT_ID_IS_INVALID = "O identificador do evento é inválido";
+    public static final String EVENT_ID_IS_INVALID = "O identificador do event é inválido";
 
     /**
      * Constructs event evaluation with given information

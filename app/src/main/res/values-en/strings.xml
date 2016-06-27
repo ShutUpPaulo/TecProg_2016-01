@@ -94,4 +94,21 @@
     <string name="no_user_found">No user found :(</string>
     <string name="search">Search</string>
     <string name="user_updated_with_success">User updated with success</string>
+    <string name="event_name_cant_be_empty">Hey, I guess u forgot to tell us the name of the event!</string>
+    <string name="name_cant_be_greater_than_50">Hey, you've exceeded the number of characters allowed to the name of the event, try again.</string>
+    <string name="description_cant_be_empty">Hey, I guess you forgot to tell us the description of the event.</string>
+    <string name="description_cant_be_greater_than">Hey, the maximum number of characters to describe an event is 500.</string>
+    <string name="latitude_is_invalid">Hey, you've inserted an invalid number, the latitude must be greater than -90 and less than 90!</string>
+    <string name="longitude_is_invalid">Hey,you've inserted an invalid number, the longitude muest be greater than -180 and less than 180!</string>
+    <string name="longitude_is_empty">Hey,you've left the longitude empty, tell us, please :)</string>
+    <string name="latitude_is_empty">Hey,you've left the latitude empty, tell us, please :)</string>
+    <string name="invalid_evaluation">Hey, you've must evaluate an event with points between 1 to 5!</string>
+    <string name="address_is_empty">Hey, you've forgot to tell us the address of the event!</string>
+    <string name="invalid_event_date">Hey, you've told us a wrong date, pay attention guy!</string>
+    <string name="event_date_is_empty">Hey, you've forgot to tell us the date of the event!</string>
+    <string name="price_real_is_empty">Hey, you've forgot to tell us the part in reals of the price</string>
+    <string name="price_decimal_is_empty">Hey,you've forgot to tell us the the decimal part of the price</string>
+    <string name="invalid_event_hour">Hey, you've told us an invalid hour to your event</string>
+    <string name="event_hour_is_empty">Hey, you've forgot to tell us the hour of the event</string>
+    <string name="category_is_invalid">Hey, you've forgot to tell us the category of the event, please, tell us :)!</string>
 </resources>

@@ -31,7 +31,7 @@ public class ShowEventTest extends TestCase {
         try
         {
             String eventDescription = eventData.getJSONObject("0").getString("description");
-            assertEquals("evento Teste",eventDescription);
+            assertEquals("event Teste",eventDescription);
         }catch(JSONException ex)
         {
         }catch(NullPointerException exception)

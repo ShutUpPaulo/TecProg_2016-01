@@ -4,6 +4,10 @@
  */
 package model;
 
+import android.content.res.Resources;
+
+import com.mathheals.euvou.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,39 +16,24 @@ import exception.EventException;
 
 public class Event{
 
-    public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = "Hey, acho que você está " +
-            "esquecendo de nos informar o nome do evento.";
-    public static final String NAME_CANT_BE_GREATER_THAN_50 = "Hey, você ultrapassou o número de " +
-            "caracteres permitido para o nome do evento, tente novamente.";
-    public static final String DESCRIPTION_CANT_BE_EMPTY = "Hey, acho que você esqueceu de " +
-            "informar a descrição do evento.";
-    public static final String DESCRIPTION_CANT_BE_GREATER_THAN = "Hey, o máximo de caracteres" +
-            " para descrever um evento é de 500 caracteres";
-    private static final String LATITUDE_IS_INVALID = "Hey, você inseriu um número inválido," +
-            " a latitude deve ser maior que -90 e menor que 90!";
-    private static final String LONGITUDE_IS_INVALID = "Hey, você inseriu um número inválido," +
-            " a longitude deve ser maior que -180 e menor que 180";
-    private static final String LONGITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco..." +
-            " preenche ela aí, vai!";
-    private static final String LANTITUDE_IS_EMPTY = "Hey, você deixou a longitude em branco... " +
-            "preenche ela aí, vai!";
-    private static final String INVALID_EVALUATION = "Hey, você deve avaliar um evento com notas" +
-            " de 1 a 5!";
-    public static final String ADDRESS_IS_EMPTY = "Hey, você esqueceu de nos informar o endereço" +
-            " do evento!";
-    public static final String INVALID_EVENT_DATE = "Hey, você informou uma data errada, pay" +
-            " attention guy!";
-    public static final String EVENT_DATE_IS_EMPTY = "Hey, você esqueceu de informar a data do" +
-            " evento, cuidado!";
-    public static final String PRICE_REAL_IS_EMPTY = "Hey, você esqueceu de informar a parte" +
-            " real do preço";
-    public static final String PRICE_DECIMAL_IS_EMPTY = "Hey, você esqueceu de informar a parte" +
-            " decimal do preço";
-    public static final String INVALID_EVENT_HOUR = "Hey, você informou uma hora inválida";
-    public static final String EVENT_HOUR_IS_EMPTY = "Hey, você esqueceu de informar a hora";
-    private static final String CATEGORY_IS_INVALID = "Hey, você esqueceu de informar a categoria" +
-            " do evento, preenche ela aí vai!";
-
+    public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = Resources.getSystem().
+            getString(R.string.event_name_cant_be_empty);
+    public static final String NAME_CANT_BE_GREATER_THAN_50 = Resources.getSystem().getString(R.string.name_cant_be_greater_than_50);
+    public static final String DESCRIPTION_CANT_BE_EMPTY = Resources.getSystem().getString(R.string.description_cant_be_empty);
+    public static final String DESCRIPTION_CANT_BE_GREATER_THAN = Resources.getSystem().getString(R.string.description_cant_be_greater_than);
+    private static final String LATITUDE_IS_INVALID = Resources.getSystem().getString(R.string.latitude_is_invalid);
+    private static final String LONGITUDE_IS_INVALID = Resources.getSystem().getString(R.string.longitude_is_invalid);
+    private static final String LONGITUDE_IS_EMPTY = Resources.getSystem().getString(R.string.longitude_is_empty);
+    private static final String LATITUDE_IS_EMPTY = Resources.getSystem().getString(R.string.latitude_is_empty);
+    private static final String INVALID_EVALUATION = Resources.getSystem().getString(R.string.invalid_evaluation);
+    public static final String ADDRESS_IS_EMPTY = Resources.getSystem().getString(R.string.address_is_empty);
+    public static final String INVALID_EVENT_DATE = Resources.getSystem().getString(R.string.invalid_event_date);
+    public static final String EVENT_DATE_IS_EMPTY = Resources.getSystem().getString(R.string.event_date_is_empty);
+    public static final String PRICE_REAL_IS_EMPTY = Resources.getSystem().getString(R.string.price_real_is_empty);
+    public static final String PRICE_DECIMAL_IS_EMPTY = Resources.getSystem().getString(R.string.price_decimal_is_empty);
+    public static final String INVALID_EVENT_HOUR = Resources.getSystem().getString(R.string.invalid_event_hour);
+    public static final String EVENT_HOUR_IS_EMPTY = Resources.getSystem().getString(R.string.event_hour_is_empty);
+    private static final String CATEGORY_IS_INVALID = Resources.getSystem().getString(R.string.category_is_invalid);
 
     private int idEvent;
     private String nameEvent;
@@ -444,7 +433,7 @@ public class Event{
                 throw  new EventException(LATITUDE_IS_INVALID);
             }
         }else{
-            throw  new EventException(LANTITUDE_IS_EMPTY);
+            throw  new EventException(LATITUDE_IS_EMPTY);
         }
     }
 

@@ -176,7 +176,7 @@ public class ListEvents extends android.support.v4.app.Fragment
 
         EditOrRemoveFragment editOrRemoveFragment = new EditOrRemoveFragment();
         Event eventClicked = events.get(positionEvent);
-        editOrRemoveFragment.evento = eventClicked;
+        editOrRemoveFragment.event = eventClicked;
 
         fragmentTransaction.replace(R.id.content_frame, editOrRemoveFragment);
         fragmentTransaction.addToBackStack(null);
