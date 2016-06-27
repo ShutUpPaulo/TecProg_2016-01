@@ -94,4 +94,5 @@
     <string name="no_results">Sin resultados</string>
     <string name="no_user_found">Ningún usuario encontrado :(</string>
     <string name="search">Buscar</string>
+    <string name="user_updated_with_success">Usuario cambiado con éxito</string>
 </resources>

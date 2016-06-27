@@ -69,7 +69,6 @@
     <string name="event_confirmation">#EuVou</string>
     <string name="grade">Nota</string>
     <string name="button_show_map_txt">Ver no mapa</string>
-    <string name="event_not_found_message">Nenhum evento foi encontrado :(</string>
     <string name="title_activity_show_place_on_map">ShowPlaceOnMap</string>
     <string name="title_activity_show_single">ShowSingle</string>
     <string name="visualizarRanking">Visualizar Rank Completo</string>
@@ -90,10 +89,8 @@
     <string name="change">Alterar</string>
     <string name="remove">Remover</string>
     <string name="no_results">Sem resultados</string>
-<<<<<<< HEAD
     <string name="no_user_found">Nenhum usuário foi encontrado :(</string>
     <string name="search">Pesquisar</string>
-=======
     <string name="no_recommended_events">Sem eventos recomendados!</string>
->>>>>>> 1646fbeb6f6e1a7610ca0d9029a6ca3071b47953
+    <string name="user_updated_with_success">Usuario alterado com sucesso</string>
 </resources>

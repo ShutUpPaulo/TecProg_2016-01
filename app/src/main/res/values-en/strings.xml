@@ -93,4 +93,5 @@
     <string name="no_results">No results</string>
     <string name="no_user_found">No user found :(</string>
     <string name="search">Search</string>
+    <string name="user_updated_with_success">User updated with success</string>
 </resources>
