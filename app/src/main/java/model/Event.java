@@ -18,22 +18,38 @@ public class Event{
 
     public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = Resources.getSystem().
             getString(R.string.event_name_cant_be_empty);
-    public static final String NAME_CANT_BE_GREATER_THAN_50 = Resources.getSystem().getString(R.string.name_cant_be_greater_than_50);
-    public static final String DESCRIPTION_CANT_BE_EMPTY = Resources.getSystem().getString(R.string.description_cant_be_empty);
-    public static final String DESCRIPTION_CANT_BE_GREATER_THAN = Resources.getSystem().getString(R.string.description_cant_be_greater_than);
-    private static final String LATITUDE_IS_INVALID = Resources.getSystem().getString(R.string.latitude_is_invalid);
-    private static final String LONGITUDE_IS_INVALID = Resources.getSystem().getString(R.string.longitude_is_invalid);
-    private static final String LONGITUDE_IS_EMPTY = Resources.getSystem().getString(R.string.longitude_is_empty);
-    private static final String LATITUDE_IS_EMPTY = Resources.getSystem().getString(R.string.latitude_is_empty);
-    private static final String INVALID_EVALUATION = Resources.getSystem().getString(R.string.invalid_evaluation);
-    public static final String ADDRESS_IS_EMPTY = Resources.getSystem().getString(R.string.address_is_empty);
-    public static final String INVALID_EVENT_DATE = Resources.getSystem().getString(R.string.invalid_event_date);
-    public static final String EVENT_DATE_IS_EMPTY = Resources.getSystem().getString(R.string.event_date_is_empty);
-    public static final String PRICE_REAL_IS_EMPTY = Resources.getSystem().getString(R.string.price_real_is_empty);
-    public static final String PRICE_DECIMAL_IS_EMPTY = Resources.getSystem().getString(R.string.price_decimal_is_empty);
-    public static final String INVALID_EVENT_HOUR = Resources.getSystem().getString(R.string.invalid_event_hour);
-    public static final String EVENT_HOUR_IS_EMPTY = Resources.getSystem().getString(R.string.event_hour_is_empty);
-    private static final String CATEGORY_IS_INVALID = Resources.getSystem().getString(R.string.category_is_invalid);
+    public static final String NAME_CANT_BE_GREATER_THAN_50 = Resources.getSystem().getString
+            (R.string.name_cant_be_greater_than_50);
+    public static final String DESCRIPTION_CANT_BE_EMPTY = Resources.getSystem().getString
+            (R.string.description_cant_be_empty);
+    public static final String DESCRIPTION_CANT_BE_GREATER_THAN = Resources.getSystem().getString
+            (R.string.description_cant_be_greater_than);
+    private static final String LATITUDE_IS_INVALID = Resources.getSystem().getString
+            (R.string.latitude_is_invalid);
+    private static final String LONGITUDE_IS_INVALID = Resources.getSystem().getString
+            (R.string.longitude_is_invalid);
+    private static final String LONGITUDE_IS_EMPTY = Resources.getSystem().getString
+            (R.string.longitude_is_empty);
+    private static final String LATITUDE_IS_EMPTY = Resources.getSystem().getString
+            (R.string.latitude_is_empty);
+    private static final String INVALID_EVALUATION = Resources.getSystem().getString
+            (R.string.invalid_evaluation);
+    public static final String ADDRESS_IS_EMPTY = Resources.getSystem().getString
+            (R.string.address_is_empty);
+    public static final String INVALID_EVENT_DATE = Resources.getSystem().getString
+            (R.string.invalid_event_date);
+    public static final String EVENT_DATE_IS_EMPTY = Resources.getSystem().getString
+            (R.string.event_date_is_empty);
+    public static final String PRICE_REAL_IS_EMPTY = Resources.getSystem().getString
+            (R.string.price_real_is_empty);
+    public static final String PRICE_DECIMAL_IS_EMPTY = Resources.getSystem().getString
+            (R.string.price_decimal_is_empty);
+    public static final String INVALID_EVENT_HOUR = Resources.getSystem().getString
+            (R.string.invalid_event_hour);
+    public static final String EVENT_HOUR_IS_EMPTY = Resources.getSystem().getString
+            (R.string.event_hour_is_empty);
+    private static final String CATEGORY_IS_INVALID = Resources.getSystem().getString
+            (R.string.category_is_invalid);
 
     private int idEvent;
     private String nameEvent;
