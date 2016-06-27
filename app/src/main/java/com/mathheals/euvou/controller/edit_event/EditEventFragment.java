@@ -6,6 +6,7 @@
 package com.mathheals.euvou.controller.edit_event;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,7 +39,6 @@ import model.Event;
 
 public class EditEventFragment extends Fragment implements View.OnClickListener {
     private int idEvent;
-    private static final String SUCCESSFULL_UPDATE_MESSAGE = "Evento alterado com sucesso :)";
     private String latitude;
     private String longitude;
     private EditText nameField, dateField, hourField, descriptionField, addressField, priceDecimalField, priceRealField;
@@ -309,7 +309,12 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
 
             updateEventOnDataBase(event);
 
-            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULL_UPDATE_MESSAGE, Toast.LENGTH_LONG).show();
+            final Context context = getActivity().getBaseContext();
+
+            final String SUCCESSFULLY_UPDATE_MESSAGE = context.getResources().
+                    getString(R.string.successfully_update_message);
+
+            Toast.makeText(getActivity().getBaseContext(), SUCCESSFULLY_UPDATE_MESSAGE, Toast.LENGTH_LONG).show();
         } catch (EventException e){
             String message = e.getMessage();
 
@@ -465,14 +470,26 @@ public class EditEventFragment extends Fragment implements View.OnClickListener 
         assert data != null;
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        final int DEFAULT_REQUEST_CODE = 2;
+
         switch(requestCode){
-            case (2) : {
+            case (DEFAULT_REQUEST_CODE) : {
                 if (resultCode == Activity.RESULT_OK){
                     Bundle bundle = data.getExtras();
-                    latitude = bundle.getString("latitude");
-                    longitude = bundle.getString("longitude");
 
-                    Toast.makeText(getContext(), "Local selecionado com sucesso", Toast.LENGTH_LONG).show();
+                    final String LATITUDE_WORD = "latitude";
+                    final String LONGITUDE_WORD = "longitude";
+
+                    latitude = bundle.getString(LATITUDE_WORD);
+                    longitude = bundle.getString(LONGITUDE_WORD);
+
+                    final Context context = getContext();
+
+                    final String LOCAL_SUCCESSFULLY_SELECTED_MESSAGE = context.getResources().
+                            getString(R.string.local_successfully_selected);
+
+                    Toast.makeText(getContext(), LOCAL_SUCCESSFULLY_SELECTED_MESSAGE, Toast.LENGTH_LONG).show();
                 }else{
                     // Nothing to do
                 }

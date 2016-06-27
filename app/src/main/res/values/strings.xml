@@ -117,4 +117,6 @@
     <string name="go">#EUVOU</string>
     <string name="event_registered_with_success">Evento cadastrado com sucesso :)</string>
     <string name="local_successfully_selected">Local selecionado com sucesso</string>
+    <string name="successfully_update_message">Evento alterado com sucesso :)</string>
+
 </resources>
