@@ -60,6 +60,8 @@ public abstract class Mask{
                 isUpdating = true;
                 ediTxt.setText(mascara);
                 ediTxt.setSelection(mascara.length());
+
+                assert ediTxt.getText().equals(mascara);
             }
 
             /**

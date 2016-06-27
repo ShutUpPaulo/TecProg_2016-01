@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -156,6 +157,8 @@ public class SearchPlaceMaps extends FragmentActivity implements GoogleMap.OnMar
                     result.getJSONObject("" + i).getString("address"),
                     result.getJSONObject("" + i).getString("phonePlace")
                     );
+            assert aux != null;
+
             places.add(aux);
         }
     }

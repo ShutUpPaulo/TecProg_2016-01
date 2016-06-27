@@ -129,6 +129,14 @@ public class EditUserFragment extends Fragment implements View.OnClickListener{
         this.mailConfirmationField = (EditText) view.findViewById(R.id.confirmMailField);
         this.passwordConfirmField = (EditText) view.findViewById(R.id.confirmPasswordField);
         this.birthDateField = (EditText) view.findViewById(R.id.dateField);
+
+        assert nameField != null;
+        assert birthDateField != null;
+        assert mailField != null;
+        assert passwordField != null;
+        assert mailConfirmationField != null;
+        assert passwordConfirmField != null;
+        assert birthDateField != null;
     }
 
     /**
