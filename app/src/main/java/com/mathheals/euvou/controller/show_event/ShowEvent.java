@@ -349,8 +349,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param eventCategoriesText - TextView that shows the categories
      */
     public void setCategoriesText(final int eventId, final TextView eventCategoriesText){
+
+        assert eventId <= Integer.MAX_VALUE;
+        assert eventId >= 0;
+        assert eventCategoriesText != null;
+        assert eventCategoriesText.getId() == R.id.eventCategories;
+
         //Gets the categories names
         String[] eventCategories = getEventCategoriesById(eventId);
+
+        assert eventCategories != null;
 
         //Initializes the final categories text with the first category
         String text = eventCategories[0];
@@ -364,12 +372,47 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
         eventCategoriesText.setText(text);
     }
 
+
+    /**
+     * Formats price to R$XX,XX format
+     * @param eventPriceText - TextView that shows the price
+     * @param eventPrice - Price of the event
+     */
     public void setPriceText(final TextView eventPriceText, final String eventPrice){
+
+        assert eventPriceText != null;
+        assert eventPriceText.getId() == R.id.eventPrice;
+        assert eventPrice != null;
+
         final int PRICE = new Integer(eventPrice);
+
+        assert PRICE >= 0;
+
+        //Gets the "Real" part of the price
         final String REAIS_PART = Integer.toString(PRICE / 100);
+
+        assert REAIS_PART != null;
+
+        //Gets the cents part of the price
         final String CENTS = Integer.toString(PRICE % 100);
-        final String CENTS_PART = CENTS.length() > 1 ? CENTS : "0" + CENTS;
-        eventPriceText.setText("R$ " + REAIS_PART + "," + CENTS_PART);
+
+        assert CENTS != null;
+
+        String centsPart = CENTS;
+
+        assert centsPart != null;
+
+        //If the cents part is only one unity, adds a zero before it Ex: 02
+        if(CENTS.length() <= 1){
+            centsPart = "0" + CENTS;
+
+            assert centsPart.charAt(0) == '0';
+        }
+        else{
+            //Otherwise, remains being cents
+        }
+
+        eventPriceText.setText("R$ " + REAIS_PART + "," + centsPart);
 
     }
 
@@ -379,13 +422,22 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     private void showEventOnMap(){
         //Saves event latitude and longitude in a bundle
         Bundle latitudeAndLongitude = new Bundle();
+
+        assert latitudeAndLongitude != null;
+
         latitudeAndLongitude.putStringArray("LatitudeAndLongitude", new String[]{eventLatitude,
                 eventLongitude});
 
         /* Starts the activity that shows the map, sending the latitude and longitude through the
            bundle created above */
         Intent intent = new Intent(getContext(), ShowOnMap.class);
+
+        assert intent != null;
+
         intent.putExtras(latitudeAndLongitude);
+
+        assert intent.hasExtra("LatitudeAndLongitude");
+
         startActivity(intent);
     }
 
@@ -394,13 +446,20 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void markParticipate(){
 
-        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
-            Toast.makeText(getActivity(), "Hey, você já marcou sua participação",
+        //Verify user participation in the event
+        JSONObject participation = eventDAO.verifyParticipate(userId,Integer.parseInt(eventId));
+
+        //If the user already marked participation, a message will inform it
+        if(participation != null){
+            Toast.makeText(getActivity(), getResources()
+                            .getString(R.string.already_mark_participation),
                     Toast.LENGTH_SHORT).show();
         }
+        //Otherwise, a message will inform that the participation was saved
         else{
             eventDAO.markParticipate(userId, Integer.parseInt(eventId));
-            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.success_saved),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -411,10 +470,12 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
 
         if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
             eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
-            Toast.makeText(getActivity(),"Salvo com sucesso" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.success_saved),
+                    Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getActivity(), "Hey, você já desmarcou sua participação",
+            Toast.makeText(getActivity(), getResources()
+                            .getString(R.string.already_unmarked_participation),
                     Toast.LENGTH_SHORT).show();
         }
     }

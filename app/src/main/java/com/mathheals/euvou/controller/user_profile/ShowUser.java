@@ -45,10 +45,17 @@ public class ShowUser extends android.support.v4.app.Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
 
+        assert inflater != null;
+
         View showUserView = inflater.inflate(R.layout.show_user, container, false);
+
+        assert showUserView != null;
 
         //Gets the identifier of the user logged in
         LoginUtility loginUtility = new LoginUtility(this.getActivity());
+
+        assert loginUtility != null;
+
         currentUserId = loginUtility.getUserId();
 
         boolean isUserLoggedIn = loginUtility.hasUserLoggedIn();
@@ -70,10 +77,17 @@ public class ShowUser extends android.support.v4.app.Fragment implements
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser){
 
+        assert ratingBar != null;
+        assert rating >= 0F;
+        assert rating <= 5F;
+
         setUserEvaluation(rating, currentUserId, Integer.valueOf(userEvaluatedId));
 
         //Saves the user evaluation set at database
         UserEvaluationDAO userEvaluationDAO = new UserEvaluationDAO(getActivity());
+
+        assert userEvaluationDAO != null;
+
         userEvaluationDAO.evaluateUser(userEvaluation);
     }
 
@@ -85,6 +99,14 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      */
     private void setUserEvaluation(Float rating, Integer userId,
                                    Integer userEvaluatedId){
+
+        assert rating >= 0F;
+        assert rating <= 5F;
+        assert userId >= 0;
+        assert userId <= Integer.MAX_VALUE;
+        assert userEvaluatedId >= 0F;
+        assert userEvaluatedId <= 5F;
+
         try{
             //Tries to instantiate an UserEvaluation object
             this.userEvaluation = new UserEvaluation(rating, userId, userEvaluatedId);
@@ -95,6 +117,8 @@ public class ShowUser extends android.support.v4.app.Fragment implements
                     Toast.LENGTH_LONG).show();
 
         }catch(UserEvaluationException exception){
+
+            assert exception != null;
 
             //Sets the error message if the evaluation is invalid
             switch(exception.getMessage()){
@@ -114,12 +138,21 @@ public class ShowUser extends android.support.v4.app.Fragment implements
      * Get the user name, birth date and mail from database
      */
     private void getUserInfoFromDataBase(final View showUserView){
+
+        assert showUserView != null;
+
         try{
             //Gets the JSONObject with the user data according to the user identifier
             UserDAO userDAO = new UserDAO(getActivity());
             userEvaluatedId = this.getArguments().getString("id");
+
+            assert Integer.parseInt(userEvaluatedId) >= 0;
+            assert Integer.parseInt(userEvaluatedId) <= Integer.MAX_VALUE;
+
             JSONObject userData = new JSONObject(userDAO.searchUserById(Integer
                     .parseInt(userEvaluatedId)));
+
+            assert userData != null;
 
             //Gets each user attribute from the JSONObject obtained above
             String userName = userData.getJSONObject("0").getString("nameUser");
