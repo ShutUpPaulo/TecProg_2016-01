@@ -47,14 +47,14 @@ public class    EventConsultation extends AppCompatActivity implements OnChecked
     private SearchView searchView;
 
     private ListView listView;
-    private Integer idItem;
+    private Integer idItem = 0;
     private JSONObject eventDATA;
     private TextView event_not_found_text;
 
     private JSONObject peopleDATA;
     //private final String PEOPLE_NOT_FOUND_MESSAGE = getResources().getString(R.string.no_user_found);
 
-    private String option;
+    private String option = "";
 
     private GoogleApiClient client;
 
@@ -284,7 +284,8 @@ public class    EventConsultation extends AppCompatActivity implements OnChecked
                 startActivity(intent);
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        boolean optionsItemSelected = super.onOptionsItemSelected(item);
+        return optionsItemSelected;
     }
 
     /**
