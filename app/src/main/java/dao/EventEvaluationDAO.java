@@ -34,7 +34,7 @@ public class EventEvaluationDAO extends DAO{
     public void evaluateEvent(EventEvaluation evaluation){
         final String QUERY;
 
-        JSONObject findEvaluation = searchEventEvaluation(evaluation.getEventId(),
+        String findEvaluation = searchEventEvaluation(evaluation.getEventId(),
                                     evaluation.getUserId());
 
         if(findEvaluation!=null){
@@ -58,10 +58,12 @@ public class EventEvaluationDAO extends DAO{
      * @param userId -  The ID number of an user
      * @return JSONObject - Returns a JSONObject with the results of the consult
      */
-    public JSONObject searchEventEvaluation(int eventId, int userId){
+    public String searchEventEvaluation(int eventId, int userId){
         final String QUERY = "SELECT * FROM participate WHERE idUser = \"" + userId
                             + "\" AND idEvent = " + eventId;
 
-        return executeConsult(QUERY);
+        String queryStatus = this.executeQuery(QUERY);
+
+        return queryStatus;
     }
 }

@@ -48,6 +48,9 @@ public class EventRecommendationDAO extends DAO{
                 "ORDER BY V.dateTimeEvent DESC,preference DESC, grade DESC\n" +
                 "LIMIT 10";
 
-        return executeConsult(QUERY);
+        JSONObject querySearch = this.executeConsult(QUERY);
+
+        assert  querySearch == this.executeConsult(QUERY);
+        return querySearch;
     }
 }
