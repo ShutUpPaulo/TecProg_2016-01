@@ -52,7 +52,7 @@ public class    EventConsultation extends AppCompatActivity implements OnChecked
     private TextView event_not_found_text;
 
     private JSONObject peopleDATA;
-    private final String PEOPLE_NOT_FOUND_MESSAGE = getResources().getString(R.string.no_user_found);
+    //private final String PEOPLE_NOT_FOUND_MESSAGE = getResources().getString(R.string.no_user_found);
 
     private String option;
 
@@ -181,7 +181,8 @@ public class    EventConsultation extends AppCompatActivity implements OnChecked
                             }
                         } else{
                             listView.setAdapter(null);
-                            event_not_found_text.setText(PEOPLE_NOT_FOUND_MESSAGE);
+                            event_not_found_text.setText(getResources()
+                                    .getString(R.string.no_user_found));
                             event_not_found_text.setVisibility(View.VISIBLE);
                         }
 

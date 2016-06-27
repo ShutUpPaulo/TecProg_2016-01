@@ -446,17 +446,22 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void markParticipate(){
 
+        assert eventDAO != null;
+
         //Verify user participation in the event
         JSONObject participation = eventDAO.verifyParticipate(userId,Integer.parseInt(eventId));
 
         //If the user already marked participation, a message will inform it
         if(participation != null){
+            assert participation != null;
             Toast.makeText(getActivity(), getResources()
                             .getString(R.string.already_mark_participation),
                     Toast.LENGTH_SHORT).show();
         }
         //Otherwise, a message will inform that the participation was saved
         else{
+            assert participation == null;
+
             eventDAO.markParticipate(userId, Integer.parseInt(eventId));
             Toast.makeText(getActivity(), getResources().getString(R.string.success_saved),
                     Toast.LENGTH_SHORT).show();
@@ -468,12 +473,21 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void markOffParticipate(){
 
-        if(eventDAO.verifyParticipate(userId,Integer.parseInt(eventId)) != null){
+        //Verify user participation in the event
+        JSONObject participation = eventDAO.verifyParticipate(userId,Integer.parseInt(eventId));
+
+        assert eventDAO != null;
+
+        if(participation != null){
+            assert participation != null;
+
             eventDAO.markOffParticipate(userId, Integer.parseInt(eventId));
             Toast.makeText(getActivity(), getResources().getString(R.string.success_saved),
                     Toast.LENGTH_SHORT).show();
         }
         else{
+            assert participation == null;
+
             Toast.makeText(getActivity(), getResources()
                             .getString(R.string.already_unmarked_participation),
                     Toast.LENGTH_SHORT).show();
@@ -485,10 +499,16 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param view View that contains the participation button
      */
     private void updateParticipation(View view){
-        final String GO = "#EUVOU";
+
+        assert view != null;
+
+        final String GO = getResources().getString(R.string.go);
 
         //Gets the current text at participate button
         Button participateButton = (Button) view.findViewById(R.id.EuVou);
+
+        assert participateButton != null;
+
         String participateButtonText = participateButton.getText().toString();
 
         //Updates the participation based on the current text at the button
@@ -507,6 +527,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param view View that contains the buttons that triggers the actions by user click
      */
     public void onClick(final View view){
+
+        assert view != null;
 
         switch(view.getId()){
             case R.id.showEventOnMapButton:
@@ -527,6 +549,10 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void setRatingMessage(final View showUserView, final String message){
         TextView ratingMessageTextView = (TextView) showUserView.findViewById(R.id.rate_event_text);
+
+        assert ratingMessageTextView != null;
+        assert ratingMessageTextView.getId() == R.id.rate_event_text;
+
         ratingMessageTextView.setText(message);
     }
 
@@ -536,19 +562,31 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param showUserView - View that contains the ratingBar
      */
     private void setUpRatingBar(final boolean isUserLoggedIn, final View showUserView){
+        assert showUserView != null;
+
         if(isUserLoggedIn){
+            assert isUserLoggedIn == true;
+
             //Sets the logged in label of the rating bar
             final String LOGGED_IN_MESSAGE = "Sua avaliação:";
             setRatingMessage(showUserView, LOGGED_IN_MESSAGE);
 
             //Sets the rating bar as visible
             RatingBar ratingBar = (RatingBar) showUserView.findViewById(R.id.ratingBar);
+
+            assert ratingBar != null;
+
             ratingBar.setOnRatingBarChangeListener(this);
             ratingBar.setVisibility(View.VISIBLE);
+
+            assert ratingBar.hasOnClickListeners();
+            assert ratingBar.getVisibility() == View.VISIBLE;
 
             setEvaluationAtRatingBar(ratingBar);
         }
         else{
+            assert isUserLoggedIn == false;
+
             //Sets the logged out label of the rating bar
             final String LOGGED_OUT_MESSAGE = "Faça login para avaliar este usuário!";
             setRatingMessage(showUserView, LOGGED_OUT_MESSAGE);
@@ -560,24 +598,37 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      * @param ratingBar - RatingBar to sets the evaluation
      */
     private void setEvaluationAtRatingBar(final RatingBar ratingBar){
+        assert ratingBar != null;
 
         //Searches the event evaluation at database
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+        assert eventEvaluationDAO != null;
+
         JSONObject evaluationJSON = eventEvaluationDAO.searchEventEvaluation(Integer.
                 parseInt(eventId), userId);
 
         if(evaluationJSON != null){
+            assert evaluationJSON != null;
+
             try{
                 //Gets the event evaluation from database and sets it at rating bar
                 Float eventEvaluation = new Float(evaluationJSON.getJSONObject("0")
                         .getDouble("grade"));
+
+                assert eventEvaluation >= 0F;
+                assert eventEvaluation <= 5F;
+
                 ratingBar.setRating(eventEvaluation);
+
+                assert ratingBar.getRating() == eventEvaluation;
 
             }catch (JSONException e){
                 e.printStackTrace();
             }
         }
         else{
+            assert evaluationJSON == null;
             //If event don't have an evaluation, it don't need to be set at ratingBar
         }
     }
@@ -590,9 +641,19 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
      */
     private void setEventEvaluation(final Float rating, final Integer userId,
                                     final Integer eventId){
+
+        assert rating >= 0F;
+        assert rating <= 5F;
+        assert userId <= Integer.MAX_VALUE;
+        assert eventId <= Integer.MAX_VALUE;
+        assert eventId >= 0;
+
+
         try{
             //Tries to instantiate an event evaluation
             eventEvaluation = new EventEvaluation(rating, userId, eventId);
+
+            assert eventEvaluation != null;
 
             //Shows a successful message when the evaluation is instantiated with success
             String SUCCESSFUL_EVALUATION_MESSAGE = "Avaliação cadastrada com sucesso";
@@ -600,6 +661,8 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
                     Toast.LENGTH_LONG).show();
 
         }catch (EventEvaluationException exception){
+
+            assert exception != null;
 
             //Sets the error message if the evaluation is invalid
             if(exception.getMessage().equals(EventEvaluation.EVALUATION_IS_INVALID)){
@@ -625,11 +688,18 @@ public class ShowEvent extends android.support.v4.app.Fragment implements View.O
     public void onRatingChanged(final RatingBar ratingBar, final float rating,
                                 final boolean fromUser){
 
+        assert ratingBar != null;
+        assert rating >= 0F;
+        assert rating <= 5F;
+
         //Tries to instantiate an event evaluation
         setEventEvaluation(rating, userId, new Integer(eventId));
 
         //Saves the evaluation at database
         EventEvaluationDAO eventEvaluationDAO = new EventEvaluationDAO();
+
+        assert eventEvaluationDAO != null;
+
         eventEvaluationDAO.evaluateEvent(eventEvaluation);
     }
 }

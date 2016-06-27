@@ -139,24 +139,27 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:layout_width="175dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/showEventOnMapButton"
-            android:textColor="#FFF"
+            android:textColor="@color/DarkCyan"
+            android:background="@drawable/button_border"
             android:text="@string/button_show_map_txt"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/turquesa_app" />
+            android:layout_gravity="center_horizontal"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/EuVou"
-            android:text="@string/event_confirmation"
-            android:background="@color/green"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"></Button>
-     </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/EuVou"
+        android:text="@string/event_confirmation"
+        android:textColor="@color/DarkCyan"
+        android:background="@drawable/button_border"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"></Button>
 </LinearLayout>
 
 </ScrollView>

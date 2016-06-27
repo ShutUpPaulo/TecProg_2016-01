@@ -117,4 +117,5 @@
     <string name="event_hour_is_empty">Hey, se olvidó de dar la hora.</string>
     <string name="category_is_invalid">Hey, se olvidó de informar a la categoría del evento,
         ¡llenarlo ahí, por favor!</string>
+    <string name="go">#YOIRÉ</string>
 </resources>
