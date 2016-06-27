@@ -121,4 +121,11 @@
     <string name="event_registered_with_success">Acontecimiento registrado con éxito :)</string>
     <string name="local_successfully_selected">Local seleccionado con éxito</string>
     <string name="successfully_update_message">Cambiada con éxito evento :)</string>
+    <string name="places_ranking">Clasificación de lugares</string>
+    <string name="recommended_events">Eventos Recomendados</string>
+    <string name="edit_register">Editar el registro</string>
+    <string name="create_event">Crear evento</string>
+    <string name="settings">Configuración</string>
+    <string name="my_events">Mis eventos</string>
+    <string name="logout">Dejar</string>
 </resources>

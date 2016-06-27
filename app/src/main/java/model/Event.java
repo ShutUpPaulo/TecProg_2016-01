@@ -19,7 +19,7 @@ import exception.EventException;
 public class Event{
 
     public static final String EVENT_NAME_CANT_BE_EMPTY_NAME = Resources.getSystem().
-            getString(R.string.event_name_cant_be_empty);
+        getString(R.string.event_name_cant_be_empty);
     public static final String NAME_CANT_BE_GREATER_THAN_50 = Resources.getSystem().getString
             (R.string.name_cant_be_greater_than_50);
     public static final String DESCRIPTION_CANT_BE_EMPTY = Resources.getSystem().getString
