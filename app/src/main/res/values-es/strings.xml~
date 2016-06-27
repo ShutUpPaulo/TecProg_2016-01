@@ -87,10 +87,12 @@
     <string name="register">Registrar</string>
     <string name="change">Cambiar</string>
     <string name="remove">Eliminar</string>
+    <string name="no_recommended_events">Sin eventos recomendados!</string>
 
     <string name="welcome_to_app">"Bienvenido al #EuVou :)"</string>
 
     <string name="no_results">Sin resultados</string>
     <string name="no_user_found">Ningún usuario encontrado :(</string>
-    <string name="search">Pesquisar</string>
+    <string name="search">Buscar</string>
+    <string name="user_updated_with_success">Usuario alterado com sucesso</string>
 </resources>
